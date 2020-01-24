@@ -28,16 +28,18 @@ cout << "Hello World!;
 // CORRECT
 std::cout << "Hello World!;
 ```
-* Use /* */ for multiline comments
+* Use /* */ for multiline comments, and be generous with comments!
 
 
-More information: [https://wiki.qt.io/Qt_Coding_Style
+More information: https://wiki.qt.io/Qt_Coding_Style
  
 
 ### General Guidelines
-* Before using anything from the standard library, check to see whether Qt has an implementation. For example, avoid using `std::string` and work with the Qt class `QString` instead. 
+* Before using anything from the standard library for the client application, check to see whether Qt has an implementation. For example, avoid using `std::string` and work with the Qt class `QString` instead. 
+* For the server application, because of the deployment constraints (limited EC2 server memory), no Qt code will be involved. 
 * Try to avoid using platform specific code, even if they are wrapped in `#define` directives for that specific platform. 9 times out of 10 Qt will have an implementation that can accomplish what you may be trying to do.
-
+* Use header guards! For every header file you write, make sure you wrap it in a header guard to prevent circular dependencies during compile time. More information: https://www.learncpp.com/cpp-tutorial/header-guards/
+* Avoid including header files in other header files, if at all possible, use a forward declaration of the class you are referencing in the header.
 
 ### Building
 * It's still up in the air whether we want to make the client application multi-platform(some of us use Mac, Windows, Linux, etc..), however the server application is going to be deployed on Ubuntu 18.04. So if you want to write server code, you should have a (virtual) machine running Ubuntu 18.04 to test locally on.
