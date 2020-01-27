@@ -10,4 +10,5 @@ Server::Server(){
 }
 
 void Server::start() {
+    connectionManager->listenForClientConnections();
 }

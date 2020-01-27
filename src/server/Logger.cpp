@@ -79,7 +79,7 @@ void Logger::log(std::string msg, Logger::LogLevel level) {
     if (writeToConsole) {
         std::cout << msg;
     }
-    if (terminateOnFatal) {
+    if (terminateOnFatal && level == LogLevel::Fatal) {
         raise(SIGTERM);
     }
 }
