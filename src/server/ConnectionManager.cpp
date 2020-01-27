@@ -1,10 +1,12 @@
 #include <cstring>
 #include <cerrno>
+#include <pair>
 
 #include <netinet/in.h>
 #include <sys/socket.h>
 
 #include "ConnectionManager.h"
+#include "ClientConnection.h"
 #include "Logger.h"
 
 ConnectionManager::ConnectionManager(Server * s) {
@@ -14,10 +16,10 @@ ConnectionManager::ConnectionManager(Server * s) {
 
 /**
  * Set configuration options for the server.
- * TODO: Automate this area to set options based on environments (develop/QA/production)
  */
 void ConnectionManager::setConnectionManagerConfiguration() {
 
+    // TODO: Automate this area to set options based on environments (develop/QA/production)
     bindPort = 6692;
     connectionBacklogMaxLimit = 10;
 };
@@ -28,12 +30,26 @@ void ConnectionManager::setConnectionManagerConfiguration() {
  */
 void ConnectionManager::listenForClientConnections() {
 
-    int bind_socket, option_value;
+    int bindSocket, incomingSocket, optionValue;
+    ClientConnection * incomingClientConnection;
+    std::thread  incomingClientThread;
+    std::pair<ClientConnection *, std::thread> clientThreadPair;
     struct sockaddr_in address;
 
-    setupSocket(&bind_socket, &option_value);
-    setAddressOptions(&address);
-    bindAndListen(&bind_socket, &address);
+    setupSocket(&bindSocket, &optionValue, &address);
+    while (incomingSocket = accept(bindSocket, reinterpret_cast<struct sockaddr *>(&address),
+                                reinterpret_cast<socklen_t *>(sizeof(address)))) {
+
+        /*
+         * TODO: Get the semantics correct for this
+        incomingClientConnection = new ClientConnection(incomingSocket),
+        incomingClientThread = std::thread([&] {incomingClientConnection->mainClientServerLoop();});
+
+        clientThreadPair = std::make_pair(incomingClientConnection, incomingClientThread);
+        connectedClientList.emplace_back(clientThreadPair);
+        */
+
+    }
 }
 
 /**
@@ -42,7 +58,7 @@ void ConnectionManager::listenForClientConnections() {
  * @param bindSocket - Socket file descriptor
  * @param optionValue -
  */
-void ConnectionManager::setupSocket(int * bindSocket, int * optionValue) {
+void ConnectionManager::setupSocket(int *bindSocket, int *optionValue, struct sockaddr_in *address) {
 
     /* Produce a file descriptor for the listener socket */
     if ((*bindSocket = socket(AF_INET, SOCK_STREAM, 0)) <= 0) {
@@ -56,6 +72,8 @@ void ConnectionManager::setupSocket(int * bindSocket, int * optionValue) {
                       + (errno ? "Errno: " + std::string(strerror(errno)) : ""));
 
     }
+    setAddressOptions(address);
+    bindAndListen(bindSocket, address);
 }
 
 /**
@@ -79,11 +97,15 @@ void ConnectionManager::setAddressOptions(struct sockaddr_in * address) {
  */
 void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * address) {
 
-    if (bind(*bindSocket, (struct sockaddr *)address, sizeof(*address)) < 0) {
+    if (bind(*bindSocket, reinterpret_cast<struct sockaddr *>(address), sizeof(*address)) < 0) {
         Logger::fatal("Could not bind to port " + std::to_string(address->sin_port) + "! "
                       + (errno ? "Errno: " + std::string(strerror(errno)) : ""));
     }
     if (listen(*bindSocket, connectionBacklogMaxLimit) < 0) {
         Logger::fatal("Call to listen() failed! " + (errno ? "Errno: " + std::string(strerror(errno)) : ""));
     }
+    else  {
+        // TODO: Find and log listening socket information
+    }
+
 }

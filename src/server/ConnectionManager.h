@@ -15,10 +15,10 @@ public:
 
 private:
     Server * server;
-    std::vector<ClientConnection *> connectedClientList;
+    std::vector<std::pair<ClientConnection *, std::thread>> connectedClientList;
     int bindPort, connectionBacklogMaxLimit;
 
-    void setupSocket(int *bindSocket, int *optionValue);
+    void setupSocket(int *bindSocket, int *optionValue, struct sockaddr_in *address);
     void setAddressOptions(sockaddr_in *address);
     void bindAndListen(int *bindSocket, sockaddr_in *address);
     void setConnectionManagerConfiguration();

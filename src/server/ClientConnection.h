@@ -3,6 +3,11 @@
 
 
 class ClientConnection {
+public:
+    ClientConnection(int socketFd);
+    void mainClientServerLoop();
+private:
+    int socketFileDescriptor;
 
 };
 
