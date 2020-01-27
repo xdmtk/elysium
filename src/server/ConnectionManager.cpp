@@ -12,12 +12,20 @@ ConnectionManager::ConnectionManager(Server * s) {
     setConnectionManagerConfiguration();
 }
 
+/**
+ * Set configuration options for the server.
+ * TODO: Automate this area to set options based on environments (develop/QA/production)
+ */
 void ConnectionManager::setConnectionManagerConfiguration() {
 
     bindPort = 6692;
     connectionBacklogMaxLimit = 10;
 };
 
+/**
+ * Master function to setup listener socket and accept incoming
+ * client connections.
+ */
 void ConnectionManager::listenForClientConnections() {
 
     int bind_socket, option_value;
@@ -28,6 +36,12 @@ void ConnectionManager::listenForClientConnections() {
     bindAndListen(&bind_socket, &address);
 }
 
+/**
+ * Constructs the socket file descriptor and calls setsockopt for
+ * ipv4 options
+ * @param bindSocket - Socket file descriptor
+ * @param optionValue -
+ */
 void ConnectionManager::setupSocket(int * bindSocket, int * optionValue) {
 
     /* Produce a file descriptor for the listener socket */
@@ -44,6 +58,12 @@ void ConnectionManager::setupSocket(int * bindSocket, int * optionValue) {
     }
 }
 
+/**
+ * Operates on the sockaddr_in structure to set IPV4 address binding
+ * and allows the call to bind to utilize all potential IP address of the host
+ *
+ * @param address - Pointer to structure containing address/port data
+ */
 void ConnectionManager::setAddressOptions(struct sockaddr_in * address) {
 
     address->sin_family = AF_INET;
@@ -51,6 +71,12 @@ void ConnectionManager::setAddressOptions(struct sockaddr_in * address) {
     address->sin_port = htons(bindPort);
 }
 
+/**
+ * Wrapper around bind() and listen() against the socket file descriptor
+ *
+ * @param bindSocket - Socket file descriptor
+ * @param address - Address structure
+ */
 void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * address) {
 
     if (bind(*bindSocket, (struct sockaddr *)address, sizeof(*address)) < 0) {
