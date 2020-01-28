@@ -12,7 +12,7 @@
  */
 bool Logger::writeToConsole = true;
 bool Logger::writeToFile = true;
-bool Logger::terminateOnFatal = false;
+bool Logger::terminateOnFatal = true;
 std::string Logger::logFilePath = getCurrentDateString() + ".log";
 
 /**

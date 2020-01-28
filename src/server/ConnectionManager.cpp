@@ -1,6 +1,5 @@
 #include <cstring>
 #include <cerrno>
-#include <pair>
 
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -31,29 +30,31 @@ void ConnectionManager::setConnectionManagerConfiguration() {
 void ConnectionManager::listenForClientConnections() {
 
     int bindSocket, incomingSocket, optionValue;
-    ClientConnection * incomingClientConnection;
-    std::thread  incomingClientThread;
-    std::pair<ClientConnection *, std::thread> clientThreadPair;
     struct sockaddr_in address;
 
     setupSocket(&bindSocket, &optionValue, &address);
-    while (incomingSocket = accept(bindSocket, reinterpret_cast<struct sockaddr *>(&address),
-                                reinterpret_cast<socklen_t *>(sizeof(address)))) {
 
-        /*
-         * TODO: Get the semantics correct for this
-        incomingClientConnection = new ClientConnection(incomingSocket),
-        incomingClientThread = std::thread([&] {incomingClientConnection->mainClientServerLoop();});
+    /* On new client connection, get the socket fd, and detatch a thread dedicated to communicating
+     * with the client */
+    while (incomingSocket = accept(bindSocket,NULL,NULL)) {
 
-        clientThreadPair = std::make_pair(incomingClientConnection, incomingClientThread);
-        connectedClientList.emplace_back(clientThreadPair);
-        */
+        Logger::info("Got new connection on socket fd: " + std::to_string(incomingSocket));
 
+        // If accept() returns negative, errno is set. Print the error
+        if (incomingSocket < 0) {
+            Logger::error("Socket fd returned is negative! Errno:" + std::string(strerror(errno)));
+            continue;
+        }
+        std::thread([&] {
+            // Push the client onto the connectedClientList and begin send/receive loop
+            connectedClientList.emplace_back(new ClientConnection(incomingSocket));
+            connectedClientList.back()->mainClientServerLoop();
+        }).detach();
     }
 }
 
 /**
- * Constructs the socket file descriptor and calls setsockopt for
+ * Gets the socket file descriptor and calls setsockopt for
  * ipv4 options
  * @param bindSocket - Socket file descriptor
  * @param optionValue -

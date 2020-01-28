@@ -15,7 +15,7 @@ public:
 
 private:
     Server * server;
-    std::vector<std::pair<ClientConnection *, std::thread>> connectedClientList;
+    std::vector<ClientConnection *> connectedClientList;
     int bindPort, connectionBacklogMaxLimit;
 
     void setupSocket(int *bindSocket, int *optionValue, struct sockaddr_in *address);
