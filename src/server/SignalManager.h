@@ -21,6 +21,7 @@ private:
     void handleSigSegfault();
     void handleSigInterrupt();
     void handleSigKill();
+    void handleSigPipe();
 
 };
 

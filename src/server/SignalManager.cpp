@@ -2,7 +2,9 @@
 #include <thread>
 #include <chrono>
 
+#include "Logger.h"
 #include "SignalManager.h"
+
 
 /**
  * The SignalManager class should register and handle the most common signals
@@ -57,6 +59,7 @@ void SignalManager::registerSignals() {
     std::signal(SIGSEGV, &SignalManager::updateSignalNumber);
     std::signal(SIGABRT, &SignalManager::updateSignalNumber);
     std::signal(SIGTERM, &SignalManager::updateSignalNumber);
+    std::signal(SIGPIPE, &SignalManager::updateSignalNumber);
 }
 
 /**
@@ -94,6 +97,8 @@ void SignalManager::handleSignal() {
             handleSigInterrupt(); break;
         case SIGKILL:
             handleSigKill(); break;
+        case SIGPIPE:
+            handleSigPipe(); break;
         default:
             // For unregistered signals, let quick_exit() deal with any clean up
             std::quick_exit(-1);
@@ -103,7 +108,18 @@ void SignalManager::handleSignal() {
 /**
  * Signal handler functions, needs implementation
  */
-void SignalManager::handleSigAbort() {}
-void SignalManager::handleSigSegfault() {}
-void SignalManager::handleSigInterrupt() {}
-void SignalManager::handleSigKill() {}
+void SignalManager::handleSigAbort() {
+    Logger::warn("Caught SIGABORT");
+}
+void SignalManager::handleSigSegfault() {
+    Logger::warn("Caught SIGSEGV");
+}
+void SignalManager::handleSigInterrupt() {
+    Logger::warn("Caught SIGINT");
+}
+void SignalManager::handleSigKill() {
+    Logger::warn("Caught SIGKILL");
+}
+void SignalManager::handleSigPipe() {
+    Logger::warn("Caught SIGPIPE");
+}
