@@ -109,6 +109,8 @@ void SignalManager::handleSignal() {
             handleSigKill(); break;
         case SIGPIPE:
             handleSigPipe(); break;
+        case SIGTERM:
+            // Let SIGTERM fall through to quick_exit() for now
         default:
             // For unregistered signals, let quick_exit() deal with any clean up
             std::quick_exit(-1);
@@ -135,4 +137,8 @@ void SignalManager::handleSigKill() {
 }
 void SignalManager::handleSigPipe() {
     Logger::warn("Caught SIGPIPE");
+}
+
+void SignalManager::handleSigTerm() {
+    Logger::warn("Caught SIGTERM");
 }

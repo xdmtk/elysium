@@ -34,14 +34,18 @@ void ClientConnection::mainClientServerLoop() {
     // TODO: This is where the main conversation between client and server should happen
     // Need to implement functions to respond to client messages
     while (recv(socketFileDescriptor, buffer, sizeof(buffer), 0) != -1
-        && !server->getSignalManager()->trappedSignal(SIGPIPE)) {
+        && !server->getSignalManager()->trappedSignal(SIGPIPE)) {       // TODO: Do not rely on SIGPIPE, or at the very least
+                                                                        // figure out how to identify the offending thread at the signalmanager
 
+        // Test code!
         send(socketFileDescriptor, "hi", sizeof("hi"), 0 );
     }
     terminateConnection();
 }
 
 void ClientConnection::terminateConnection() {
+
+    // Set alive flag, and tell the server to update its connection list
     Logger::warn("Thread is about to die");
     alive = false;
     server->getConnectionManager()->updateConnectionList();

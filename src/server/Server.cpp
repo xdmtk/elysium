@@ -13,10 +13,18 @@ void Server::start() {
     connectionManager->listenForClientConnections();
 }
 
+/**
+ * Expose the SignalManager for the server
+ * @return - Pointer to the SignalManager
+ */
 SignalManager * Server::getSignalManager() {
     return signalManager;
 }
 
+/**
+ * Expose the ConnectionManager for the server
+ * @return - Pointer to the ConnectionManager
+ */
 ConnectionManager * Server::getConnectionManager() {
     return connectionManager;
 }

@@ -1,6 +1,7 @@
 #ifndef ELYSIUM_SERVER_SIGNALMANAGER_H
 #define ELYSIUM_SERVER_SIGNALMANAGER_H
 #include <csignal>
+
 class Server;
 class SignalManager {
 public:
@@ -24,7 +25,7 @@ private:
     void handleSigInterrupt();
     void handleSigKill();
     void handleSigPipe();
-
+    void handleSigTerm();
 };
 
 
