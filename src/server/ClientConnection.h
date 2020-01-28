@@ -9,11 +9,14 @@ class ClientConnection {
 public:
     ClientConnection(int socketFd, Server *s);
     void mainClientServerLoop();
+    bool isAlive();
 private:
-    int socketFileDescriptor, bufferSize;
+    int socketFileDescriptor, bufferSize, alive;
     Server * server;
 
     void setClientConnectionConfiguration();
+
+    void terminateConnection();
 };
 
 

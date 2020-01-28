@@ -12,6 +12,7 @@ class ConnectionManager {
 public:
    ConnectionManager(Server *);
    void listenForClientConnections();
+    void updateConnectionList();
 
 private:
     Server * server;
@@ -22,6 +23,7 @@ private:
     void setAddressOptions(sockaddr_in *address);
     void bindAndListen(int *bindSocket, sockaddr_in *address);
     void setConnectionManagerConfiguration();
+
 };
 
 #endif //ELYSIUM_SERVER_CONNECTIONMANAGER_H

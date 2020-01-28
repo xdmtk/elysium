@@ -1,6 +1,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 
+#include "ConnectionManager.h"
 #include "ClientConnection.h"
 #include "Logger.h"
 #include "Server.h"
@@ -12,9 +13,9 @@
  */
 
 ClientConnection::ClientConnection(int socketFd, Server *s) {
+    alive = true;
     socketFileDescriptor = socketFd;
     server = s;
-
     setClientConnectionConfiguration();
 }
 
@@ -37,5 +38,15 @@ void ClientConnection::mainClientServerLoop() {
 
         send(socketFileDescriptor, "hi", sizeof("hi"), 0 );
     }
-    Logger::warn("Client connection failed on recv.. Thread is about to die");
+    terminateConnection();
+}
+
+void ClientConnection::terminateConnection() {
+    Logger::warn("Thread is about to die");
+    alive = false;
+    server->getConnectionManager()->updateConnectionList();
+}
+
+bool ClientConnection::isAlive() {
+    return alive;
 }

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstring>
 #include <cerrno>
 
@@ -109,4 +110,17 @@ void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * add
         // TODO: Find and log listening socket information
     }
 
+}
+
+void ConnectionManager::updateConnectionList() {
+    connectedClientList.erase(
+        std::remove_if(
+        connectedClientList.begin(),
+        connectedClientList.end(),
+            [](ClientConnection* element) -> bool {
+                return element->isAlive();
+            }
+        ),
+        connectedClientList.end()
+    );
 }

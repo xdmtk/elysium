@@ -16,3 +16,7 @@ void Server::start() {
 SignalManager * Server::getSignalManager() {
     return signalManager;
 }
+
+ConnectionManager * Server::getConnectionManager() {
+    return connectionManager;
+}
