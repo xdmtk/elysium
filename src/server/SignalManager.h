@@ -5,6 +5,9 @@ class Server;
 class SignalManager {
 public:
     SignalManager(Server *);
+    bool trappedSignal();
+    bool trappedSignal(int signal);
+
 private:
     Server * server;
     static volatile std::sig_atomic_t  signalNumber;
@@ -15,7 +18,6 @@ private:
     void listenForSignals();
     static void updateSignalNumber(int sn);
 
-    bool trappedSignal();
     void handleSignal();
     void handleSigAbort();
     void handleSigSegfault();

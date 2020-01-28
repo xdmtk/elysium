@@ -12,3 +12,7 @@ Server::Server(){
 void Server::start() {
     connectionManager->listenForClientConnections();
 }
+
+SignalManager * Server::getSignalManager() {
+    return signalManager;
+}

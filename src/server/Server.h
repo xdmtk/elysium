@@ -8,6 +8,7 @@ class Server {
 public:
     Server();
     void start();
+    SignalManager * getSignalManager();
 
 private:
     SignalManager * signalManager;

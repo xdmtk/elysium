@@ -82,6 +82,16 @@ bool SignalManager::trappedSignal() {
 }
 
 /**
+ * Returns whether the application has trapped the given signal
+ *
+ * @param signal
+ * @return
+ */
+bool SignalManager::trappedSignal(int signal) {
+    return SignalManager::signalNumber == signal;
+}
+
+/**
  * Called when the signal trap flag has been set, handles
  * the signal appropriately
  */
@@ -103,6 +113,9 @@ void SignalManager::handleSignal() {
             // For unregistered signals, let quick_exit() deal with any clean up
             std::quick_exit(-1);
     }
+
+    // Reset the signal flag after its been handled
+    SignalManager::signalNumber = -1;
 }
 
 /**
