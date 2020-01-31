@@ -2,7 +2,9 @@
 #include <thread>
 #include <chrono>
 
+#include "Logger.h"
 #include "SignalManager.h"
+
 
 /**
  * The SignalManager class should register and handle the most common signals
@@ -57,6 +59,7 @@ void SignalManager::registerSignals() {
     std::signal(SIGSEGV, &SignalManager::updateSignalNumber);
     std::signal(SIGABRT, &SignalManager::updateSignalNumber);
     std::signal(SIGTERM, &SignalManager::updateSignalNumber);
+    std::signal(SIGPIPE, &SignalManager::updateSignalNumber);
 }
 
 /**
@@ -79,6 +82,16 @@ bool SignalManager::trappedSignal() {
 }
 
 /**
+ * Returns whether the application has trapped the given signal
+ *
+ * @param signal
+ * @return
+ */
+bool SignalManager::trappedSignal(int signal) {
+    return SignalManager::signalNumber == signal;
+}
+
+/**
  * Called when the signal trap flag has been set, handles
  * the signal appropriately
  */
@@ -94,16 +107,38 @@ void SignalManager::handleSignal() {
             handleSigInterrupt(); break;
         case SIGKILL:
             handleSigKill(); break;
+        case SIGPIPE:
+            handleSigPipe(); break;
+        case SIGTERM:
+            // Let SIGTERM fall through to quick_exit() for now
         default:
             // For unregistered signals, let quick_exit() deal with any clean up
             std::quick_exit(-1);
     }
+
+    // Reset the signal flag after its been handled
+    SignalManager::signalNumber = -1;
 }
 
 /**
  * Signal handler functions, needs implementation
  */
-void SignalManager::handleSigAbort() {}
-void SignalManager::handleSigSegfault() {}
-void SignalManager::handleSigInterrupt() {}
-void SignalManager::handleSigKill() {}
+void SignalManager::handleSigAbort() {
+    Logger::warn("Caught SIGABORT");
+}
+void SignalManager::handleSigSegfault() {
+    Logger::warn("Caught SIGSEGV");
+}
+void SignalManager::handleSigInterrupt() {
+    Logger::warn("Caught SIGINT");
+}
+void SignalManager::handleSigKill() {
+    Logger::warn("Caught SIGKILL");
+}
+void SignalManager::handleSigPipe() {
+    Logger::warn("Caught SIGPIPE");
+}
+
+void SignalManager::handleSigTerm() {
+    Logger::warn("Caught SIGTERM");
+}
