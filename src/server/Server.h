@@ -8,8 +8,6 @@ class Server {
 public:
     Server();
     void start();
-    SignalManager * getSignalManager();
-    ConnectionManager * getConnectionManager();
 
 private:
     SignalManager * signalManager;
