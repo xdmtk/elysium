@@ -12,7 +12,7 @@
  */
 bool Logger::writeToConsole = true;
 bool Logger::writeToFile = true;
-bool Logger::terminateOnFatal = false;
+bool Logger::terminateOnFatal = true;
 std::string Logger::logFilePath = getCurrentDateString() + ".log";
 
 /**
@@ -79,7 +79,7 @@ void Logger::log(std::string msg, Logger::LogLevel level) {
     if (writeToConsole) {
         std::cout << msg;
     }
-    if (terminateOnFatal) {
+    if (terminateOnFatal && level == LogLevel::Fatal) {
         raise(SIGTERM);
     }
 }
