@@ -115,8 +115,6 @@ void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * add
 /**
  * Iterates through the current connection list and checks the `alive` flag
  * of each thread. Removes the ClientConnection if isAlive() fails
- *
- * TODO: Do we need to manually `delete` each ClientConnection?
  */
 void ConnectionManager::updateConnectionList() {
     auto it = connectedClientList.begin();
@@ -130,8 +128,14 @@ void ConnectionManager::updateConnectionList() {
     }
 }
 
-
+/**
+ * ConnectionManager function called by the server when a thread
+ * receive a message to relay to other threads
+ * @param msg
+ */
 void ConnectionManager::broadcastMessageToClients(std::string msg) {
+
+    // Iterate through the connected client list and send out the message
     for (auto client : connectedClientList)  {
         client->relayMessage(msg);
     }
