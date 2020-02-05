@@ -130,3 +130,10 @@ void ConnectionManager::updateConnectionList() {
         connectedClientList.end()
     );
 }
+
+
+void ConnectionManager::broadcastMessage(std::string msg) {
+    for (auto client : connectedClientList)  {
+        client->relayMessage(msg);
+    }
+}

@@ -8,6 +8,7 @@ class Server {
 public:
     Server();
     void start();
+    void broadcastMessage(std::string);
     SignalManager * getSignalManager();
     ConnectionManager * getConnectionManager();
 

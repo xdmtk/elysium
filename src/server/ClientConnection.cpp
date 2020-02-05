@@ -34,13 +34,19 @@ void ClientConnection::mainClientServerLoop() {
     // TODO: This is where the main conversation between client and server should happen
     // Need to implement functions to respond to client messages
     while (recv(socketFileDescriptor, buffer, sizeof(buffer), 0) != -1
-        && !server->getSignalManager()->trappedSignal(SIGPIPE)) {       // TODO: Do not rely on SIGPIPE, or at the very least
-                                                                        // figure out how to identify the offending thread at the signalmanager
+        && !server->getSignalManager()->trappedSignal(SIGPIPE)) {
 
-        // Test code!
-        send(socketFileDescriptor, "hi", sizeof("hi"), 0 );
+        server->broadcastMessage(std::string(buffer));
     }
     terminateConnection();
+}
+
+/**
+ * Called by the Server class to relay a message from another connected client
+ * 'Overrides' to mainClientServerLoop in a way
+ */
+void ClientConnection::relayMessage(std::string msg) {
+    send(socketFileDescriptor, msg.c_str(), msg.size(), 0);
 }
 
 void ClientConnection::terminateConnection() {
