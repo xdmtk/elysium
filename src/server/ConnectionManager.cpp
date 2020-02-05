@@ -119,20 +119,19 @@ void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * add
  * TODO: Do we need to manually `delete` each ClientConnection?
  */
 void ConnectionManager::updateConnectionList() {
-    connectedClientList.erase(
-        std::remove_if(
-        connectedClientList.begin(),
-        connectedClientList.end(),
-            [](ClientConnection* element) -> bool {
-                return element->isAlive();
-            }
-        ),
-        connectedClientList.end()
-    );
+    auto it = connectedClientList.begin();
+    while (it != connectedClientList.end()) {
+        if (!(*it)->isAlive()) {
+            it = connectedClientList.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
 }
 
 
-void ConnectionManager::broadcastMessage(std::string msg) {
+void ConnectionManager::broadcastMessageToClients(std::string msg) {
     for (auto client : connectedClientList)  {
         client->relayMessage(msg);
     }

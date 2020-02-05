@@ -13,7 +13,7 @@ public:
     ConnectionManager(Server *);
     void listenForClientConnections();
     void updateConnectionList();
-    void broadcastMessage(std::string msg);
+    void broadcastMessageToClients(std::string msg);
 
 private:
     Server * server;

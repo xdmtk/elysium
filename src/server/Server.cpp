@@ -15,7 +15,7 @@ void Server::start() {
 
 
 void Server::broadcastMessage(std::string msg) {
-    connectionManager->broadcastMessage(msg);
+    connectionManager->broadcastMessageToClients(msg);
 }
 
 /**

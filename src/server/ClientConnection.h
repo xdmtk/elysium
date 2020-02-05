@@ -19,6 +19,7 @@ private:
     void setClientConnectionConfiguration();
     void terminateConnection();
 
+    void clearReceiveBuffer(char *buffer);
 };
 
 
