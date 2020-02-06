@@ -10,9 +10,10 @@ class Server;
 class ClientConnection;
 class ConnectionManager {
 public:
-   ConnectionManager(Server *);
-   void listenForClientConnections();
+    ConnectionManager(Server *);
+    void listenForClientConnections();
     void updateConnectionList();
+    void broadcastMessageToClients(std::string msg);
 
 private:
     Server * server;

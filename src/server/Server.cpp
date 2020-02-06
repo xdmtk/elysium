@@ -13,6 +13,11 @@ void Server::start() {
     connectionManager->listenForClientConnections();
 }
 
+
+void Server::broadcastMessage(std::string msg) {
+    connectionManager->broadcastMessageToClients(msg);
+}
+
 /**
  * Expose the SignalManager for the server
  * @return - Pointer to the SignalManager
