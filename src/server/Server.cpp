@@ -5,9 +5,9 @@
 
 Server::Server(){
     Logger::info("Starting server");
+    coreSettings = new CoreSettings(this);
     signalManager = new SignalManager(this);
     connectionManager = new ConnectionManager(this);
-    coreSettings = new CoreSettings(this);
 }
 
 void Server::start() {
