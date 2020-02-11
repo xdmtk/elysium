@@ -7,13 +7,13 @@ namespace Ui {
 class chatGui;
 }
 
-class chatGui : public QDialog
+class ChatGui : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit chatGui(QWidget *parent = nullptr);
-    ~chatGui();
+    explicit ChatGui(QWidget *parent = nullptr);
+    ~ChatGui();
 
 private slots:
     void on_inputDisplay_returnPressed();

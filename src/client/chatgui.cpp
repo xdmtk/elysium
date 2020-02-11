@@ -1,7 +1,7 @@
 #include "chatgui.h"
 #include "ui_chatgui.h"
 
-chatGui::chatGui(QWidget *parent) :
+ChatGui::ChatGui(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::chatGui)
 {
@@ -11,10 +11,10 @@ chatGui::chatGui(QWidget *parent) :
     ui->inputDisplay->setPlaceholderText("Type here");
     ui->friendsDisplay->setPlaceholderText("Friends list");
 }
-chatGui::~chatGui(){
+ChatGui::~ChatGui(){
     delete ui;
 }
-void chatGui::on_inputDisplay_returnPressed(){
+void ChatGui::on_inputDisplay_returnPressed(){
 
     QString userInput;
     userInput = ui->inputDisplay->text();

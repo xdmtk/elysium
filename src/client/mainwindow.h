@@ -21,6 +21,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    chatGui *Gui;
+    ChatGui *Gui;
 };
 #endif // MAINWINDOW_H

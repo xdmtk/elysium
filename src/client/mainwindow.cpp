@@ -18,7 +18,7 @@ void MainWindow::on_Login_clicked(){
     QString password = ui->lineEdit_password->text();
 
     if(username == "test" && password == "test"){
-        Gui = new chatGui(this);
+        Gui = new ChatGui(this);
         this->close();
         Gui->show();
     }
