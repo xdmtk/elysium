@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    chatgui.cpp
+    chatgui.cpp \
+    ../core/CoreSettings.cpp
 
 HEADERS += \
     mainwindow.h \
-    chatgui.h
+    chatgui.h \
+    ../core/CoreSettings.h
 
 FORMS += \
     mainwindow.ui \

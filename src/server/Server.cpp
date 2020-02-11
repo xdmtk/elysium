@@ -1,12 +1,13 @@
+#include "../core/CoreSettings.h"
 #include "ConnectionManager.h"
 #include "Logger.h"
-#include "Server.h"
 #include "SignalManager.h"
 
 Server::Server(){
     Logger::info("Starting server");
     signalManager = new SignalManager(this);
     connectionManager = new ConnectionManager(this);
+    coreSettings = new CoreSettings(this);
 }
 
 void Server::start() {
@@ -32,4 +33,9 @@ SignalManager * Server::getSignalManager() {
  */
 ConnectionManager * Server::getConnectionManager() {
     return connectionManager;
+}
+
+
+CoreSettings * Server::getCoreSettings() {
+    return coreSettings;
 }

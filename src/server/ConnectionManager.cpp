@@ -1,10 +1,10 @@
 #include <algorithm>
 #include <cstring>
 #include <cerrno>
-
 #include <netinet/in.h>
 #include <sys/socket.h>
 
+#include "../core/CoreSettings.h"
 #include "ConnectionManager.h"
 #include "ClientConnection.h"
 #include "Logger.h"
@@ -19,8 +19,7 @@ ConnectionManager::ConnectionManager(Server * s) {
  */
 void ConnectionManager::setConnectionManagerConfiguration() {
 
-    // TODO: Automate this area to set options based on environments (develop/QA/production)
-    bindPort = 6692;
+    bindPort = server->getCoreSettings()->getPortNumber();
     connectionBacklogMaxLimit = 10;
 };
 
