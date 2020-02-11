@@ -6,6 +6,11 @@ CoreSettings::CoreSettings(Server * s){
     setConfigEnvironment();
 }
 
+
+/**
+ * To make vhost deployment easier, the server can use the username
+ * running the process to determine its configuration environment.
+ */
 void CoreSettings::setConfigEnvironment() {
 
 #ifdef __linux__
@@ -21,6 +26,12 @@ void CoreSettings::setConfigEnvironment() {
     env = ConfigEnvironment::Production;
 }
 
+/**
+ * The client will need to call this when determining which endpoint to
+ * connect to.
+ *
+ * @return - Returns the hostname to connect to
+ */
 std::string CoreSettings::getHostName() {
 
     std::string hostName;
@@ -43,6 +54,11 @@ std::string CoreSettings::getHostName() {
     return "https://" + hostName + "elysium-project.net";
 }
 
+/**
+ * Arbitrary port numbers for each given Vhost and production environment
+ *
+ * @return
+ */
 int CoreSettings::getPortNumber() {
 
     int portNumber;

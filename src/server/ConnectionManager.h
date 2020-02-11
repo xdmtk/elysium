@@ -5,13 +5,8 @@
 #include <thread>
 #include <string>
 #include <sys/socket.h>
-#ifdef __linux__
 #include <netinet/in.h>
 #include <netinet/ip.h>
-#elif WIN32
-#include <WinSock2.h>
-#include <windows.h>
-#endif
 class Server;
 class ClientConnection;
 class ConnectionManager {
