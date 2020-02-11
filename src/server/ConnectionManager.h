@@ -14,6 +14,7 @@ public:
     ConnectionManager(Server *);
     void listenForClientConnections();
     void updateConnectionList();
+    void killAllConnections();
     void broadcastMessageToClients(std::string msg);
 
 private:

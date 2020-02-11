@@ -139,3 +139,10 @@ void ConnectionManager::broadcastMessageToClients(std::string msg) {
         client->relayMessage(msg);
     }
 }
+
+/**
+ *  Elininate all sockets current managed through the connectedClientList
+ */
+void ConnectionManager::killAllConnections() {
+    connectedClientList.clear();
+}
