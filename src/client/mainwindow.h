@@ -17,8 +17,6 @@ public:
     ~MainWindow();
 
 private slots:
-    //void on_lineEdit_returnPressed();
-
     void on_Login_clicked();
 
 private:

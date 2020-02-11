@@ -9,14 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
-
-void MainWindow::on_Login_clicked()
-{
+void MainWindow::on_Login_clicked(){
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
 
@@ -24,10 +21,8 @@ void MainWindow::on_Login_clicked()
         Gui = new chatGui(this);
         this->close();
         Gui->show();
-
     }
     else{
         QMessageBox::warning(this,"Login","Username and password is not correct");
     }
-
 }

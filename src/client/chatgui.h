@@ -15,15 +15,11 @@ public:
     explicit chatGui(QWidget *parent = nullptr);
     ~chatGui();
 
-
 private slots:
-   // void on_inputDisplay_returnPressed();
-
     void on_inputDisplay_returnPressed();
 
 private:
     Ui::chatGui *ui;
-    bool enterPressed;
 
 };
 

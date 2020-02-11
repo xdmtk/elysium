@@ -39,7 +39,8 @@ color: green;</string>
            <item>
             <widget class="QLineEdit" name="lineEdit_username">
              <property name="styleSheet">
-              <string notr="true">color: black;</string>
+              <string notr="true">background-color:white;
+color: black;</string>
              </property>
             </widget>
            </item>
@@ -57,7 +58,8 @@ color: green;</string>
            <item>
             <widget class="QLineEdit" name="lineEdit_password">
              <property name="styleSheet">
-              <string notr="true">color: black;</string>
+              <string notr="true">background-color:white;
+color: black;</string>
              </property>
             </widget>
            </item>

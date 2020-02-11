@@ -25,7 +25,7 @@ HEADERS += \
     chatgui.h
 
 FORMS += \
-    Forms/mainwindow.ui \
+    mainwindow.ui \
     chatgui.ui
 
 # Default rules for deployment.
