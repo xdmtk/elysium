@@ -141,7 +141,9 @@ void ConnectionManager::broadcastMessageToClients(std::string msg) {
     }
 }
 
+/**
+ *  Elininate all sockets current managed through the connectedClientList
+ */
 void ConnectionManager::killAllConnections() {
-    // Iterate through the connected client list and send out the message
     connectedClientList.clear();
 }
