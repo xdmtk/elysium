@@ -17,12 +17,16 @@ void CoreSettings::setConfigEnvironment() {
     // If we're running on the EC2 instance, get the username running the process
     std::string user = getenv("USER");
     if (user == "erick") env = ConfigEnvironment::ErickDev;
-    if (user == "josh") env = ConfigEnvironment::JoshDev;
-    if (user == "nick") env = ConfigEnvironment::NickDev;
-    if (user == "daniel") env = ConfigEnvironment::DanielDev;
-    if (user == "sebastian") env = ConfigEnvironment::SebastianDev;
-    if (user == "ubuntu") env = ConfigEnvironment::Production;
+    else if (user == "josh") env = ConfigEnvironment::JoshDev;
+    else if (user == "nick") env = ConfigEnvironment::NickDev;
+    else if (user == "daniel") env = ConfigEnvironment::DanielDev;
+    else if (user == "sebastian") env = ConfigEnvironment::SebastianDev;
+    else env = ConfigEnvironment::Production;
+    return;
 #endif
+
+    // If we are running the client locally, start out in production mode
+    // and let the client manually change the env
     env = ConfigEnvironment::Production;
 }
 
