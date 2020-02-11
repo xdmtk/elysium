@@ -6,16 +6,25 @@
 #define ELYSIUM_SERVER_CORESETTINGS_H
 
 
+#include "../server/Server.h"
+
 class CoreSettings {
 public:
+
+    CoreSettings(Server *s);
 
     enum ConfigEnvironment {
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
     };
 
-    CoreSettings();
-    ConfigEnvironment getConfigEnvironment();
+    std::string getHostName();
+    int getPortNumber();
 
+private:
+    Server * server;
+    ConfigEnvironment env;
+
+    void setConfigEnvironment();
 };
 
 
