@@ -140,3 +140,8 @@ void ConnectionManager::broadcastMessageToClients(std::string msg) {
         client->relayMessage(msg);
     }
 }
+
+void ConnectionManager::killAllConnections() {
+    // Iterate through the connected client list and send out the message
+    connectedClientList.clear();
+}

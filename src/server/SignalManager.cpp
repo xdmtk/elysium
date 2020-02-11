@@ -2,8 +2,10 @@
 #include <thread>
 #include <chrono>
 
+#include "ConnectionManager.h"
 #include "Logger.h"
 #include "SignalManager.h"
+#include "Server.h"
 
 
 /**
@@ -110,7 +112,7 @@ void SignalManager::handleSignal() {
         case SIGPIPE:
             handleSigPipe(); break;
         case SIGTERM:
-            // Let SIGTERM fall through to quick_exit() for now
+            handleSigTerm(); break;
         default:
             // For unregistered signals, let quick_exit() deal with any clean up
             std::quick_exit(-1);
@@ -125,15 +127,22 @@ void SignalManager::handleSignal() {
  */
 void SignalManager::handleSigAbort() {
     Logger::warn("Caught SIGABORT");
+    server->getConnectionManager()->killAllConnections();
+    std::exit(0);
 }
 void SignalManager::handleSigSegfault() {
     Logger::warn("Caught SIGSEGV");
+    std::quick_exit(-1);
 }
 void SignalManager::handleSigInterrupt() {
     Logger::warn("Caught SIGINT");
+    server->getConnectionManager()->killAllConnections();
+    std::exit(0);
 }
 void SignalManager::handleSigKill() {
     Logger::warn("Caught SIGKILL");
+    server->getConnectionManager()->killAllConnections();
+    std::exit(0);
 }
 void SignalManager::handleSigPipe() {
     Logger::warn("Caught SIGPIPE");
@@ -141,4 +150,6 @@ void SignalManager::handleSigPipe() {
 
 void SignalManager::handleSigTerm() {
     Logger::warn("Caught SIGTERM");
+    server->getConnectionManager()->killAllConnections();
+    std::exit(0);
 }
