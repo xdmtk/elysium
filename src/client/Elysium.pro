@@ -17,18 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    chatgui.cpp \
-    ../core/CoreSettings.cpp
+    ../core/CoreSettings.cpp \
+    chatwindow.cpp \
+    loginwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    chatgui.h \
-    ../core/CoreSettings.h
+    ../core/CoreSettings.h \
+    chatwindow.h \
+    loginwindow.h
 
 FORMS += \
-    mainwindow.ui \
-    chatgui.ui
+    chatwindow.ui \
+    loginwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
