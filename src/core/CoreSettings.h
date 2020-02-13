@@ -12,6 +12,7 @@ class CoreSettings {
 public:
 
     CoreSettings(Server *s);
+    CoreSettings();
 
     enum ConfigEnvironment {
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
@@ -19,6 +20,7 @@ public:
 
     std::string getHostName();
     int getPortNumber();
+    void setConfigEnvironment(ConfigEnvironment);
 
 private:
     Server * server;

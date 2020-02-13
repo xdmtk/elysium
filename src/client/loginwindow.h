@@ -8,6 +8,7 @@ namespace Ui {
 class LoginWindow;
 }
 
+class CoreSettings;
 class LoginWindow : public QDialog
 {
     Q_OBJECT
@@ -22,6 +23,8 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
+    CoreSettings * coreSettings;
+void demoConnectToServer();
 
 };
 

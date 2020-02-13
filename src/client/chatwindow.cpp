@@ -1,3 +1,4 @@
+#include "loginwindow.h"
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
 

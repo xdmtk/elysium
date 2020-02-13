@@ -6,6 +6,8 @@ CoreSettings::CoreSettings(Server * s){
     setConfigEnvironment();
 }
 
+CoreSettings::CoreSettings() {}
+
 
 /**
  * To make vhost deployment easier, the server can use the username
@@ -28,6 +30,10 @@ void CoreSettings::setConfigEnvironment() {
     // If we are running the client locally, start out in production mode
     // and let the client manually change the env
     env = ConfigEnvironment::Production;
+}
+
+void CoreSettings::setConfigEnvironment(ConfigEnvironment e) {
+    env = e;
 }
 
 /**
