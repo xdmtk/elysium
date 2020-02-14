@@ -2,19 +2,24 @@
 #define LOGINWINDOW_H
 
 #include <QDialog>
-#include "chatwindow.h"
 
 namespace Ui {
 class LoginWindow;
 }
 
+class ChatWindow;
 class CoreSettings;
 class LoginWindow : public QDialog
 {
     Q_OBJECT
 
+
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
+    struct hostPortCombo {
+        QString hostname;
+        int port;
+    };
     ~LoginWindow();
 
 private slots:
@@ -24,7 +29,7 @@ private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
     CoreSettings * coreSettings;
-void demoConnectToServer();
+    struct hostPortCombo demoConnectToServer();
 
 };
 

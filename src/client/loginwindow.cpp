@@ -1,5 +1,6 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
+#include "chatwindow.h"
 #include "../core/CoreSettings.h"
 #include <QMessageBox>
 
@@ -22,6 +23,8 @@ void LoginWindow::on_pushButton_clicked(){
     if(username == "test" && password == "test"){
         chatGui = new ChatWindow(this);
         this->close();
+        chatGui->setHostPortCombo(demoConnectToServer());
+
         chatGui->show();
     }
     else{
@@ -30,7 +33,7 @@ void LoginWindow::on_pushButton_clicked(){
 }
 
 
-void LoginWindow::demoConnectToServer() {
+struct LoginWindow::hostPortCombo LoginWindow::demoConnectToServer() {
     CoreSettings::ConfigEnvironment env;
     int currentIndex =ui->serverSelect->currentIndex();
     switch (currentIndex) {
@@ -51,7 +54,9 @@ void LoginWindow::demoConnectToServer() {
     QString hostName = QString::fromStdString(coreSettings->getHostName());
     int port = coreSettings->getPortNumber();
 
+    struct LoginWindow::hostPortCombo hp;
+    hp.hostname = hostName;
+    hp.port = port;
 
-
-
+    return hp;
 }

@@ -72,9 +72,6 @@
         <property name="text">
          <string/>
         </property>
-        <property name="pixmap">
-         <pixmap resource="resources.qrc">:/img/resources/elysium-logo</pixmap>
-        </property>
         <property name="scaledContents">
          <bool>true</bool>
         </property>
@@ -172,8 +169,6 @@ color:black;</string>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

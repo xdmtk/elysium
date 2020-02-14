@@ -61,7 +61,7 @@ std::string CoreSettings::getHostName() {
             hostName = ""; break;
     }
 
-    return "https://" + hostName + "elysium-project.net";
+    return "" + hostName + "elysium-project.net";
 }
 
 /**

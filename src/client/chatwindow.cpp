@@ -1,7 +1,10 @@
 #include "loginwindow.h"
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
-
+#include <QTcpSocket>
+#include <QDebug>
+#include <QThread>
+#include <iostream>
 ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
@@ -23,6 +26,32 @@ ChatWindow::ChatWindow(QWidget *parent) :
 
 ChatWindow::~ChatWindow(){
     delete ui;
+}
+
+void ChatWindow::setHostPortCombo(struct LoginWindow::hostPortCombo hp) {
+    hostname = hp.hostname;
+    port = hp.port;
+    sock = new QTcpSocket();
+    qDebug() << hostname << port;
+    connect(sock, &QAbstractSocket::connected, [&] {
+        qDebug() << "Connected";
+        thread = QThread::create([&] {
+            char buf[4096] = {'\0'};
+            qDebug() << "Thread started";
+            while(sock->waitForReadyRead()) {
+                QString foo(sock->readAll());
+                qDebug() << "Message: " << foo;
+            }
+            qDebug() << "Thread finished";
+        });
+        thread->start();
+
+    } );
+    connect(sock, QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),
+            [=](QAbstractSocket::SocketError socketError){qDebug() << sock->errorString();});
+    sock->connectToHost(hostname, port);
+
+
 }
 
 void ChatWindow::on_inputDisplay_returnPressed(){
