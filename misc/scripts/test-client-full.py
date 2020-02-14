@@ -38,7 +38,8 @@ def main(w):
     def clean_thread_exit(sig, frame):
         global quit_flag
         quit_flag = True
-        quit()
+        curses.endwin()
+        os._exit(1)
 
     signal.signal(signal.SIGINT, clean_thread_exit)
 
