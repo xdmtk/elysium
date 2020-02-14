@@ -1,5 +1,6 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
+#include "chatwindow.h"
 #include <QMessageBox>
 
 LoginWindow::LoginWindow(QWidget *parent) :
@@ -23,6 +24,7 @@ void LoginWindow::on_pushButton_clicked(){
         chatGui->show();
     }
     else{
+
         QMessageBox::warning(this,"pushButton_login","Username and password is not correct");
     }
 }

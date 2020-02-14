@@ -1,6 +1,5 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
-
 #include <QMainWindow>
 #include <QtDebug>
 
