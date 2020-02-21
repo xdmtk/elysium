@@ -5,6 +5,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
 {
+
     ui->setupUi(this);
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
@@ -18,6 +19,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
+    socket.connect();
+
 }
 
 ChatWindow::~ChatWindow(){

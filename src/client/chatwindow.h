@@ -2,6 +2,9 @@
 #define CHATWINDOW_H
 #include <QMainWindow>
 #include <QtDebug>
+#include "socketmanager.h"
+
+//class SocketManager;
 
 namespace Ui {
 class ChatWindow;
@@ -13,6 +16,7 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
+  //  friend class SocketManager;
     ~ChatWindow();
 
 private slots:
@@ -21,6 +25,7 @@ private slots:
     void on_actionDark_mode_triggered();
 private:
     Ui::ChatWindow *ui;
+    SocketManager socket;
 };
 
 #endif // CHATWINDOW_H
