@@ -7,10 +7,10 @@
 class SocketManager{
 public:
     SocketManager();
-    friend class ChatWindow;
 
 private:
-     void connect();
+   friend class ChatWindow;
+    void connect();
     QTcpSocket *tcpSocket;
 
 };

@@ -1,7 +1,7 @@
 #include "socketmanager.h"
 
-SocketManager::SocketManager()
-{
+SocketManager::SocketManager(){
+
     tcpSocket = new QTcpSocket();
 }
 
