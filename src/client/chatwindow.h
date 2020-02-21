@@ -4,7 +4,6 @@
 #include <QtDebug>
 #include "socketmanager.h"
 
-//class SocketManager;
 
 namespace Ui {
 class ChatWindow;
@@ -16,7 +15,6 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
-  //  friend class SocketManager;
     ~ChatWindow();
 
 private slots:
