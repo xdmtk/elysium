@@ -15,4 +15,4 @@ All documentation in GitLab Wiki. Local markdown copies and flow charts located 
 ### Server
 * [Building](https://gitlab.com/csun380spring2020/elysium/-/wikis/Server%20Building)
 * [Specifications](https://gitlab.com/csun380spring2020/elysium/-/wikis/Server%20Specifications)
-![]()
+![](https://cdn.discordapp.com/attachments/644925714621005824/680280111685042266/Untitled_Diagram.jpg)
