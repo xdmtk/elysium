@@ -130,6 +130,7 @@ function output_server_status_css($instance_owner) {
     left: 332px;
     top: 17%;
 overflow-y: scroll;
+font-family: monospace;
 }
 .server-status-info li{
   margin-left:15px;
