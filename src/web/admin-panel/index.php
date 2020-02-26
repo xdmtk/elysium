@@ -86,164 +86,442 @@ function get_log_data() {
 ?>
 
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Lato:100,400);
+.server-status-info p{
+  margin:auto;
+  padding:10px;
+  margin-top:-10px;
+  margin-left:-13px;
+  font-weight:bold;
+  text-align:center;
+  font-size:18px;
+}
+.server-status-info{
+  list-style-type: none;
+  padding:15px;
+  font-family:arial;
+  margin:auto;
+  text-align:center;
+  border:1px solid lightgrey;
+  border-radius:5px;
+  display:inline-block;
+  margin-top: 150px;
+  
+} 
+.log-output-area {
+  border:1px solid lightgrey;
+  border-radius:5px;
+  float: right;
+  height: 600px;
+  width: 75%;
+  margin-top: 150px;
+}
+.server-status-info li{
+  margin-left:15px;
+  margin-right:20px;
+  display:inline-block;
+}
 
-    body{
-        margin: 0;
-        padding: 0;
-        background: #eee;
-    }
+.server-status-info li:before{
+  position:absolute;
+  margin-left:-20px;
+  width:15px;
+  height:15px;
+  background-color:#95f476;
+  content:"";
+  border-radius:10px;
+}
+.server-status-info .warning:before{
+  background-color:orange;
+}
+.server-status-info .offline:before{
+  background-color:red;
+}
+.server-rack a{
+  text-decoration:none;
+}
+.server-rack{
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+    background-color: #141616;
+    width: 300px;
+    height: auto;
+    border-radius: 10px 10px 0px 0px;
+    /*margin: 20px auto;*/
+    position: relative;
+  -webkit-box-shadow:0 31px 40px 0px rgba(0, 0, 0, 0.25);
+          box-shadow:0 31px 40px 0px rgba(0, 0, 0, 0.25);
+}
+.server-rack:after{
+width: 100%;
+    height: 47px;
+    background-color: #6e6d71;
+    position: absolute;
+    content: "";
+    bottom: -27px;
+    border-radius: 0px 0px 20px 20px;
+    z-index: -1;
 
-    .box{
-        width: 250px;
-        height: 200px;
-        position: absolute;
-        left: calc(50% - 125px);
-        top: calc(50% - 100px);
-        left: -webkit-calc(50% - 125px);
-        top: -webkit-calc(50% - 100px);
-    }
+}
+.server-rack .label{
+    color: white;
+    font-weight: bold;
+    background-color: #575b5c;
+    border-radius: 10px 10px 0 0;
+    font-family: arial;
+    text-align: center;
+    padding: 12px !important;
+    font-size: 13px;
 
-    .box span{
-        font-family: 'Lato', sans-serif;
-        font-weight: 300;
-        font-size: 20px;
-        position: absolute;
-    }
 
-    .box span:nth-child(2){
-        top: 2px;
-        left: 125px;
-    }
+}
 
-    .box span:nth-child(7){
-        top: 85px;
-        left: 125px;
-    }
+.server-inner{
+    border: 1px solid #9da1a6;
+    background-color: #f4f4f4;
+    border-radius: 5px 5px 0px 0px;
+    height: auto;
+    width: 90%;
+    z-index: 99999;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+    overflow: hidden;
+  -webkit-box-shadow:inset 1px 1px 3px 0px #848181;
+          box-shadow:inset 1px 1px 3px 0px #848181;
+}
 
-    .box span:nth-child(12){
-        top: 165px;
-        left: 125px;
-    }
 
-    .server{
-        width: 110px;
-        height: 30px;
-        background: #3a3a3a;
-        border-radius: 1px;
-    }
+.server{
+margin-top: 10px;
+    position: relative;
+    width: 103%;
+    left: -4px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    height: 45px;
+    background-color: #3a3a3a;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
 
-    .server ul{
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
+.server:hover{
+  -webkit-transform:scale(1.1);
+      -ms-transform:scale(1.1);
+          transform:scale(1.1);
+}
+.server:hover .hdd{
+   // background-color: #c5c5c5;
+    -webkit-box-shadow: 1px 1px 2px 1px #3636366b;
+            box-shadow: 1px 1px 2px 1px #3636366b;
+}
+.server:hover:before{
+  background-color:white;
+}
+/*
+.server:after{
+    content: '';
+    position: absolute;
+    top: 42%;
+    left: 84%;
+    width: 52px;
+    height: 10px;
+    transform: rotate(90deg);
+    background-color: #8d8d8d;
+    border-radius: 3px;
+    box-shadow: -1px 2px 1px #0000005e;
 
-    .server:first-child ul li{
-        width: 6px;
-        height: 6px;
-        float: left;
-        margin-left: 10px;
-        margin-top: 12px;
-        background: rgba(149,244,118,0.6);
-    }
+}*/
+.server:before{
+    content: '';
+    position: absolute;
+    top: 44%;
+    left: -5%;
+    width: 40px;
+    height: 0px;
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+    background-color: #d6d6d6;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px -1px 1px #3a3a3a;
+            box-shadow: 0px -1px 1px #3a3a3a;
 
-    .server ul li:first-child{
-        -webkit-animation: pattern1 0.14s linear infinite;
-    }
+}
+.hdd{
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 25%;
+    right: -4px;
+    border-radius: 2px;
+    width: 51px;
+    height: 21px;
+    background-color: #dbdad8;
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+}
+.hdd:before{
+    content: '';
+    position: absolute;
+    top: 28%;
+    left: 70%;
+    width: 7px;
+    border-radius: 19px;
+    -webkit-box-shadow: 1px -2px 1px #5652526e;
+            box-shadow: 1px -2px 1px #5652526e;
+    height: 7px;
+    background-color: #504c4c;
+}
+.hdd:after{
+    content: '';
+    position: absolute;
+    top: 31%;
+    left: 10%;
+    width: 26px;
+    height: 6px;
+    background-color: #505050;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 1px #2e2e2e;
+            box-shadow: inset 1px 1px 1px #2e2e2e;
+}
+.server-info{
+  text-align:center;
+color: white;
+    font-family: arial;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+}
 
-    .server ul li:nth-child(2){
-        -webkit-animation: pattern1 0.14s 0.02s linear infinite;
-    }
+.server-status{
+  list-style-type:none;
+  padding:0;
+  margin-left:10px;
+      -webkit-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+              transform: rotate(90deg);
+    position: absolute;
+  top: -5px;
+  z-index:999;
+}
+.server-status li{
+    width: 6px;
+  height: 6px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 10px;
+  background: rgba(149,244,118,0.6);
+    -webkit-animation: pattern1 0.14s linear infinite;
 
-    .server ul li:last-child{
-        -webkit-animation: pattern1 0.14s 0.05s linear infinite;
-    }
+}
+.server-status li:nth-child(2){
+  -webkit-animation: pattern1 0.14s 0.02s linear infinite;
+}
 
-    @-webkit-keyframes pattern1{
-        0%{
-            background: rgba(149,244,118,0.6);
-        }
-        100%{
-            background: rgba(149,244,118,1);
-        }
-    }
+.server-status li:last-child{
+  -webkit-animation: pattern1 0.14s 0.05s linear infinite;
+}
+@-webkit-keyframes pattern1{
+  0%{
+    background: rgba(149,244,118,0.6);
+  }
+  100%{
+    background: rgba(149,244,118,1);
+  }
+}
 
-    .warning ul li{
-        width: 6px;
-        height: 6px;
-        float: left;
-        margin-left: 10px;
-        margin-top: 12px;
-        background: rgba(245,190,0,0.6);
-    }
+.server-warning li{
+  background-color:orange;
+}
+.server-warning li:first-child{
+  -webkit-animation: pattern2 0.14s linear infinite;
+  
+animation: pattern2 0.14s linear infinite;
+  
+ 
+}
 
-    .warning ul li:first-child{
-        -webkit-animation: pattern2 0.14s linear infinite;
-    }
+.server-warning li:nth-child(2){
+  
+  -webkit-animation: pattern2 0.14s 0.02s linear infinite;
+animation: pattern2 0.14s 0.02s linear infinite;
+}
 
-    .warning ul li:nth-child(2){
-        -webkit-animation: pattern2 0.14s 0.02s linear infinite;
-    }
+.server-warning li:last-child{
+  -webkit-animation: pattern2 0.14s 0.05s linear infinite;
+animation: pattern2 0.14s 0.05s linear infinite;
+}
+@-webkit-keyframes pattern2{
+  0%{
+    background: rgba(245,190,0,0.6);
+  }
+  100%{
+    background: rgba(245,190,0,1);
+  }
+}
+.server-offline li{
+  background-color:red;
+}
 
-    .warning ul li:last-child{
-        -webkit-animation: pattern2 0.14s 0.05s linear infinite;
-    }
 
-    @-webkit-keyframes pattern2{
-        0%{
-            background: rgba(245,190,0,0.6);
-        }
-        100%{
-            background: rgba(245,190,0,1);
-        }
-    }
+.server-offline  li:first-child{
+  -webkit-animation: pattern3 0.9s linear infinite;
+}
 
-    .error ul li{
-        width: 6px;
-        height: 6px;
-        float: left;
-        margin-left: 10px;
-        margin-top: 12px;
-        background: rgba(236,69,62,0.6);
-    }
+.server-offline li:nth-child(2){
+  -webkit-animation: pattern3 0.9s linear infinite;
+}
 
-    .error ul li:first-child{
-        -webkit-animation: pattern3 0.9s linear infinite;
-    }
+.server-offline li:last-child{
+  -webkit-animation: pattern3 0.9s linear infinite;
+}
 
-    .error ul li:nth-child(2){
-        -webkit-animation: pattern3 0.9s linear infinite;
-    }
+@-webkit-keyframes pattern3{
+  0%{
+    background: rgba(236,69,62,0.6);
+  }
+  80%{
+    background: rgba(236,69,62,0.6);
+  }
+  100%{
+    background: rgba(236,69,62,1);
+  }
+}
 
-    .error ul li:last-child{
-        -webkit-animation: pattern3 0.9s linear infinite;
-    }
 
-    @-webkit-keyframes pattern3{
-        0%{
-            background: rgba(236,69,62,0.6);
-        }
-        80%{
-            background: rgba(236,69,62,0.6);
-        }
-        100%{
-            background: rgba(236,69,62,1);
-        }
-    }
+.server-half-container{
+    padding: 6px;
+  width:auto;
+    position: relative;
+    height: 250px;
+    background-color: #73c0d7;
+    margin: auto -12px;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+
+
+}
+.half-server li,.full-server li,.half-bottom-server li{
+  display:inline-block;
+  width:calc(100%/9);
+    border-radius:3px;
+  position:relative;
+  -webkit-transition:all 0.3s ease-in-out;
+  -o-transition:all 0.3s ease-in-out;
+  transition:all 0.3s ease-in-out;
+
+}
+.half-server li.active:hover,
+.full-server li.active:hover,
+.half-bottom-server li.active:hover{
+  -webkit-transform:scale(1.1);
+      -ms-transform:scale(1.1);
+          transform:scale(1.1);
+  background-color:#5c5a5a;
+}
+.half-server li p,.full-server li p,.half-bottom-server li p{
+position: absolute;
+    margin: 0px;
+    z-index: 999;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    padding: 0px;
+    -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+        -ms-transform: translate(-50%, -50%) rotate(-90deg);
+            transform: translate(-50%, -50%) rotate(-90deg);
+  font-size:12px;
+}
+
+.half-bottom-server:hover{
+  z-index: 99999;
+}
+.half-server:hover{
+  z-index: 99999;
+}
+.full-server li p{
+    font-size:18px;
+}
+
+.half-server li.active,
+.half-bottom-server li.active{
+  height:95%;
+}
+.full-server li.active{
+    height:95%;
+}
+.full-server li.active{
+  background-color:#3a3a3a;
+}
+.half-server li.active{
+  background-color:#3a3a3a;
+}
+.half-bottom-server li.active{
+  background-color:#3a3a3a;
+}
+.half-server,.half-bottom-server{
+    list-style-type: none;
+  display:block;
+  height:48%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+  position:absolute;
+}
+.full-server{
+  list-style-type: none;
+  display:block;
+  height:100%;
+  width:100%;
+  padding:0px;
+  margin:0px;
+  position:absolute;
+}
+.half-bottom-server{
+  bottom:0;
+}
+.half-server,.full-server,.half-bottom-server{
+    width:95%;
+}
+
+.server-half-container .server-status{
+  -webkit-transform:rotate(0deg);
+      -ms-transform:rotate(0deg);
+          transform:rotate(0deg);
+    margin:0px;
+}
+.server-half-container .server-status li{
+  width:6px !important
+}
+
 </style>
 
 
-
 <ul class="server-status-info">
-    <p> Server Status</p>
+    <center><p> Server Status</p></center>
     <li>Running</li>
     <li class="warning">Warning</li>
     <li class="offline">Offline</li>
 </ul>
+<div class="log-output-area">
+
+
+
+</div>
+
 
 <div class="server-rack">
-    <P class="label"> COMPUTER CENTER</P>
+    <P class="label"</P>
 
     <a href="#/">
         <div class="server">
@@ -252,15 +530,11 @@ function get_log_data() {
                 <li></li>
                 <li></li>
             </ul>
-            <p class="server-info">Server 1</p>
+            <p class="server-info">Master</p>
             <div class="hdd"></div>
         </div>
     </a>
 
-    <a href="#/">
-        <div class="server">
-        </div>
-    </a>
 
     <a href="#/">
         <div class="server">
@@ -269,7 +543,7 @@ function get_log_data() {
                 <li></li>
                 <li></li>
             </ul>
-            <p class="server-info">Server 2</p>
+            <p class="server-info">Erick</p>
             <div class="hdd"></div>
         </div>
     </a>
@@ -281,7 +555,7 @@ function get_log_data() {
                 <li></li>
                 <li></li>
             </ul>
-            <p class="server-info">Server 3</p>
+            <p class="server-info">Daniel</p>
             <div class="hdd"></div>
         </div>
     </a>
@@ -293,141 +567,34 @@ function get_log_data() {
                 <li></li>
                 <li></li>
             </ul>
-            <p class="server-info">Server 4</p>
+            <p class="server-info">Josh</p>
             <div class="hdd"></div>
         </div>
     </a>
 
+    <a href="#/">
+        <div class="server">
+            <ul class="server-status">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <p class="server-info">Nick</p>
+            <div class="hdd"></div>
+        </div>
+    </a>
 
+    <a href="#/">
+        <div class="server">
+            <ul class="server-status">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <p class="server-info">Sebastian</p>
+            <div class="hdd"></div>
+        </div>
+    </a>
 
-    <div class="server-half-container">
-
-        <ul class="half-server">
-
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">half 2nd</p>
-                </li>
-            </a>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-            <li></li>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first new</p>
-                </li>
-            </a>
-            <li></li>
-        </ul>
-        <ul class="half-bottom-server">
-
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-            <li></li>
-            <a href="http://www.google.com" target="_blank">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">google</p>
-                </li>
-            </a>
-            <li></li>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">bottom 2nd </p>
-                </li>
-            </a>
-            <li></li>
-        </ul>
-
-        <ul class="full-server">
-
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status server-warning">
-                        <li></li>
-                        <li></li>
-                    </ul>
-
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info ">
-
-                        warning</p>
-                </li>
-            </a>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-            <li></li>
-            <a href="#/">
-                <li class="active">
-                    <ul class="server-status server-offline">
-                        <li></li>
-                        <li></li>
-                    </ul>
-                    <p class="server-info">first</p>
-                </li>
-            </a>
-        </ul>
-
-    </div>
 
 </div>
