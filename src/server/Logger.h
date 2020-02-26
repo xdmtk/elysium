@@ -15,12 +15,12 @@ private:
     static bool writeToConsole;
     static bool writeToFile;
     static bool terminateOnFatal;
-    static std::string logFilePath;
 
     static void log(std::string, LogLevel);
 
     static std::string getCurrentDateString();
     static std::string getCurrentTimeString();
+    static std::string getLogDirectory();
 };
 
 

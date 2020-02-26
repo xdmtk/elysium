@@ -1,19 +1,18 @@
 #include "Logger.h"
 
-#include <ctime>
 #include <csignal>
 #include <fstream>
 #include <ios>
 #include <iostream>
 #include <utility>
+#include <sys/stat.h>
 
 /**
  * Logger configuration settings
  */
-bool Logger::writeToConsole = true;
+bool Logger::writeToConsole = false;
 bool Logger::writeToFile = true;
 bool Logger::terminateOnFatal = true;
-std::string Logger::logFilePath = getCurrentDateString() + ".log";
 
 /**
  * Simple helper function to return the current year, month,
@@ -58,8 +57,8 @@ std::string Logger::getCurrentTimeString() {
  * @param level
  */
 void Logger::log(std::string msg, Logger::LogLevel level) {
-    
-    std::ofstream logStream(logFilePath, std::fstream::out | std::fstream::app);
+
+    std::ofstream logStream(getLogDirectory() + getCurrentDateString() + ".log", std::fstream::out | std::fstream::app);
     std::string levelString;
 
     switch (level) {
@@ -84,6 +83,15 @@ void Logger::log(std::string msg, Logger::LogLevel level) {
     }
 }
 
+/**
+ * Builds a hidden directory at the running users home directory for log file storage
+ * @return
+ */
+std::string Logger::getLogDirectory() {
+    std::string logDirectoryPath = "/home/" + std::string(getenv("USER")) + "/.elysium-logs/";
+    mkdir(logDirectoryPath.c_str(), 0777);
+    return logDirectoryPath;
+}
 
 /**
  * Series of public facing, static log functions to be inserted around the
