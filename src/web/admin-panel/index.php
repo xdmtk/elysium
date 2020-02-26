@@ -65,9 +65,10 @@ function get_log_data() {
 
         /* Check to see if log directory exists */
         if (is_dir("/home/" . $user . "/.elysium-logs")) {
-
+		
+	    $log_file_path = "/home/" . $user . "/.elysium-logs/" . date("m-d-Y", time()) . ".log";
             /* Get a file handle */
-            $log_handle = fopen("/home/" . $user . "/.elysium-logs/" . date("m-d-Y", time()));
+	    $log_handle = fopen($log_file_path, "r");
 
             /* Master instance runs on user xdmtk */
             if ($user == "xdmtk") {
@@ -83,7 +84,20 @@ function get_log_data() {
 
     return $log_data;
 }
+
+function output_server_status_css($instance_owner) {
+
+	$instances = get_running_instances();	
+	if ($instances[$instance_owner] === true) {
+		echo "";
+	}
+	else {
+		echo "server-offline";
+	}
+}
 ?>
+
+
 
 <style>
 .server-status-info p{
@@ -508,6 +522,24 @@ position: absolute;
 </style>
 
 
+<head>
+<script>
+
+const logData = <?php echo json_encode(get_log_data()) ?>;
+
+function outputLogData(user) {
+	
+	const outputArea = document.getElementById('log-output');
+	outputArea.innerHTML = "";
+	for (var i = 0; i < logData[user].length; i++) {
+		outputArea.innerHTML = outputArea.innerHTML + logData[user][i] + "<br>";
+	}
+}
+
+
+</script>
+
+
 <ul class="server-status-info">
     <center><p> Server Status</p></center>
     <li>Running</li>
@@ -516,14 +548,14 @@ position: absolute;
 </ul>
 
 <div class="container">
-    <div class="log-output-area">
+    <div id="log-output" class="log-output-area">
     </div>
     <div class="server-rack">
         <P class="label"</P>
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status ">
+            <div class="server" onclick="outputLogData('master')">
+	    <ul class="server-status <?php output_server_status_css('master') ?> ">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -535,8 +567,8 @@ position: absolute;
 
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status server-warning">
+            <div class="server" onclick="outputLogData('erick')">
+                <ul class="server-status <?php output_server_status_css('erick') ?> ">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -547,8 +579,8 @@ position: absolute;
         </a>
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status server-offline">
+            <div class="server" onclick="outputLogData('daniel')">
+                <ul class="server-status <?php output_server_status_css('daniel') ?>">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -559,8 +591,8 @@ position: absolute;
         </a>
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status">
+            <div class="server" onclick="outputLogData('josh')">
+                <ul class="server-status <?php output_server_status_css('josh') ?>">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -571,8 +603,8 @@ position: absolute;
         </a>
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status">
+            <div class="server" onclick="outputLogData('nick')">
+                <ul class="server-status <?php output_server_status_css('nick') ?>">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -583,8 +615,8 @@ position: absolute;
         </a>
 
         <a href="#/">
-            <div class="server">
-                <ul class="server-status">
+            <div class="server" onclick="outputLogData('sebastian')">
+                <ul class="server-status <?php output_server_status_css('sebastian') ?>">
                     <li></li>
                     <li></li>
                     <li></li>
