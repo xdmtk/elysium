@@ -89,7 +89,7 @@ void Logger::log(std::string msg, Logger::LogLevel level) {
  */
 std::string Logger::getLogDirectory() {
     std::string logDirectoryPath = "/home/" + std::string(getenv("USER")) + "/.elysium-logs/";
-    mkdir(logDirectoryPath.c_str(), 0);
+    mkdir(logDirectoryPath.c_str(), 0777);
     return logDirectoryPath;
 }
 
