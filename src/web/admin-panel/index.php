@@ -108,12 +108,13 @@ function get_log_data() {
   
 } 
 .log-output-area {
+    position: absolute;
   border:1px solid lightgrey;
   border-radius:5px;
-  float: right;
-  height: 600px;
-  width: 75%;
-  margin-top: 150px;
+    height: 600px;
+    width: 60%;
+    left: 332px;
+    top: 17%;
 }
 .server-status-info li{
   margin-left:15px;
@@ -513,88 +514,86 @@ position: absolute;
     <li class="warning">Warning</li>
     <li class="offline">Offline</li>
 </ul>
-<div class="log-output-area">
+
+<div class="container">
+    <div class="log-output-area">
+    </div>
+    <div class="server-rack">
+        <P class="label"</P>
+
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status ">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Master</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
 
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status server-warning">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Erick</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
-</div>
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status server-offline">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Daniel</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Josh</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
-<div class="server-rack">
-    <P class="label"</P>
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Nick</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status ">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Master</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
-
-
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status server-warning">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Erick</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
-
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status server-offline">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Daniel</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
-
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Josh</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
-
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Nick</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
-
-    <a href="#/">
-        <div class="server">
-            <ul class="server-status">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p class="server-info">Sebastian</p>
-            <div class="hdd"></div>
-        </div>
-    </a>
+        <a href="#/">
+            <div class="server">
+                <ul class="server-status">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <p class="server-info">Sebastian</p>
+                <div class="hdd"></div>
+            </div>
+        </a>
 
 
+    </div>
 </div>
