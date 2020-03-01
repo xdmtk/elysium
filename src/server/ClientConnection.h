@@ -4,17 +4,19 @@
 #define C_BUFFER_SIZE 4096
 
 class Server;
+class CommandManager;
 class ClientConnection {
 public:
     ClientConnection(int socketFd, Server *s);
 
-    void relayMessage(std::string msg);
+    void sendMessageToClient(std::string msg);
     void mainClientServerLoop();
     bool isAlive();
 private:
 
     int socketFileDescriptor, bufferSize, alive;
     Server * server;
+    CommandManager * commandManager;
 
     void setClientConnectionConfiguration();
     void terminateConnection();
