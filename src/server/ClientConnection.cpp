@@ -45,7 +45,7 @@ void ClientConnection::mainClientServerLoop() {
         Logger::info("Received message from client: " + std::string(buffer));
 
         /* Pass message to CommandManager for further action for client */
-        commandManager->handleMessage(buffer);
+        commandManager->handleMessageAndResponse(buffer);
 
         /* Clear out the buffer */
         clearReceiveBuffer(buffer);
