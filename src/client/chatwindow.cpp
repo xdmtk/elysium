@@ -5,7 +5,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
 {
-
+    socket = new QTcpSocket();
     ui->setupUi(this);
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
@@ -19,8 +19,9 @@ ChatWindow::ChatWindow(QWidget *parent) :
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
-    socket.connect();
 
+    socket->connectToHost("elysium-project.net",6692);
+    connect(socket, &QTcpSocket::readyRead,this,&ChatWindow::display);
 }
 
 ChatWindow::~ChatWindow(){
@@ -34,7 +35,8 @@ void ChatWindow::on_inputDisplay_returnPressed(){
    userInput = ui->inputDisplay->text();
    ui->inputDisplay->clear();
    ui->outputDisplay->insertPlainText(userInput);
-
+   //std::string toServer = userInput.toStdString();
+   //socket->write(toServer.c_str());
 }
 
 void ChatWindow::on_actionLight_mode_triggered(){
@@ -45,6 +47,7 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: white;"
                                       "color:black;");
+
 }
 
 void ChatWindow::on_actionDark_mode_triggered()
@@ -56,4 +59,13 @@ void ChatWindow::on_actionDark_mode_triggered()
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
+}
+
+void ChatWindow::display()
+{
+    std::string holder;
+    QString qInput;
+    holder = socket->readAll().toStdString();
+    qInput = QString::fromUtf8(holder.c_str());
+    ui->outputDisplay->append(qInput);
 }

@@ -20,14 +20,12 @@ SOURCES += \
     main.cpp \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
-    loginwindow.cpp \
-    socketmanager.cpp
+    loginwindow.cpp
 
 HEADERS += \
     ../core/CoreSettings.h \
     chatwindow.h \
-    loginwindow.h \
-    socketmanager.h
+    loginwindow.h
 
 FORMS += \
     chatwindow.ui \
