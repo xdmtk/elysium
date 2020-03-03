@@ -2,6 +2,7 @@
 #include <sys/socket.h>
 #include <cstring>
 
+#include "CommandManager.h"
 #include "ConnectionManager.h"
 #include "ClientConnection.h"
 #include "Logger.h"
@@ -14,10 +15,14 @@
  */
 
 ClientConnection::ClientConnection(int socketFd, Server *s) {
+
+    commandManager = new CommandManager(s);
+    server = s;
+
     alive = true;
     socketFileDescriptor = socketFd;
-    server = s;
     setClientConnectionConfiguration();
+
 }
 
 
@@ -32,10 +37,6 @@ void ClientConnection::mainClientServerLoop() {
 
     char buffer[C_BUFFER_SIZE] = {'\0'};
 
-    /* For the moment, our basic chat room will essentially act as a repeater/relay.
-     * Every message that comes in from a connected client will be relayed to all other
-     * connected clients */
-
     /* For this condition, receive the message, make sure the socket is open, and make sure the message
      * isnt empty */
     while (recv(socketFileDescriptor, buffer, sizeof(buffer), 0) != -1
@@ -43,12 +44,11 @@ void ClientConnection::mainClientServerLoop() {
 
         Logger::info("Received message from client: " + std::string(buffer));
 
-        /* Relay that message to all connected clients */
-        server->broadcastMessage(std::string(buffer));
+        /* Pass message to CommandManager for further action for client */
+        commandManager->handleMessageAndResponse(buffer);
 
         /* Clear out the buffer */
         clearReceiveBuffer(buffer);
-
     }
 
     /* If the message comes back blank, or the socket is closed, or recv() returns an error,
@@ -60,7 +60,7 @@ void ClientConnection::mainClientServerLoop() {
  * Called by the Server class to relay a message from another connected client
  * 'Overrides' to mainClientServerLoop in a way
  */
-void ClientConnection::relayMessage(std::string msg) {
+void ClientConnection::sendMessageToClient(std::string msg) {
     Logger::info("Sending message " + msg);
     send(socketFileDescriptor, msg.c_str(), msg.size(), 0);
 }

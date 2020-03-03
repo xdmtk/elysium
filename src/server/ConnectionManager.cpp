@@ -136,7 +136,7 @@ void ConnectionManager::broadcastMessageToClients(std::string msg) {
 
     // Iterate through the connected client list and send out the message
     for (auto client : connectedClientList)  {
-        client->relayMessage(msg);
+        client->sendMessageToClient(msg);
     }
 }
 
