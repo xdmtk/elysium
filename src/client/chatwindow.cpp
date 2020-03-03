@@ -5,7 +5,6 @@ ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
 {
-    socket = new QTcpSocket();
     ui->setupUi(this);
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
@@ -20,8 +19,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 
-    socket->connectToHost("elysium-project.net",6692);
-    connect(socket, &QTcpSocket::readyRead,this,&ChatWindow::display);
+    connect(&socket.tcpSocket,&QTcpSocket::readyRead,this,&ChatWindow::display);
 }
 
 ChatWindow::~ChatWindow(){
@@ -29,14 +27,10 @@ ChatWindow::~ChatWindow(){
 }
 
 void ChatWindow::on_inputDisplay_returnPressed(){
-   QString hosts[5] = {"daniel","erick","sebastian","nick","josh"};
    QString userInput;
-   ui->outputDisplay->append(hosts[2] + ": ");
    userInput = ui->inputDisplay->text();
    ui->inputDisplay->clear();
-   ui->outputDisplay->insertPlainText(userInput);
-   //std::string toServer = userInput.toStdString();
-   //socket->write(toServer.c_str());
+   socket.tcpSocket.write(userInput.toStdString().c_str());
 }
 
 void ChatWindow::on_actionLight_mode_triggered(){
@@ -65,7 +59,7 @@ void ChatWindow::display()
 {
     std::string holder;
     QString qInput;
-    holder = socket->readAll().toStdString();
+    holder = socket.tcpSocket.readAll().toStdString();
     qInput = QString::fromUtf8(holder.c_str());
     ui->outputDisplay->append(qInput);
 }

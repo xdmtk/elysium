@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QAbstractSocket>
 #include <QTcpSocket>
+#include "socketmanager.h"
 
 
 namespace Ui {
@@ -23,7 +24,8 @@ private slots:
     void display();
 private:
     Ui::ChatWindow *ui;
-    QTcpSocket *socket;
+    //QTcpSocket *socket;
+    SocketManager socket;
 
 };
 
