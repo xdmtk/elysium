@@ -6,6 +6,8 @@ class SocketManager
 {
 public:
     SocketManager();
+private:
+    friend class ChatWindow;
     QTcpSocket tcpSocket;
 };
 

@@ -24,7 +24,6 @@ private slots:
     void display();
 private:
     Ui::ChatWindow *ui;
-    //QTcpSocket *socket;
     SocketManager socket;
 
 };

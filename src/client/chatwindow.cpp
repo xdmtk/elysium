@@ -1,6 +1,11 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
 
+/*
+ * Constructor:
+ * Sets style of the ChatWindow up
+ * while making a connection to the server
+ */
 ChatWindow::ChatWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChatWindow)
@@ -25,14 +30,23 @@ ChatWindow::ChatWindow(QWidget *parent) :
 ChatWindow::~ChatWindow(){
     delete ui;
 }
-
+/*
+ * Slot function:
+ * After typing message in GUI and pressing enter this
+ * function is emmited in which it sends the data
+ * to the server
+ */
 void ChatWindow::on_inputDisplay_returnPressed(){
    QString userInput;
    userInput = ui->inputDisplay->text();
    ui->inputDisplay->clear();
    socket.tcpSocket.write(userInput.toStdString().c_str());
 }
-
+/*
+ * Slot function:
+ * This slot is emmited when the user clicks on light mode
+ * for the menubar of the GUI
+ */
 void ChatWindow::on_actionLight_mode_triggered(){
     ui->outputDisplay->setStyleSheet("background: white;"
                                      "color:black;");
@@ -43,7 +57,11 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                       "color:black;");
 
 }
-
+/*
+ * Slot function:
+ * This slot is emmited when the user clicks on dark mode
+ * from the menubar of the GUI
+ */
 void ChatWindow::on_actionDark_mode_triggered()
 {
     ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
@@ -54,7 +72,12 @@ void ChatWindow::on_actionDark_mode_triggered()
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 }
-
+/*
+ * Slot function:
+ * This slot is emmited when there is data avaible to be
+ * read from the server. It reads the data and then displays
+ * it to the ChatWindow GUI
+ */
 void ChatWindow::display()
 {
     std::string holder;
