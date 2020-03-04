@@ -1,18 +1,17 @@
 #ifndef SOCKETMANAGER_H
 #define SOCKETMANAGER_H
 #include <QTcpSocket>
-#include <QtDebug>
 
-
-class SocketManager{
+class SocketManager
+{
 public:
     SocketManager();
+    std::string readServerData();
+    void writeToServer(const char *data);
+    QTcpSocket *getSocket();
 
 private:
-   friend class ChatWindow;
-    void connect();
-    QTcpSocket *tcpSocket;
-
+    QTcpSocket tcpSocket;
 };
 
 #endif // SOCKETMANAGER_H
