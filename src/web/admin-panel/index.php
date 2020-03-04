@@ -17,7 +17,8 @@ function get_running_instances() {
 
     /* Iterate the lines */
     foreach ($ps_aux as $process_line) {
-
+	
+	//echo $process_line . "<br>";
         /* Explode into fields delimited by spaces */
         $ps_fields = explode( " ", $process_line);
 
@@ -25,15 +26,28 @@ function get_running_instances() {
         foreach ($ps_fields as $field) {
 
             /* If elysium-server is running, get the owner's username */
-            if ($field == "./elysium-server") {
-                $owner = $ps_fields[0];
+            if (strpos($field, "elysium-server") >= 0) {
+		    $owner = $ps_fields[0];
+
 		
                 /* xdmtk account runs the master instance */
-                if ($owner == "xdmtk") {
+                if (strpos($owner, "xdmtk") !== false) {
                     $owner = "master";
 		}
-		else if (strpos($owner, "seb") >= 0) {
+		else if (strpos($owner, "seb") !== false) {
 		    $owner = "sebastian";
+		}
+		else if (strpos($owner, "josh") !== false) {
+		    $owner = "josh";
+		}
+		else if (strpos($owner, "nick") !== false) {
+		    $owner = "nick";
+		}
+		else if (strpos($owner, "erick") !== false) {
+		    $owner = "erick";
+		}
+		else if (strpos($owner, "daniel") !== false) {
+		    $owner = "daniel";
 		}
                 /* Set the instance k/v true if found */
                 $running_instances[$owner] = true;
@@ -43,6 +57,7 @@ function get_running_instances() {
 
     return $running_instances;
 }
+
 
 function get_log_data() {
 
@@ -633,3 +648,6 @@ function outputLogData(user) {
 
     </div>
 </div>
+<?php 
+get_running_instances();
+?>
