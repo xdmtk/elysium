@@ -9,7 +9,7 @@ function get_running_instances() {
         'erick' => false,
         'josh' => false,
         'nick' => false,
-        'sebasti+' => false,
+        'sebastian' => false,
     ];
 
     /* Get the output of ps aux and separate into output lines */
@@ -27,12 +27,14 @@ function get_running_instances() {
             /* If elysium-server is running, get the owner's username */
             if ($field == "./elysium-server") {
                 $owner = $ps_fields[0];
-
+		
                 /* xdmtk account runs the master instance */
                 if ($owner == "xdmtk") {
                     $owner = "master";
-                }
-
+		}
+		else if (strpos($owner, "seb") >= 0) {
+		    $owner = "sebastian";
+		}
                 /* Set the instance k/v true if found */
                 $running_instances[$owner] = true;
             }
