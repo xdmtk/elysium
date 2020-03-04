@@ -9,7 +9,7 @@ function get_running_instances() {
         'erick' => false,
         'josh' => false,
         'nick' => false,
-        'sebastian' => false,
+        'sebasti+' => false,
     ];
 
     /* Get the output of ps aux and separate into output lines */
