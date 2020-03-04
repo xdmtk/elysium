@@ -24,7 +24,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 
-    connect(&socket.tcpSocket,&QTcpSocket::readyRead,this,&ChatWindow::display);
+    connect(socket.getSocket(),&QTcpSocket::readyRead,this,&ChatWindow::display);
 }
 
 ChatWindow::~ChatWindow(){
@@ -40,7 +40,7 @@ void ChatWindow::on_inputDisplay_returnPressed(){
    QString userInput;
    userInput = ui->inputDisplay->text();
    ui->inputDisplay->clear();
-   socket.tcpSocket.write(userInput.toStdString().c_str());
+   socket.writeToServer(userInput.toStdString().c_str());
 }
 /*
  * Slot function:
@@ -82,7 +82,7 @@ void ChatWindow::display()
 {
     std::string holder;
     QString qInput;
-    holder = socket.tcpSocket.readAll().toStdString();
+    holder = socket.readServerData();
     qInput = QString::fromUtf8(holder.c_str());
     ui->outputDisplay->append(qInput);
 }

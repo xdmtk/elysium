@@ -12,6 +12,33 @@ SocketManager::SocketManager()
         qDebug() << "Connected!";
     }
     else{
-        qDebug() << "Not Connected!";
+        qDebug() << "Not Connected-->" + tcpSocket.errorString();
+        qDebug() << tcpSocket.error();
     }
 }
+
+/*
+ * Get function:
+ * Returns the data from the server as a std::string
+ */
+std::string SocketManager::readServerData(){
+    return tcpSocket.readAll().toStdString();
+}
+
+/*
+ * Write function:
+ * Gets data through parameter in which is then sent to server
+ */
+void SocketManager::writeToServer(const char *data){
+    tcpSocket.write(data);
+}
+
+/*
+ * Get function:
+ * Returns the member variable tcpSocket
+ */
+QTcpSocket *SocketManager::getSocket(){
+    return &tcpSocket;
+}
+
+
