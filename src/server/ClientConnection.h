@@ -12,6 +12,7 @@ public:
     void sendMessageToClient(std::string msg);
     void mainClientServerLoop();
     void setUsername(std::string u);
+    std::string getUsername();
     bool isAlive();
 private:
 

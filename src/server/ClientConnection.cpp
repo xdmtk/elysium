@@ -99,3 +99,7 @@ void ClientConnection::clearReceiveBuffer(char * buffer) {
 void ClientConnection::setUsername(std::string u) {
     username = u;
 }
+
+std::string ClientConnection::getUsername() {
+    return username;
+}

@@ -1,5 +1,5 @@
 #include "CommandManager.h"
-
+#include "ClientConnection.h"
 #include <utility>
 #include "Server.h"
 
@@ -27,7 +27,8 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             sendNormalMessageToAllClients();
             break;
         case CoreSettings::Protocol::ServerSetUsername:
-
+            setClientUsername();
+            break;
         case CoreSettings::Protocol::NoOperation:
         default:
             break;
@@ -49,6 +50,10 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
 
 
 void CommandManager::sendNormalMessageToAllClients() {
+    incomingMessage = clientConnection->getUsername() + ": " + incomingMessage;
     server->broadcastMessage(incomingMessage);
 }
 
+void CommandManager::setClientUsername() {
+    clientConnection->setUsername(incomingMessage);
+}
