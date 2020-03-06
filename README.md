@@ -2,7 +2,7 @@
 
 All documentation in GitLab Wiki. Local markdown copies and flow charts located in `doc/`
 
-**Website**: https://elysium-project.net
+**Website**: https://elysium-project.net <br>
 **Administration Panel**: https://elysium-project.net/admin
 
 ### General Information
