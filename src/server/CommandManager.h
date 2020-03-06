@@ -1,5 +1,6 @@
 #ifndef ELYSIUM_SERVER_COMMANDMANAGER_H
 #define ELYSIUM_SERVER_COMMANDMANAGER_H
+#include "../core/CoreSettings.h"
 #include <string>
 #include <map>
 
@@ -8,12 +9,11 @@ class CommandManager {
 public:
     CommandManager(Server * s);
     void handleMessageAndResponse(std::string msg);
-    enum ServerResponse {BroadcastMessage, ExampleResponse1, ExampleResponse2};
 
 private:
     Server * server;
     std::string incomingMessage;
-    ServerResponse determineServerResponse();
+    CoreSettings::Protocol determineServerResponse();
     void sendNormalMessageToAllClients();
 
 };

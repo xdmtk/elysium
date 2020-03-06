@@ -16,6 +16,11 @@ public:
     enum ConfigEnvironment {
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
     };
+    enum Protocol {
+        NoOperation,
+        ServerBroadcastMessage,
+        ClientNormalMessage
+    };
 
     std::string getHostName();
     int getPortNumber();
