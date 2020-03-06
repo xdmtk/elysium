@@ -1,13 +1,16 @@
 #include "socketmanager.h"
+#include "../core/CoreSettings.h"
+#include <QString>
 
 /*
  * Constructor:
  * Connects to host and displays message based on connection
  * waitForConnected parameter is in millieseconds
  */
-SocketManager::SocketManager()
-{
-    tcpSocket.connectToHost("elysium-project.net",6692);
+SocketManager::SocketManager(ChatWindow * cw) {
+
+    chatWindow = cw;
+    tcpSocket.connectToHost("elysium-project.net",6886);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
     }
@@ -29,8 +32,16 @@ std::string SocketManager::readServerData(){
  * Write function:
  * Gets data through parameter in which is then sent to server
  */
-void SocketManager::writeToServer(const char *data){
-    tcpSocket.write(data);
+void SocketManager::writeToServer(QString data) {
+    tcpSocket.write(data.toStdString().c_str());
+}
+
+void SocketManager::sendBasicChatMessage(QString msg) {
+
+   QString msgToSend;
+   msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
+   msgToSend.append(msg);
+   writeToServer(msgToSend);
 }
 
 /*

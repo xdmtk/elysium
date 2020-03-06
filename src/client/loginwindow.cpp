@@ -28,16 +28,10 @@ LoginWindow::~LoginWindow(){
  * ChatWindow upon success
  */
 void LoginWindow::on_pushButton_clicked(){
-    QString username = ui->lineEdit_username->text();
-    QString password = ui->lineEdit_password->text();
 
-    if(username == "test" && password == "test"){
-        chatGui = new ChatWindow(this);
-        this->close();
-        chatGui->show();
-    }
-    else{
+    chatGui = new ChatWindow(this);
+    chatGui->setUsername(ui->lineEdit_username->text());
+    chatGui->show();
 
-        QMessageBox::warning(this,"pushButton_login","Username and password is not correct");
-    }
+    this->close();
 }

@@ -16,6 +16,10 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
+
+    QString getUsername() {return username;}
+    void setUsername(QString u) {username = u;}
+
     ~ChatWindow();
 private slots:
     void on_inputDisplay_returnPressed();
@@ -24,7 +28,8 @@ private slots:
     void display();
 private:
     Ui::ChatWindow *ui;
-    SocketManager socket;
+    SocketManager * socket;
+    QString username;
 
 };
 
