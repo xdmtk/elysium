@@ -11,10 +11,13 @@ public:
 
     void sendMessageToClient(std::string msg);
     void mainClientServerLoop();
+    void setUsername(std::string u);
     bool isAlive();
 private:
 
     int socketFileDescriptor, bufferSize, alive;
+    std::string username;
+
     Server * server;
     CommandManager * commandManager;
 

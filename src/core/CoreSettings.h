@@ -19,7 +19,8 @@ public:
     enum Protocol {
         NoOperation,
         ServerBroadcastMessage,
-        ClientNormalMessage
+        ClientNormalMessage,
+        ServerSetUsername
     };
 
     std::string getHostName();

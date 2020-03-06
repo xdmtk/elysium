@@ -16,9 +16,10 @@
 
 ClientConnection::ClientConnection(int socketFd, Server *s) {
 
-    commandManager = new CommandManager(s);
+    commandManager = new CommandManager(s, this);
     server = s;
 
+    username = "Anonymous";
     alive = true;
     socketFileDescriptor = socketFd;
     setClientConnectionConfiguration();
@@ -89,4 +90,12 @@ bool ClientConnection::isAlive() {
  */
 void ClientConnection::clearReceiveBuffer(char * buffer) {
     for (int i = 0; i < C_BUFFER_SIZE; ++i) buffer[i] = '\0';
+}
+
+/**
+ * Set function for class variable username
+ * @param u
+ */
+void ClientConnection::setUsername(std::string u) {
+    username = u;
 }

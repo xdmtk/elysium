@@ -3,8 +3,9 @@
 #include <utility>
 #include "Server.h"
 
-CommandManager::CommandManager(Server * s) {
+CommandManager::CommandManager(Server *s, ClientConnection *c) {
     server = s;
+    clientConnection = c;
 }
 
 
@@ -24,6 +25,9 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
     switch (response) {
         case CoreSettings::Protocol::ServerBroadcastMessage:
             sendNormalMessageToAllClients();
+            break;
+        case CoreSettings::Protocol::ServerSetUsername:
+
         case CoreSettings::Protocol::NoOperation:
         default:
             break;
@@ -35,7 +39,12 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
     /* Pluck the first character of the message and use the byte value
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
-    return static_cast<CoreSettings::Protocol>(incomingMessage[0]);
+    auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(incomingMessage[0]);
+
+    /* Strip that character from the message */
+    incomingMessage = incomingMessage.substr(1);
+
+    return messageProtocolIdentifier;
 }
 
 
