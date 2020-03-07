@@ -5,6 +5,7 @@
 
 Server::Server(){
     Logger::info("Starting server");
+    Logger::info(Logger::getLatestBuildCommit());
     coreSettings = new CoreSettings(this);
     signalManager = new SignalManager(this);
     connectionManager = new ConnectionManager(this);
