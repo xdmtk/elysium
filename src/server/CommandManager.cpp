@@ -1,5 +1,6 @@
 #include "CommandManager.h"
 #include "ClientConnection.h"
+#include "Logger.h"
 #include <utility>
 #include "Server.h"
 
@@ -24,13 +25,18 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
     /* Use this switch to form and send the correct server response */
     switch (response) {
         case CoreSettings::Protocol::ServerBroadcastMessage:
+            Logger::info("Received ServerBroadcastMessage protocol indicator");
             sendNormalMessageToAllClients();
             break;
         case CoreSettings::Protocol::ServerSetUsername:
+            Logger::info("Received ServerSetUsername protocol indicator");
             setClientUsername();
             break;
         case CoreSettings::Protocol::NoOperation:
+            Logger::info("Received NoOperation protocol indicator");
+            break;
         default:
+            Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
             break;
     }
 }
@@ -55,5 +61,7 @@ void CommandManager::sendNormalMessageToAllClients() {
 }
 
 void CommandManager::setClientUsername() {
+    Logger::info("Setting client username from " + clientConnection->getUsername() +
+        " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
 }

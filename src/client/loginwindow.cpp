@@ -33,5 +33,5 @@ void LoginWindow::on_pushButton_clicked(){
     chatGui->setUsername(ui->lineEdit_username->text());
     chatGui->show();
 
-    this->close();
+    this->hide();
 }
