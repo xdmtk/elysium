@@ -18,7 +18,7 @@ public:
     explicit ChatWindow(QWidget *parent = nullptr);
 
     QString getUsername() {return username;}
-    void setUsername(QString u) {username = u;}
+    void setUsername(QString u);
 
     ~ChatWindow();
 private slots:

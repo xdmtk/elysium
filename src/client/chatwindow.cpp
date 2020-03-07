@@ -28,6 +28,11 @@ ChatWindow::ChatWindow(QWidget *parent) :
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
 }
 
+void ChatWindow::setUsername(QString u) {
+    username = u;
+    socket->setUsernameOnServer(username);
+}
+
 ChatWindow::~ChatWindow(){
     delete ui;
 }

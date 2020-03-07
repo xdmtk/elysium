@@ -1,3 +1,4 @@
+#include "chatwindow.h"
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
 #include <QString>
@@ -34,6 +35,13 @@ std::string SocketManager::readServerData(){
  */
 void SocketManager::writeToServer(QString data) {
     tcpSocket.write(data.toStdString().c_str());
+}
+
+void SocketManager::setUsernameOnServer(QString username) {
+    QString msgToSend;
+    msgToSend.append(CoreSettings::Protocol::ServerSetUsername);
+    msgToSend.append(username);
+    writeToServer(msgToSend);
 }
 
 void SocketManager::sendBasicChatMessage(QString msg) {

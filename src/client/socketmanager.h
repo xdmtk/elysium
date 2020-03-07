@@ -9,6 +9,7 @@ public:
     SocketManager(ChatWindow * cw);
     std::string readServerData();
     void sendBasicChatMessage(QString msg);
+    void setUsernameOnServer(QString username);
     QTcpSocket *getSocket();
 
 private:
