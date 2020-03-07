@@ -29,9 +29,19 @@ LoginWindow::~LoginWindow(){
  */
 void LoginWindow::on_pushButton_clicked(){
 
-    chatGui = new ChatWindow(this);
-    chatGui->setUsername(ui->lineEdit_username->text());
-    chatGui->show();
+    /* Need to enter a username to initiate connection to server */
+    if (ui->lineEdit_username->text().length()) {
+        chatGui = new ChatWindow(this);
+        chatGui->setUsername(ui->lineEdit_username->text());
+        chatGui->show();
 
-    this->hide();
+        this->hide();
+    }
+    else {
+        ui->lineEdit_username->setStyleSheet(ui->lineEdit_username->styleSheet()
+                                             + "border: 1px solid red;");
+        QMessageBox alert;
+        alert.setText("Please set a username!");
+        alert.exec();
+    }
 }
