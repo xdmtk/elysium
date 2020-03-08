@@ -14,7 +14,7 @@ SocketManager::SocketManager(ChatWindow * cw) {
     chatWindow = cw;
 
     /* Attempt to connect to the server */
-    tcpSocket.connectToHost("elysium-project.net",6886);
+    tcpSocket.connectToHost("elysium-project.net",6692);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
     }
