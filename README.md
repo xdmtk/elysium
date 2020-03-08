@@ -2,8 +2,12 @@
 
 All documentation in GitLab Wiki. Local markdown copies and flow charts located in `doc/`
 
+**Website**: https://elysium-project.net <br>
+**Administration Panel**: https://elysium-project.net/admin
+
 ### General Information
 * [Code Styles](https://gitlab.com/csun380spring2020/elysium/-/wikis/Code%20Styles)
+* [Architecture](https://gitlab.com/csun380spring2020/elysium/-/wikis/Architecture-Overview)
 * [Git Guidelines](https://gitlab.com/csun380spring2020/elysium/-/wikis/Git%20Guidelines)
 * [Tips](https://gitlab.com/csun380spring2020/elysium/-/wikis/Tips)
 
