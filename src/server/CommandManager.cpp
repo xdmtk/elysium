@@ -41,6 +41,14 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
     }
 }
 
+
+/**
+ *
+ * Called to operate on the raw incoming message from the client. Analyzes
+ * the first byte in the message, strips it from the message, and 
+ * returns that byte casted into a Protocol enumeration 
+ *
+ */
 CoreSettings::Protocol CommandManager::determineServerResponse() {
 
     /* Pluck the first character of the message and use the byte value
@@ -55,11 +63,28 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
 }
 
 
+/**
+ * A response function called when the Protocol indicator is 
+ * Protocol::ServerBroadcastMessage. 
+ *
+ * Prepends the username for this particular client and calls server->BroadcastMessage()
+ * to send out a "Username: Message" style message to all connected clients 
+ */
 void CommandManager::sendNormalMessageToAllClients() {
     incomingMessage = clientConnection->getUsername() + ": " + incomingMessage;
     server->broadcastMessage(incomingMessage);
 }
 
+
+/**
+ * A response function called when the Protocol indicator is 
+ * Protocol::ServerSetUsername
+ *
+ * After the Protocol indicator has been stripped, the only string left in
+ * incomingMessage is the username the client intends to set itself to. 
+ *
+ * Calls clientConnection->setUsername to modify the username class variable
+ */
 void CommandManager::setClientUsername() {
     Logger::info("Setting client username from " + clientConnection->getUsername() +
         " to " + incomingMessage);
