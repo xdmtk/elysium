@@ -68,6 +68,11 @@ void CommandManager::setClientUsername() {
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
 }
+/*
+ * When TypingIndicator protocol is recieved this sends a message
+ * via server to ConnectionManager which in turn uses broadcast
+ * message to clients.
+ */
 void CommandManager::sendTypingIndicator(){
     Logger::info("Sending typing indicator");
     server->sendTypingIndicator();

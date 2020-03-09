@@ -43,7 +43,11 @@ void SocketManager::setUsernameOnServer(QString username) {
     msgToSend.append(username);
     writeToServer(msgToSend);
 }
-
+/*
+ * Write function:
+ * Gets the protocol that someone is typing and sends
+ * off to server
+ */
 void SocketManager::sendTypingIndicator()
 {
     QString msgToSend;

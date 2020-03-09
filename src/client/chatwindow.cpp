@@ -23,6 +23,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
+    ui->typingIndicator->setStyleSheet("color:green");
 
     socket = new SocketManager(this);
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
@@ -87,14 +88,24 @@ void ChatWindow::display() {
     holder = socket->readServerData();
     if(holder == "TI "){
         qDebug() << "Someone is typing";
+        ui->outputDisplay->append("TI");
+        ui->typingIndicator->setText("Typing");
     }
     else{
         qInput = QString::fromUtf8(holder.c_str());
         ui->outputDisplay->append(qInput);
+        ui->typingIndicator->setText("");
+
     }
 
 }
-
+/*
+ * Slot function:
+ * This slot is emited when someone is typing but hasn't hit
+ * the return key. This sends a protocol to the server in which
+ * can be broadcasted to all other clients indicating someone
+ * is typing
+ */
 void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
 {
     qDebug() << "working" + arg1;
