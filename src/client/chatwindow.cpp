@@ -88,8 +88,7 @@ void ChatWindow::display() {
     holder = socket->readServerData();
     if(holder == "TI "){
         qDebug() << "Someone is typing";
-        ui->outputDisplay->append("TI");
-        ui->typingIndicator->setText("Typing");
+        ui->typingIndicator->setText("Someone's Typing ...");
     }
     else{
         qInput = QString::fromUtf8(holder.c_str());
