@@ -123,14 +123,15 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
  */
 void ChatWindow::on_inputDisplay_editingFinished()
 {
-    if(!(ui->typingIndicator->hasFocus())){
-        socket->sendNoTypingIndicator();
-       // socket->sendBasicChatMessage(ui->inputDisplay->text());
-        //ui->inputDisplay->clear();
+    QString text = ui->inputDisplay->text();
+    text.contains("\n");
+    if(text.contains("\n")){
+       socket->sendBasicChatMessage(ui->inputDisplay->text());
+        ui->inputDisplay->clear();
     }
     else{
-        socket->sendBasicChatMessage(ui->inputDisplay->text());
-        ui->inputDisplay->clear();
+        socket->sendNoTypingIndicator();
+
     }
 
 }
