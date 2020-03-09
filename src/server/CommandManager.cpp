@@ -70,5 +70,6 @@ void CommandManager::setClientUsername() {
 }
 void CommandManager::sendTypingIndicator(){
     Logger::info("Sending typing indicator");
+    server->sendTypingIndicator();
 
 }

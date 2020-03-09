@@ -85,8 +85,14 @@ void ChatWindow::display() {
     std::string holder;
     QString qInput;
     holder = socket->readServerData();
-    qInput = QString::fromUtf8(holder.c_str());
-    ui->outputDisplay->append(qInput);
+    if(holder == "TI "){
+        qDebug() << "Someone is typing";
+    }
+    else{
+        qInput = QString::fromUtf8(holder.c_str());
+        ui->outputDisplay->append(qInput);
+    }
+
 }
 
 void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
