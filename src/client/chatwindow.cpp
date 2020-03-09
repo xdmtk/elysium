@@ -124,8 +124,9 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
 void ChatWindow::on_inputDisplay_editingFinished()
 {
     if(!(ui->typingIndicator->hasFocus())){
-        socket->sendBasicChatMessage(ui->inputDisplay->text());
-        ui->inputDisplay->clear();
+        socket->sendNoTypingIndicator();
+       // socket->sendBasicChatMessage(ui->inputDisplay->text());
+        //ui->inputDisplay->clear();
     }
 
 }
