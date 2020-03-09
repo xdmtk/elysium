@@ -22,7 +22,7 @@ public:
 
     ~ChatWindow();
 private slots:
-    void on_inputDisplay_returnPressed();
+    //void on_inputDisplay_returnPressed();
     void on_actionLight_mode_triggered();
     void on_actionDark_mode_triggered();
     void display();

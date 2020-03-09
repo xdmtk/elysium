@@ -43,10 +43,10 @@ ChatWindow::~ChatWindow(){
  * function is emmited in which it sends the data
  * to the server
  */
-void ChatWindow::on_inputDisplay_returnPressed(){
-   socket->sendBasicChatMessage(ui->inputDisplay->text());
-   ui->inputDisplay->clear();
-}
+//void ChatWindow::on_inputDisplay_returnPressed(){
+//   socket->sendBasicChatMessage(ui->inputDisplay->text());
+//   ui->inputDisplay->clear();
+//}
 /*
  * Slot function:
  * This slot is emmited when the user clicks on light mode
@@ -127,6 +127,10 @@ void ChatWindow::on_inputDisplay_editingFinished()
         socket->sendNoTypingIndicator();
        // socket->sendBasicChatMessage(ui->inputDisplay->text());
         //ui->inputDisplay->clear();
+    }
+    else{
+        socket->sendBasicChatMessage(ui->inputDisplay->text());
+        ui->inputDisplay->clear();
     }
 
 }
