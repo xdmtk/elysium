@@ -549,10 +549,12 @@ const logData = <?php echo json_encode(get_log_data()) ?>;
 function outputLogData(user) {
 	
 	const outputArea = document.getElementById('log-output');
+	let outputAreaStr = "";
 	outputArea.innerHTML = "";
 	for (var i = 0; i < logData[user].length; i++) {
-		outputArea.innerHTML = outputArea.innerHTML + logData[user][i] + "<br>";
+		outputAreaStr = outputAreaStr + logData[user][i] + "<br>";
 	}
+	outputArea.innerHTML = outputAreaStr;
 }
 
 
