@@ -143,7 +143,9 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
  */
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2)
 {
-    if(arg2 == 0)
+    if(arg2 == 0){
+        qDebug() << "cursor position == 0";
         socket->sendNoTypingIndicator();
+    }
 
 }
