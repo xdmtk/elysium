@@ -146,11 +146,12 @@ void ChatWindow::display() {
 //Its getting changed when enter key is pressed
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2)
 {
-    if(arg2 == 0 && (ui->inputDisplay->text().contains('\n'))){
-        qDebug() << "cursor position == 0";
+    if(arg2 == 0){
+        qDebug() << "arg2 == 0";
         socket->sendNoTypingIndicator();
     }
     else if(arg1 == 0){
+        qDebug() << "arg1 == 0";
         socket->sendTypingIndicator();
     }
 
