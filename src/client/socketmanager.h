@@ -10,6 +10,7 @@ public:
     std::string readServerData();
     void sendBasicChatMessage(QString msg);
     void setUsernameOnServer(QString username);
+    void sendTypingIndicator();
     QTcpSocket *getSocket();
 
 private:

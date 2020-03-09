@@ -88,3 +88,10 @@ void ChatWindow::display() {
     qInput = QString::fromUtf8(holder.c_str());
     ui->outputDisplay->append(qInput);
 }
+
+void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
+{
+    qDebug() << "working" + arg1;
+    socket->sendTypingIndicator();
+
+}

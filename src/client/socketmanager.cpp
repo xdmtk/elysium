@@ -11,7 +11,7 @@
 SocketManager::SocketManager(ChatWindow * cw) {
 
     chatWindow = cw;
-    tcpSocket.connectToHost("elysium-project.net",6886);
+    tcpSocket.connectToHost("elysium-project.net",6885);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
     }
@@ -42,6 +42,14 @@ void SocketManager::setUsernameOnServer(QString username) {
     msgToSend.append(CoreSettings::Protocol::ServerSetUsername);
     msgToSend.append(username);
     writeToServer(msgToSend);
+}
+
+void SocketManager::sendTypingIndicator()
+{
+    QString msgToSend;
+    msgToSend.append(CoreSettings::Protocol::TypingIndicator);
+    writeToServer(msgToSend);
+
 }
 
 void SocketManager::sendBasicChatMessage(QString msg) {

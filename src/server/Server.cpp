@@ -20,6 +20,10 @@ void Server::broadcastMessage(std::string msg) {
     connectionManager->broadcastMessageToClients(msg);
 }
 
+void Server::sendTypingIndicator(){
+    connectionManager->broadcastMessageToClients("TI ");
+}
+
 /**
  * Expose the SignalManager for the server
  * @return - Pointer to the SignalManager
