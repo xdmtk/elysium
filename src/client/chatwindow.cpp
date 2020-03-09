@@ -43,10 +43,10 @@ ChatWindow::~ChatWindow(){
  * function is emmited in which it sends the data
  * to the server
  */
-//void ChatWindow::on_inputDisplay_returnPressed(){
-//   socket->sendBasicChatMessage(ui->inputDisplay->text());
-//   ui->inputDisplay->clear();
-//}
+void ChatWindow::on_inputDisplay_returnPressed(){
+   socket->sendBasicChatMessage(ui->inputDisplay->text());
+   ui->inputDisplay->clear();
+}
 /*
  * Slot function:
  * This slot is emmited when the user clicks on light mode
@@ -121,17 +121,29 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
  * this will then send a signal to cancel typing indicator
  * hasfocus() returns true when in focused
  */
-void ChatWindow::on_inputDisplay_editingFinished()
-{
-    QString text = ui->inputDisplay->text();
-    text.contains("\n");
-    if(text.contains("\n")){
-       socket->sendBasicChatMessage(ui->inputDisplay->text());
-        ui->inputDisplay->clear();
-    }
-    else{
-        socket->sendNoTypingIndicator();
+//void ChatWindow::on_inputDisplay_editingFinished()
+//{
+//    QString text = ui->inputDisplay->text();
+//    text.contains("\n");
+//    if(text.contains("\n")){
+//       socket->sendBasicChatMessage(ui->inputDisplay->text());
+//        ui->inputDisplay->clear();
+//    }
+//    else{
+//        socket->sendNoTypingIndicator();
 
-    }
+//    }
+
+//}
+/*
+ * Slot function:
+ * This slot is emited when someone changes cursor position
+ * It is being used a notype indicator.
+ * when cursorposition reaches 0 signal notype indicator
+ */
+void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2)
+{
+    if(arg2 == 0)
+        socket->sendNoTypingIndicator();
 
 }
