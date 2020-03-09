@@ -84,8 +84,10 @@ void ChatWindow::on_actionDark_mode_triggered() {
  */
 void ChatWindow::display() {
     std::string holder;
-    QString qInput;
+    QString qInput,output;
     holder = socket->readServerData();
+    output = QString::fromUtf8(holder.c_str());
+    qDebug() << "Incoming message: " + output;
     if(holder == "TI "){
         ui->typingIndicator->setText("Someone's Typing ...");
     }
@@ -107,12 +109,12 @@ void ChatWindow::display() {
  * can be broadcasted to all other clients indicating someone
  * is typing
  */
-void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
-{
-    qDebug() << "working" + arg1;
-    socket->sendTypingIndicator();
+//void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
+//{
+//    qDebug() << "working" + arg1;
+//    socket->sendTypingIndicator();
 
-}
+//}
 
 /*
  * Slot function:
@@ -141,11 +143,15 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
  * It is being used a notype indicator.
  * when cursorposition reaches 0 signal notype indicator
  */
+//Its getting changed when enter key is pressed
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2)
 {
-    if(arg2 == 0){
+    if(arg2 == 0 && (ui->inputDisplay->text().contains('\n'))){
         qDebug() << "cursor position == 0";
         socket->sendNoTypingIndicator();
+    }
+    else if(arg1 == 0){
+        socket->sendTypingIndicator();
     }
 
 }
