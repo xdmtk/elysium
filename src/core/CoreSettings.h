@@ -21,7 +21,8 @@ public:
         ServerBroadcastMessage,
         ClientNormalMessage,
         ServerSetUsername,
-        TypingIndicator
+        TypingIndicator,
+        NoTyping
     };
 
     std::string getHostName();

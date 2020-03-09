@@ -18,6 +18,7 @@ private:
     CoreSettings::Protocol determineServerResponse();
     void sendNormalMessageToAllClients();
     void sendTypingIndicator();
+    void sendNoTypingIndicator();
     void setClientUsername();
 };
 

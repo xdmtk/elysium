@@ -28,6 +28,8 @@ private slots:
     void display();
     void on_inputDisplay_textChanged(const QString &arg1);
 
+    void on_inputDisplay_editingFinished();
+
 private:
     Ui::ChatWindow *ui;
     SocketManager * socket;

@@ -38,6 +38,9 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
         case CoreSettings::Protocol::TypingIndicator:
             Logger::info("Received TypingIndicator protocol indicator");
             sendTypingIndicator();
+        case CoreSettings::Protocol::NoTyping:
+            Logger::info("Received NoTyping protocol indicator");
+            sendNoTypingIndicator();
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
             break;
@@ -75,6 +78,10 @@ void CommandManager::setClientUsername() {
  */
 void CommandManager::sendTypingIndicator(){
     Logger::info("Sending typing indicator");
-    server->sendTypingIndicator();
+    server->sendTypingIndicator(clientConnection->getUsername());
 
+}
+void CommandManager::sendNoTypingIndicator() {
+    Logger::info("Sending no type indicator");
+    server->sendNoTypingIndicator();
 }

@@ -87,8 +87,10 @@ void ChatWindow::display() {
     QString qInput;
     holder = socket->readServerData();
     if(holder == "TI "){
-        qDebug() << "Someone is typing";
         ui->typingIndicator->setText("Someone's Typing ...");
+    }
+    else if(holder == "NT"){
+        ui->typingIndicator->setText("");
     }
     else{
         qInput = QString::fromUtf8(holder.c_str());
@@ -109,5 +111,21 @@ void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
 {
     qDebug() << "working" + arg1;
     socket->sendTypingIndicator();
+
+}
+
+/*
+ * Slot function:
+ * This slot is emited when someone stops editing or return key is pressed
+ * I use hasfocus() to only send messages when someone has stopped typing
+ * this will then send a signal to cancel typing indicator
+ * hasfocus() returns true when in focused
+ */
+void ChatWindow::on_inputDisplay_editingFinished()
+{
+    if(!(ui->typingIndicator->hasFocus())){
+        socket->sendBasicChatMessage(ui->inputDisplay->text());
+        ui->inputDisplay->clear();
+    }
 
 }
