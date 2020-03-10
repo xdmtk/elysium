@@ -1,5 +1,7 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
+#include "../core/CoreSettings.h"
+
 
 /*
  * Constructor:
@@ -84,27 +86,48 @@ void ChatWindow::on_actionDark_mode_triggered() {
  */
 void ChatWindow::display() {
     std::string holder,temp,some;
-    QString qInput,output,userName;
+    QString qInput,output,userName,other;
+
     temp = socket->readServerData();
-    if(temp.length() >= 3){
-        holder = temp.substr(0,temp.find(" "));
+    CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
+    temp = temp.substr(1);
 
-    some = temp.substr(3,temp.length()-1);
-    userName = QString::fromStdString(some);
-    qDebug() << userName;
-    if(holder == "TI"){
-        ui->typingIndicator->setText(userName + " is typing ...");
-    }
-    else if(holder == "NT"){
-        ui->typingIndicator->setText("");
-    }
-    else{
-        qInput = QString::fromUtf8(temp.c_str());
-        ui->outputDisplay->append(qInput);
-        ui->typingIndicator->setText("");
+    switch (response){
+        case CoreSettings::Protocol::ServerBroadcastMessage:
+            qInput = QString::fromUtf8(temp.c_str());
+            ui->outputDisplay->append(qInput);
+            ui->typingIndicator->setText("");
+            break;
+        case CoreSettings::Protocol::TypingIndicator:
+            userName = QString::fromStdString(temp);
+            ui->typingIndicator->setText(userName + " is typing...");
+            break;
+    case CoreSettings::Protocol::NoTyping:
+            ui->typingIndicator->setText("");
+            break;
 
-    }   
-  }
+
+    }
+    //seperate function
+//    if(temp.length() >= 3){
+//        holder = temp.substr(0,temp.find(" "));
+//    some = temp.substr(3,temp.length()-1);
+//    userName = QString::fromStdString(some);
+   // qDebug() << userName;
+
+//    if(holder == "TI"){
+//        ui->typingIndicator->setText(userName + " is typing ...");
+//    }
+//    else if(holder == "NT"){
+//        ui->typingIndicator->setText("");
+//    }
+//    else{
+//        qInput = QString::fromUtf8(temp.c_str());
+//        ui->outputDisplay->append(qInput);
+//        ui->typingIndicator->setText("");
+
+//    }
+ // }
 
 }
 

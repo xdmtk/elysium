@@ -54,6 +54,7 @@ void SocketManager::sendTypingIndicator()
     msgToSend.append(CoreSettings::Protocol::TypingIndicator);
     writeToServer(msgToSend);
 
+
 }
 
 void SocketManager::sendNoTypingIndicator()

@@ -37,11 +37,11 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             break;
         case CoreSettings::Protocol::TypingIndicator:
             Logger::info("Received TypingIndicator protocol indicator");
-            sendTypingIndicator(clientConnection->getUsername());
+            sendTypingIndicator();
             break;
         case CoreSettings::Protocol::NoTyping:
             Logger::info("Received NoTyping protocol indicator");
-            sendNoTypingIndicator(clientConnection->getUsername());
+            sendNoTypingIndicator();
             break;
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
@@ -55,16 +55,15 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
     auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(incomingMessage[0]);
-
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
-
     return messageProtocolIdentifier;
 }
 
 
 void CommandManager::sendNormalMessageToAllClients() {
-    incomingMessage = clientConnection->getUsername() + ": " + incomingMessage;
+    incomingMessage = "1" + clientConnection->getUsername() + ": " + incomingMessage;
+    //incomingMessage.append(clientConnection->getUsername() + ": " + incomingMessage);
     server->broadcastMessage(incomingMessage);
 }
 
@@ -78,12 +77,16 @@ void CommandManager::setClientUsername() {
  * via server to ConnectionManager which in turn uses broadcast
  * message to clients.
  */
-void CommandManager::sendTypingIndicator(std::string userName){
+void CommandManager::sendTypingIndicator(){
+    incomingMessage = (CoreSettings::Protocol::TypingIndicator);
+    incomingMessage.append(clientConnection->getUsername());
     Logger::info("Sending typing indicator");
-    server->sendTypingIndicator(userName);
+    server->sendTypingIndicator(incomingMessage);
 
 }
-void CommandManager::sendNoTypingIndicator(std::string userName) {
+void CommandManager::sendNoTypingIndicator() {
     Logger::info("Sending no type indicator");
-    server->sendNoTypingIndicator(userName);
+    incomingMessage = (CoreSettings::Protocol::NoTyping);
+    incomingMessage.append(clientConnection->getUsername());
+    server->sendNoTypingIndicator(incomingMessage);
 }
