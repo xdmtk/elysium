@@ -84,21 +84,28 @@ void ChatWindow::on_actionDark_mode_triggered() {
  */
 void ChatWindow::display() {
     std::string holder,temp,some;
-    QString qInput,output;
+    QString qInput,output,userName;
     temp = socket->readServerData();
-    holder = temp.substr(0, temp.find(" "));
-    some = temp.substr(3,temp.find(""));
-    //output = QString::fromUtf8(holder.c_str());
-    if(holder == "TI "){
-        ui->typingIndicator->setText("Typing ...");
+    if(temp.length() >= 3){
+        holder = temp.substr(0,temp.find(" "));
+
+    some = temp.substr(3,temp.length()-1);
+    userName = QString::fromStdString(some);
+    qDebug() << userName;
+    if(holder == "TI"){
+        ui->typingIndicator->setText(userName + " is typing ...");
     }
     else if(holder == "NT"){
         ui->typingIndicator->setText("");
     }
     else{
-        qInput = QString::fromUtf8(holder.c_str());
+        qInput = QString::fromUtf8(temp.c_str());
         ui->outputDisplay->append(qInput);
-    }
+        ui->typingIndicator->setText("");
+
+    }   
+  }
+
 }
 
 /*
@@ -111,6 +118,6 @@ void ChatWindow::display() {
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
     if(arg2 == 0 && arg1 != 0)
         socket->sendNoTypingIndicator();
-    else if(arg1 == 0 || arg1 == -1)
+    else if(arg1 == 0 )
         socket->sendTypingIndicator();
 }

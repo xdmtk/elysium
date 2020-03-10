@@ -25,14 +25,15 @@ void Server::broadcastMessage(std::string msg) {
  * Once basic is working need to make it so its shows who is typing
  */
 void Server::sendTypingIndicator(std::string userName){
-    std::string out = "TI ";
-    out.append(userName);
-    connectionManager->broadcastMessageToClients(out);
+    std::string protocol = "TI ";
+    protocol.append(userName);
+    connectionManager->broadcastMessageToClients(protocol);
 }
 
-void Server::sendNoTypingIndicator() {
-    std::string msg =  "NT";
-    connectionManager->broadcastMessageToClients(msg);
+void Server::sendNoTypingIndicator(std::string userName) {
+    std::string protocol =  "NT ";
+    protocol.append(userName);
+    connectionManager->broadcastMessageToClients(protocol);
 }
 
 /**
