@@ -26,10 +26,6 @@ private slots:
     void on_actionLight_mode_triggered();
     void on_actionDark_mode_triggered();
     void display();
-    //void on_inputDisplay_textChanged(const QString &arg1);
-
-    //void on_inputDisplay_editingFinished();
-
     void on_inputDisplay_cursorPositionChanged(int arg1, int arg2);
 
 private:

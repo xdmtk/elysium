@@ -37,7 +37,7 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             break;
         case CoreSettings::Protocol::TypingIndicator:
             Logger::info("Received TypingIndicator protocol indicator");
-            sendTypingIndicator();
+            sendTypingIndicator(clientConnection->getUsername());
             break;
         case CoreSettings::Protocol::NoTyping:
             Logger::info("Received NoTyping protocol indicator");
@@ -78,9 +78,9 @@ void CommandManager::setClientUsername() {
  * via server to ConnectionManager which in turn uses broadcast
  * message to clients.
  */
-void CommandManager::sendTypingIndicator(){
+void CommandManager::sendTypingIndicator(std::string userName){
     Logger::info("Sending typing indicator");
-    server->sendTypingIndicator();
+    server->sendTypingIndicator(userName);
 
 }
 void CommandManager::sendNoTypingIndicator() {

@@ -17,7 +17,7 @@ private:
     std::string incomingMessage;
     CoreSettings::Protocol determineServerResponse();
     void sendNormalMessageToAllClients();
-    void sendTypingIndicator();
+    void sendTypingIndicator(std::string userName);
     void sendNoTypingIndicator();
     void setClientUsername();
 };

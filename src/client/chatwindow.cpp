@@ -83,60 +83,24 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * it to the ChatWindow GUI
  */
 void ChatWindow::display() {
-    std::string holder;
+    std::string holder,temp,some;
     QString qInput,output;
-    holder = socket->readServerData();
-    output = QString::fromUtf8(holder.c_str());
-    qDebug() << "Incoming message: " + output;
+    temp = socket->readServerData();
+    holder = temp.substr(0, temp.find(" "));
+    some = temp.substr(3,temp.find(""));
+    //output = QString::fromUtf8(holder.c_str());
     if(holder == "TI "){
-        ui->typingIndicator->setText("Someone's Typing ...");
+        ui->typingIndicator->setText("Typing ...");
     }
-    else if(holder == "N T"){
+    else if(holder == "NT"){
         ui->typingIndicator->setText("");
     }
     else{
         qInput = QString::fromUtf8(holder.c_str());
         ui->outputDisplay->append(qInput);
-        //ui->typingIndicator->setText("");
-
     }
-
 }
-/*
- * Slot function:
- * This slot is emited when someone is typing but hasn't hit
- * the return key. This sends a protocol to the server in which
- * can be broadcasted to all other clients indicating someone
- * is typing
- */
-//void ChatWindow::on_inputDisplay_textChanged(const QString &arg1)
-//{
-//    qDebug() << "working" + arg1;
-//    socket->sendTypingIndicator();
 
-//}
-
-/*
- * Slot function:
- * This slot is emited when someone stops editing or return key is pressed
- * I use hasfocus() to only send messages when someone has stopped typing
- * this will then send a signal to cancel typing indicator
- * hasfocus() returns true when in focused
- */
-//void ChatWindow::on_inputDisplay_editingFinished()
-//{
-//    QString text = ui->inputDisplay->text();
-//    text.contains("\n");
-//    if(text.contains("\n")){
-//       socket->sendBasicChatMessage(ui->inputDisplay->text());
-//        ui->inputDisplay->clear();
-//    }
-//    else{
-//        socket->sendNoTypingIndicator();
-
-//    }
-
-//}
 /*
  * Slot function:
  * This slot is emited when someone changes cursor position
@@ -144,17 +108,9 @@ void ChatWindow::display() {
  * when cursorposition reaches 0 signal notype indicator
  */
 //Its getting changed when enter key is pressed
-void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2)
-{
-//    if(arg2 == 0 && arg1 != 0){
-//        qDebug() << "arg2 == ";
-//        qDebug() << arg2;
-//        socket->sendNoTypingIndicator();
-//    }
-     if(arg1 == 0){
-        qDebug() << "arg1 == 0";
+void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
+    if(arg2 == 0 && arg1 != 0)
+        socket->sendNoTypingIndicator();
+    else if(arg1 == 0 || arg1 == -1)
         socket->sendTypingIndicator();
-    }
-    qDebug() << arg1 << " " << arg2;
-
 }

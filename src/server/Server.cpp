@@ -24,8 +24,9 @@ void Server::broadcastMessage(std::string msg) {
  * some kind of GUI indicating someone is typing;
  * Once basic is working need to make it so its shows who is typing
  */
-void Server::sendTypingIndicator(){
+void Server::sendTypingIndicator(std::string userName){
     std::string out = "TI ";
+    out.append(userName);
     connectionManager->broadcastMessageToClients(out);
 }
 
