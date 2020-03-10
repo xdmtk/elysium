@@ -50,7 +50,7 @@ void SocketManager::setUsernameOnServer(QString username) {
  */
 void SocketManager::sendTypingIndicator()
 {
-    QString msgToSend;
+    QString msgToSend = "";
     msgToSend.append(CoreSettings::Protocol::TypingIndicator);
     writeToServer(msgToSend);
 
@@ -58,9 +58,9 @@ void SocketManager::sendTypingIndicator()
 
 void SocketManager::sendNoTypingIndicator()
 {
- QString msgToSend;
- msgToSend.append(CoreSettings::Protocol::NoTyping);
- writeToServer(msgToSend);
+    QString msgToSend ="";
+    msgToSend.append(CoreSettings::Protocol::NoTyping);
+    writeToServer(msgToSend);
 }
 
 void SocketManager::sendBasicChatMessage(QString msg) {

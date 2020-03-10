@@ -24,13 +24,13 @@ void Server::broadcastMessage(std::string msg) {
  * some kind of GUI indicating someone is typing;
  * Once basic is working need to make it so its shows who is typing
  */
-void Server::sendTypingIndicator(std::string msg){
+void Server::sendTypingIndicator(){
     std::string out = "TI ";
     connectionManager->broadcastMessageToClients(out);
 }
 
 void Server::sendNoTypingIndicator() {
-    std::string msg =   "NT";
+    std::string msg =  "NT";
     connectionManager->broadcastMessageToClients(msg);
 }
 
