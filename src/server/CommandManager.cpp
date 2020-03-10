@@ -62,8 +62,9 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
 
 
 void CommandManager::sendNormalMessageToAllClients() {
-    incomingMessage = "1" + clientConnection->getUsername() + ": " + incomingMessage;
-    //incomingMessage.append(clientConnection->getUsername() + ": " + incomingMessage);
+    std::string msg = incomingMessage;
+    incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
+    incomingMessage.append(clientConnection->getUsername() + ": " + msg);
     server->broadcastMessage(incomingMessage);
 }
 
@@ -78,7 +79,7 @@ void CommandManager::setClientUsername() {
  * message to clients.
  */
 void CommandManager::sendTypingIndicator(){
-    incomingMessage = (CoreSettings::Protocol::TypingIndicator);
+    incomingMessage = CoreSettings::Protocol::TypingIndicator;
     incomingMessage.append(clientConnection->getUsername());
     Logger::info("Sending typing indicator");
     server->sendTypingIndicator(incomingMessage);
@@ -86,7 +87,7 @@ void CommandManager::sendTypingIndicator(){
 }
 void CommandManager::sendNoTypingIndicator() {
     Logger::info("Sending no type indicator");
-    incomingMessage = (CoreSettings::Protocol::NoTyping);
+    incomingMessage = CoreSettings::Protocol::NoTyping;
     incomingMessage.append(clientConnection->getUsername());
     server->sendNoTypingIndicator(incomingMessage);
 }
