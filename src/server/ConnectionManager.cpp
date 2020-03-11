@@ -106,7 +106,7 @@ void ConnectionManager::bindAndListen(int * bindSocket, struct sockaddr_in * add
         Logger::fatal("Call to listen() failed! " + (errno ? "Errno: " + std::string(strerror(errno)) : ""));
     }
     else  {
-        // TODO: Find and log listening socket information
+        Logger::info("Binding to port " + std::to_string(address->sin_port) + "!" );
     }
 
 }
