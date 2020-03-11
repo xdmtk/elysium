@@ -27,6 +27,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
                                       "color:white;");
     ui->typingIndicator->setStyleSheet("color:green");
 
+    initUsersTyping();
     socket = new SocketManager(this);
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
 }
@@ -85,8 +86,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * it to the ChatWindow GUI
  */
 void ChatWindow::display() {
-    std::string holder,temp,some;
-    QString qInput,output,userName,other;
+    std::string temp;
+    QString qInput,userName;
 
     temp = socket->readServerData();
     CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
@@ -94,42 +95,17 @@ void ChatWindow::display() {
 
     switch (response){
         case CoreSettings::Protocol::ServerBroadcastMessage:
-            qDebug() << "inside";
             qInput = QString::fromUtf8(temp.c_str());
             ui->outputDisplay->append(qInput);
             ui->typingIndicator->setText("");
             break;
         case CoreSettings::Protocol::TypingIndicator:
-            userName = QString::fromStdString(temp);
-            ui->typingIndicator->setText(userName + " is typing...");
+              ui->typingIndicator->setText(updateUsersTyping(temp));
             break;
-    case CoreSettings::Protocol::NoTyping:
-            ui->typingIndicator->setText("");
+        case CoreSettings::Protocol::NoTyping:
+            ui->typingIndicator->setText(updateUsersNotTyping(temp));
             break;
-
-
     }
-    //seperate function
-//    if(temp.length() >= 3){
-//        holder = temp.substr(0,temp.find(" "));
-//    some = temp.substr(3,temp.length()-1);
-//    userName = QString::fromStdString(some);
-   // qDebug() << userName;
-
-//    if(holder == "TI"){
-//        ui->typingIndicator->setText(userName + " is typing ...");
-//    }
-//    else if(holder == "NT"){
-//        ui->typingIndicator->setText("");
-//    }
-//    else{
-//        qInput = QString::fromUtf8(temp.c_str());
-//        ui->outputDisplay->append(qInput);
-//        ui->typingIndicator->setText("");
-
-//    }
- // }
-
 }
 
 /*
@@ -144,4 +120,63 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
         socket->sendNoTypingIndicator();
     else if(arg1 == 0 )
         socket->sendTypingIndicator();
+}
+/*
+ * Init function:
+ * This function initalizes the the usersTyping map.The key being the
+ * users name and the value as 0 to indicate user is not typing.
+ */
+void ChatWindow::initUsersTyping(){
+    usersTyping.insert(std::pair<std::string,int>("eric",0));
+    usersTyping.insert(std::pair<std::string,int>("daniel",0));
+    usersTyping.insert(std::pair<std::string,int>("nick",0));
+    usersTyping.insert(std::pair<std::string,int>("josh",0));
+    usersTyping.insert(std::pair<std::string,int>("sebastian",0));
+}
+/**
+ * modifier function:
+ * @param current user who started typing
+ * This function updates the map of users who are typing and then
+ * builds a string with it which then is used as the
+ * typing indicator
+ * @return Qstring with the current users typing
+ */
+QString ChatWindow::updateUsersTyping(std::string userName){
+    QString typingIndicatorPrompt;
+    std::map<std::string,int>::iterator it = usersTyping.find(userName);
+    userName ="";
+
+    //1.Change current user status to typing
+    if(it != usersTyping.end())
+        it->second = 1;
+
+    //2.Go through list and if user is currently typing add to output
+    for(it = usersTyping.begin(); it != usersTyping.end(); it++)
+        if(it->second == 1)
+            userName += it->first + ",";
+
+    userName += " is typing ...";
+
+    return QString::fromUtf8(userName.c_str());
+}
+
+QString ChatWindow::updateUsersNotTyping(std::string userName){
+    QString typingIndicatorPrompt;
+    std::map<std::string,int>::iterator it = usersTyping.find(userName);
+    userName ="";
+
+    //1.Change current user status to not typing
+    if(it != usersTyping.end())
+        it->second = 0;
+
+    //2.Go through list and if user is currently typing add to output
+    for(it = usersTyping.begin(); it != usersTyping.end(); it++)
+        if(it->second == 1)
+            userName += it->first + ",";
+
+    //3.Only display if there are people typing
+    if(userName.length() != 0)
+       userName += " is typing ...";
+
+    return QString::fromUtf8(userName.c_str());
 }

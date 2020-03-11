@@ -32,6 +32,13 @@ private:
     Ui::ChatWindow *ui;
     SocketManager * socket;
     QString username;
+    std::map<std::string,int> usersTyping;
+
+    //#19-TypingIndicator functions
+    void initUsersTyping();
+    QString updateUsersTyping(std::string);
+    QString updateUsersNotTyping(std::string);
+
 
 };
 
