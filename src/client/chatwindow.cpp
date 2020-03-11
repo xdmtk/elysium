@@ -24,7 +24,13 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 
-    connect(socket.getSocket(),&QTcpSocket::readyRead,this,&ChatWindow::display);
+    socket = new SocketManager(this);
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
+}
+
+void ChatWindow::setUsername(QString u) {
+    username = u;
+    socket->setUsernameOnServer(username);
 }
 
 ChatWindow::~ChatWindow(){
@@ -37,10 +43,8 @@ ChatWindow::~ChatWindow(){
  * to the server
  */
 void ChatWindow::on_inputDisplay_returnPressed(){
-   QString userInput;
-   userInput = ui->inputDisplay->text();
+   socket->sendBasicChatMessage(ui->inputDisplay->text());
    ui->inputDisplay->clear();
-   socket.writeToServer(userInput.toStdString().c_str());
 }
 /*
  * Slot function:
@@ -62,8 +66,7 @@ void ChatWindow::on_actionLight_mode_triggered(){
  * This slot is emmited when the user clicks on dark mode
  * from the menubar of the GUI
  */
-void ChatWindow::on_actionDark_mode_triggered()
-{
+void ChatWindow::on_actionDark_mode_triggered() {
     ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
                                      "color:white;");
     ui->inputDisplay->setStyleSheet("background: rgb(80,80,80);"
@@ -78,11 +81,10 @@ void ChatWindow::on_actionDark_mode_triggered()
  * read from the server. It reads the data and then displays
  * it to the ChatWindow GUI
  */
-void ChatWindow::display()
-{
+void ChatWindow::display() {
     std::string holder;
     QString qInput;
-    holder = socket.readServerData();
+    holder = socket->readServerData();
     qInput = QString::fromUtf8(holder.c_str());
     ui->outputDisplay->append(qInput);
 }

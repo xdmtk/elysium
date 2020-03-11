@@ -2,16 +2,20 @@
 #define SOCKETMANAGER_H
 #include <QTcpSocket>
 
+class ChatWindow;
 class SocketManager
 {
 public:
-    SocketManager();
+    SocketManager(ChatWindow * cw);
     std::string readServerData();
-    void writeToServer(const char *data);
+    void sendBasicChatMessage(QString msg);
+    void setUsernameOnServer(QString username);
     QTcpSocket *getSocket();
 
 private:
     QTcpSocket tcpSocket;
+    ChatWindow * chatWindow;
+    void writeToServer(QString data);
 };
 
 #endif // SOCKETMANAGER_H

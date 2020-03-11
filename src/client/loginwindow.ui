@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>LoginWindow</class>
  <widget class="QDialog" name="LoginWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>316</width>
+    <height>143</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,14 +37,13 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Elysium - Login</string>
   </property>
   <property name="whatsThis">
    <string/>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: black;
-color:white;</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -53,145 +55,77 @@ color:white;</string>
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:black;</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string/>
      </property>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>170</y>
-        <width>318</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Courier</family>
-        <pointsize>15</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background: rgb(80,80,80);
-color:white;</string>
-      </property>
-      <property name="text">
-       <string>Login</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_Title">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>20</y>
-        <width>281</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Courier</family>
-        <pointsize>24</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-        <kerning>false</kerning>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-color:#00FF7F;</string>
-      </property>
-      <property name="text">
-       <string> WeLcOmE tO ELysiUM</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>90</y>
-        <width>301</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>Courier</family>
-           <pointsize>15</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: #00FF7F</string>
-         </property>
-         <property name="text">
-          <string>Username</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_username">
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFF0;
-color:black;</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>130</y>
-        <width>301</width>
-        <height>26</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <family>Courier</family>
-           <pointsize>15</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color:#00FF7F;</string>
-         </property>
-         <property name="text">
-          <string>Password</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_password">
-         <property name="maximumSize">
-          <size>
-           <width>230</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #FFFFF0;
-color:black;</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_Title">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>32</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+          <kerning>false</kerning>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Elysium-Project</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="styleSheet">
+           <string notr="true">border-radius: 4px;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Username</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgb(80,80,80);
+color:white;
+border-radius: 4px;</string>
+        </property>
+        <property name="text">
+         <string>Login</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
