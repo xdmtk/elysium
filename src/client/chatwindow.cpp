@@ -1,6 +1,5 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
-#include "../core/CoreSettings.h"
 
 
 /*
@@ -26,8 +25,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
     ui->typingIndicator->setStyleSheet("color:green");
+    ui->inputDisplay->focusWidget();
 
-    initUsersTyping();
     socket = new SocketManager(this);
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
 }
@@ -100,83 +99,57 @@ void ChatWindow::display() {
             ui->typingIndicator->setText("");
             break;
         case CoreSettings::Protocol::TypingIndicator:
-              ui->typingIndicator->setText(updateUsersTyping(temp));
+            ui->typingIndicator->setText(updateUsersTyping(response,temp));
             break;
         case CoreSettings::Protocol::NoTyping:
-            ui->typingIndicator->setText(updateUsersNotTyping(temp));
+            ui->typingIndicator->setText(updateUsersTyping(response,temp));
             break;
     }
 }
 
-/*
+/**
  * Slot function:
+ * @param arg1 = oldPosition, arg2 = newPosition
  * This slot is emited when someone changes cursor position
- * It is being used a notype indicator.
- * when cursorposition reaches 0 signal notype indicator
+ * when arg1 is -1 its the first instance of typing since Chat has been open
+ * when arg1 is 0 it means user is typing
+ * when arg2 reaches 0 then user is not typing
  */
-//Its getting changed when enter key is pressed
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
-    if(arg2 == 0 && arg1 != 0)
+    if(arg2 == 0)
         socket->sendNoTypingIndicator();
-    else if(arg1 == 0 )
+    else if(arg1 == 0 || arg1 == -1)
         socket->sendTypingIndicator();
 }
-/*
- * Init function:
- * This function initalizes the the usersTyping map.The key being the
- * users name and the value as 0 to indicate user is not typing.
- */
-void ChatWindow::initUsersTyping(){
-    usersTyping.insert(std::pair<std::string,int>("eric",0));
-    usersTyping.insert(std::pair<std::string,int>("daniel",0));
-    usersTyping.insert(std::pair<std::string,int>("nick",0));
-    usersTyping.insert(std::pair<std::string,int>("josh",0));
-    usersTyping.insert(std::pair<std::string,int>("sebastian",0));
-}
+
 /**
- * modifier function:
- * @param current user who started typing
- * This function updates the map of users who are typing and then
- * builds a string with it which then is used as the
- * typing indicator
- * @return Qstring with the current users typing
+ * Modifier function:
+ * @param client protocol with the associated userName
+ * This function updates the member QVector with the users
+ * typing and then sends a prompt back with the updated list
+ * @return QString with prompt of current users typing
  */
-QString ChatWindow::updateUsersTyping(std::string userName){
-    QString typingIndicatorPrompt;
-    std::map<std::string,int>::iterator it = usersTyping.find(userName);
-    userName ="";
+QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
+                                      std::string userName){
+    QString typingPrompt = "";
+    QVector<QString>::iterator it = std::find(usersTyping.begin(),usersTyping.end(),
+                                              QString::fromUtf8(userName.c_str()));
 
-    //1.Change current user status to typing
-    if(it != usersTyping.end())
-        it->second = 1;
+    //1.Check for protocol and then either add or delete user from vector
+    if(type == CoreSettings::Protocol::TypingIndicator){
+        if(!(usersTyping.contains(userName.c_str())))
+            usersTyping.push_front(QString::fromUtf8(userName.c_str()));
+    }
+    else if((type == CoreSettings::Protocol::NoTyping) && (usersTyping.size() != 0))
+        usersTyping.erase(it);
 
-    //2.Go through list and if user is currently typing add to output
-    for(it = usersTyping.begin(); it != usersTyping.end(); it++)
-        if(it->second == 1)
-            userName += it->first + ",";
+    //2.If there is at least one user typing display prompt
+    if(usersTyping.size() != 0){
+        for(QVector<QString>::iterator it = usersTyping.begin(); it != usersTyping.end(); it++)
+            typingPrompt += *it + ",";
+        typingPrompt += " is typing ...";
 
-    userName += " is typing ...";
+    }
+    return typingPrompt;
 
-    return QString::fromUtf8(userName.c_str());
-}
-
-QString ChatWindow::updateUsersNotTyping(std::string userName){
-    QString typingIndicatorPrompt;
-    std::map<std::string,int>::iterator it = usersTyping.find(userName);
-    userName ="";
-
-    //1.Change current user status to not typing
-    if(it != usersTyping.end())
-        it->second = 0;
-
-    //2.Go through list and if user is currently typing add to output
-    for(it = usersTyping.begin(); it != usersTyping.end(); it++)
-        if(it->second == 1)
-            userName += it->first + ",";
-
-    //3.Only display if there are people typing
-    if(userName.length() != 0)
-       userName += " is typing ...";
-
-    return QString::fromUtf8(userName.c_str());
 }

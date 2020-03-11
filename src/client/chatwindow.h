@@ -4,6 +4,8 @@
 #include <QAbstractSocket>
 #include <QTcpSocket>
 #include "socketmanager.h"
+#include "../core/CoreSettings.h"
+
 
 
 namespace Ui {
@@ -32,12 +34,8 @@ private:
     Ui::ChatWindow *ui;
     SocketManager * socket;
     QString username;
-    std::map<std::string,int> usersTyping;
-
-    //#19-TypingIndicator functions
-    void initUsersTyping();
-    QString updateUsersTyping(std::string);
-    QString updateUsersNotTyping(std::string);
+    QVector<QString> usersTyping;
+    QString updateUsersTyping(CoreSettings::Protocol,std::string);
 
 
 };
