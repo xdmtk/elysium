@@ -132,11 +132,12 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
 QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
                                       std::string userName){
     QString typingPrompt = "";
-    int index = usersTyping.indexOf(QString::fromUtf8(userName.c_str()));
+    QByteArray currentUser(userName.c_str(), userName.length());
+    int index = usersTyping.indexOf(currentUser);
 
     //1.Check for protocol and then either add or delete user from vector
     if(type == CoreSettings::Protocol::TypingIndicator && index == -1)
-        usersTyping.push_front(QString::fromUtf8(userName.c_str()));
+        usersTyping.push_front(currentUser);
     else if((type == CoreSettings::Protocol::NoTyping))
         usersTyping.remove(index);
 
