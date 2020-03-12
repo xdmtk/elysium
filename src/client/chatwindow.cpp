@@ -135,10 +135,8 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
     int index = usersTyping.indexOf(QString::fromUtf8(userName.c_str()));
 
     //1.Check for protocol and then either add or delete user from vector
-    if(type == CoreSettings::Protocol::TypingIndicator){
-        if(!(usersTyping.contains(userName.c_str())))
-            usersTyping.push_front(QString::fromUtf8(userName.c_str()));
-    }
+    if(type == CoreSettings::Protocol::TypingIndicator && index == -1)
+        usersTyping.push_front(QString::fromUtf8(userName.c_str()));
     else if((type == CoreSettings::Protocol::NoTyping))
         usersTyping.remove(index);
 
