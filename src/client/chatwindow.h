@@ -24,6 +24,7 @@ public:
     void setUsername(QString u);
     void display(QString msg);
     void setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user);
+    void setOnlineUserList(QStringList userlist);
 
     ~ChatWindow();
 private slots:

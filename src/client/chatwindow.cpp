@@ -143,3 +143,10 @@ void ChatWindow::setUsersTypingLabel(CoreSettings::Protocol indicator, std::stri
 void ChatWindow::activateCommandManager() {
     commandManager->handleIncomingMessage();
 }
+
+void ChatWindow::setOnlineUserList(QStringList userlist) {
+    ui->friendsDisplay->clear();
+    for (auto user : userlist) {
+        ui->friendsDisplay->append(user);
+    }
+}

@@ -1,5 +1,6 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
+#include <QString>
 
 class ChatWindow;
 class SocketManager;
@@ -13,6 +14,8 @@ public:
 private:
     ChatWindow * chatWindow;
     SocketManager * socket;
+    void addIncomingMessageToChat(QString msg);
+    void updateOnlineUserlist(QString userlist);
 };
 
 #endif // COMMANDMANAGER_H
