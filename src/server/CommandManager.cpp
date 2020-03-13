@@ -35,6 +35,14 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
         case CoreSettings::Protocol::NoOperation:
             Logger::info("Received NoOperation protocol indicator");
             break;
+        case CoreSettings::Protocol::TypingIndicator:
+            Logger::info("Received TypingIndicator protocol indicator");
+            sendTypingIndicator();
+            break;
+        case CoreSettings::Protocol::NoTyping:
+            Logger::info("Received NoTyping protocol indicator");
+            sendNoTypingIndicator();
+            break;
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
             break;
@@ -55,10 +63,8 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
     auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(incomingMessage[0]);
-
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
-
     return messageProtocolIdentifier;
 }
 
@@ -71,7 +77,9 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
  * to send out a "Username: Message" style message to all connected clients 
  */
 void CommandManager::sendNormalMessageToAllClients() {
-    incomingMessage = clientConnection->getUsername() + ": " + incomingMessage;
+    std::string msg = incomingMessage;
+    incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
+    incomingMessage.append(clientConnection->getUsername() + ": " + msg);
     server->broadcastMessage(incomingMessage);
 }
 
@@ -89,4 +97,22 @@ void CommandManager::setClientUsername() {
     Logger::info("Setting client username from " + clientConnection->getUsername() +
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
+}
+/*
+ * When TypingIndicator protocol is recieved this sends a message
+ * via server to ConnectionManager which in turn uses broadcast
+ * message to clients.
+ */
+void CommandManager::sendTypingIndicator(){
+    incomingMessage = CoreSettings::Protocol::TypingIndicator;
+    incomingMessage.append(clientConnection->getUsername());
+    Logger::info("Sending typing indicator");
+    server->broadcastMessage(incomingMessage);
+
+}
+void CommandManager::sendNoTypingIndicator() {
+    Logger::info("Sending no type indicator");
+    incomingMessage = CoreSettings::Protocol::NoTyping;
+    incomingMessage.append(clientConnection->getUsername());
+    server->broadcastMessage(incomingMessage);
 }
