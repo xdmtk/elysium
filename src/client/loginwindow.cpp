@@ -2,6 +2,7 @@
 #include "ui_loginwindow.h"
 #include "chatwindow.h"
 #include <QMessageBox>
+#include <QRegExpValidator>
 /*
  * Constructor:
  * Constructs the object for use
@@ -11,6 +12,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    usernameRegex = new QRegExp("[A-Za-z0-9_-]+");
+    regex = new QRegExpValidator(*usernameRegex);
+    ui->lineEdit_username->setValidator(regex);
 }
 /*
  * Destructor:
@@ -30,7 +34,7 @@ LoginWindow::~LoginWindow(){
 void LoginWindow::on_pushButton_clicked(){
 
     /* Need to enter a username to initiate connection to server */
-    if (ui->lineEdit_username->text().length()) {
+    if (validateUsername()) {
 
         /* Instantiate ChatWindow */
         chatGui = new ChatWindow(this);
@@ -42,6 +46,14 @@ void LoginWindow::on_pushButton_clicked(){
         QTimer::singleShot(1000, [&]{
             if (chatGui->isConnected()) {
                 chatGui->getSocketManager()->requestOnlineUserlist();
+            }
+            else {
+                chatGui->close();
+                ui->lineEdit_username->clear();
+                this->show();
+                QMessageBox alert;
+                alert.setText("Failed to connect to server!");
+                alert.exec();
             }
         });
 
@@ -62,4 +74,9 @@ void LoginWindow::on_pushButton_clicked(){
         alert.setText("Please set a username!");
         alert.exec();
     }
+}
+
+
+bool LoginWindow::validateUsername() {
+    return ui->lineEdit_username->text().length();
 }

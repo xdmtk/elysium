@@ -1,6 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 #include <QDialog>
+#include <QRegExpValidator>
 
 class ChatWindow;
 
@@ -20,6 +21,9 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
+    QRegExp * usernameRegex;
+    QRegExpValidator * regex;
+    bool validateUsername();
 
 };
 
