@@ -31,15 +31,27 @@ void LoginWindow::on_pushButton_clicked(){
 
     /* Need to enter a username to initiate connection to server */
     if (ui->lineEdit_username->text().length()) {
-        chatGui = new ChatWindow(this);
-        chatGui->setUsername(ui->lineEdit_username->text());
-        chatGui->show();
 
+        /* Instantiate ChatWindow */
+        chatGui = new ChatWindow(this);
+
+        /* Sets username locally - Sends protocol msg to server to set username
+         * remotely */
+        chatGui->setUsername(ui->lineEdit_username->text());
+
+        /* Show the Chatwindow */
+        chatGui->show();
+        
+        /* Use hide() instead of close() to keep lifespan of instantiated objects */
         this->hide();
     }
     else {
+
+        /* Append red border style sheet indicating error */
         ui->lineEdit_username->setStyleSheet(ui->lineEdit_username->styleSheet()
                                              + "border: 1px solid red;");
+
+        /* Show a message box alerting user to set their username */
         QMessageBox alert;
         alert.setText("Please set a username!");
         alert.exec();
