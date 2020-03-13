@@ -18,6 +18,12 @@ bool Logger::writeToConsole = false;
 bool Logger::writeToFile = true;
 bool Logger::terminateOnFatal = true;
 
+
+/** 
+ * Helper function to Log the latest commit for the running instance.
+ * Helpful in verifying which version of the server is being ran at
+ * any given moment 
+ */
 std::string Logger::getLatestBuildCommit() {
     std::string gitDirectory = getHomeDirectory() + "/elysium";
     std::string gitLog = Logger::execShellCommand(
@@ -114,12 +120,17 @@ std::string Logger::getHomeDirectory() {
 }
 
 
+/**
+ * Function to execute a command on the server shell and return the response
+ * as a string
+ */
 std::string Logger::execShellCommand(const char* cmd) {
     std::array<char, 128> buffer;
     std::string result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
     if (!pipe) {
-        throw std::runtime_error("popen() failed!");
+        Logger::error("Popen() failed - Cannot execute shell command");
+        return "";
     }
     while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
         result += buffer.data();
