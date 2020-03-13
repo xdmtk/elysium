@@ -63,9 +63,12 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
 
 void CommandManager::sendNormalMessageToAllClients() {
     std::string msg = incomingMessage;
-    incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
-    incomingMessage.append(clientConnection->getUsername() + ": " + msg);
-    server->broadcastMessage(incomingMessage);
+    if(msg.size() != 0){
+        incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
+        incomingMessage.append(clientConnection->getUsername() + ": " + msg);
+        server->broadcastMessage(incomingMessage);
+    }
+
 }
 
 void CommandManager::setClientUsername() {

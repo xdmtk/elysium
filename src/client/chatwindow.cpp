@@ -95,8 +95,8 @@ void ChatWindow::display() {
     switch (response){
         case CoreSettings::Protocol::ServerBroadcastMessage:
             qInput = QString::fromUtf8(temp.c_str());
-            ui->outputDisplay->append(qInput);
-            ui->typingIndicator->setText("");
+                ui->outputDisplay->append(qInput);
+                ui->typingIndicator->setText("");
             break;
         case CoreSettings::Protocol::TypingIndicator:
             ui->typingIndicator->setText(updateUsersTyping(response,temp));
