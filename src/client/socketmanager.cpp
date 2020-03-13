@@ -11,7 +11,7 @@
 SocketManager::SocketManager(ChatWindow * cw) {
 
     chatWindow = cw;
-    tcpSocket.connectToHost("elysium-project.net",6885);
+    tcpSocket.connectToHost("elysium-project.net",6692);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
     }
@@ -69,9 +69,12 @@ void SocketManager::sendNoTypingIndicator()
 void SocketManager::sendBasicChatMessage(QString msg) {
 
    QString msgToSend;
-   msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
-   msgToSend.append(msg);
-   writeToServer(msgToSend);
+   if(msg.size() != 0){
+       msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
+       msgToSend.append(msg);
+       writeToServer(msgToSend);
+   }
+
 }
 
 /*

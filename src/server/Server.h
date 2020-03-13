@@ -10,8 +10,6 @@ public:
     Server();
     void start();
     void broadcastMessage(std::string);
-    void sendTypingIndicator(std::string);
-    void sendNoTypingIndicator(std::string);
     SignalManager * getSignalManager();
     ConnectionManager * getConnectionManager();
     CoreSettings * getCoreSettings();

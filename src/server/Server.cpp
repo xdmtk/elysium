@@ -19,18 +19,6 @@ void Server::start() {
 void Server::broadcastMessage(std::string msg) {
     connectionManager->broadcastMessageToClients(msg);
 }
-/*
- * Sends protocol to all clients in which will activate
- * some kind of GUI indicating someone is typing;
- * Once basic is working need to make it so its shows who is typing
- */
-void Server::sendTypingIndicator(std::string protocol){
-    connectionManager->broadcastMessageToClients(protocol);
-}
-
-void Server::sendNoTypingIndicator(std::string protocol) {
-    connectionManager->broadcastMessageToClients(protocol);
-}
 
 /**
  * Expose the SignalManager for the server
