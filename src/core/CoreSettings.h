@@ -36,6 +36,7 @@ private:
     ConfigEnvironment env;
 
     void setConfigEnvironment();
+    void setConfigEnvironment(ConfigEnvironment e);
 };
 
 

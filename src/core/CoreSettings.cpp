@@ -30,6 +30,11 @@ void CoreSettings::setConfigEnvironment() {
     env = ConfigEnvironment::Production;
 }
 
+void CoreSettings::setConfigEnvironment(ConfigEnvironment e) {
+    env = e;
+}
+
+
 /**
  * The client will need to call this when determining which endpoint to
  * connect to.
@@ -83,3 +88,4 @@ int CoreSettings::getPortNumber() {
     }
     return portNumber;
 }
+

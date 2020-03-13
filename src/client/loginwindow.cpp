@@ -2,6 +2,7 @@
 #include "ui_loginwindow.h"
 #include "chatwindow.h"
 #include <QMessageBox>
+#include "../core/CoreSettings.h"
 /*
  * Constructor:
  * Constructs the object for use
@@ -12,6 +13,15 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->horizontalLayout_4
+
+    /* List of the strigns to be put into the server box drop down menu */
+    QStringList Ports = {"Josh V-Host - - (josh.elysium-project.net", "Sebastian V-Host - - (sebastian.elysium-project.net)",
+                         "Nick V-Host - - (nick.elysium-project.net)", "Erick V-Host - - (erick.elysium-project.net)",
+                         "Daniel V-Host - - (daniel.elysium-project.net)", "Production Server - - (elysium-project.net)"};
+    /* Add Qlist to the server boc and set the color and background of the box */
+    ui->ServerBox->addItems(Ports);
+    ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
+                                     "color:white;");
 }
 /*
  * Destructor:
@@ -33,9 +43,11 @@ LoginWindow::~LoginWindow(){
  */
 >>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4
 void LoginWindow::on_pushButton_clicked(){
+    int serverIndex;
 
     /* Need to enter a username to initiate connection to server */
     if (ui->lineEdit_username->text().length()) {
+        serverIndex = ui->ServerBox->currentIndex();
 
         /* Instantiate ChatWindow */
         chatGui = new ChatWindow(this);
@@ -61,5 +73,38 @@ void LoginWindow::on_pushButton_clicked(){
         alert.setText("Please set a username!");
         alert.exec();
     }
+
+
+
 }
+
+
+
+struct changeHostPort connectToServer(int port);
+
+struct LoginWindow::changeHostPort LoginWindow::connectToServer(int port) {
+    CoreSettings::ConfigEnvironment env;
+
+    switch (port) {
+        case 0:
+            env = CoreSettings::ConfigEnvironment::JoshDev; break;
+        case 1:
+            env = CoreSettings::ConfigEnvironment::SebastianDev; break;
+        case 2:
+            env = CoreSettings::ConfigEnvironment::NickDev; break;
+        case 3:
+            env = CoreSettings::ConfigEnvironment::ErickDev; break;
+        case 4:
+            env = CoreSettings::ConfigEnvironment::DanielDev; break;
+        case 5:
+            env = CoreSettings::ConfigEnvironment::Production;
+    }
+    coreSettings->setConfigEnvironment(env);
+
+
+    return hp;
+}
+
+
+
 

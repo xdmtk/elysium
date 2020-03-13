@@ -14,12 +14,19 @@ class LoginWindow : public QDialog
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
+    struct changeHostPort {
+            QString hostName;
+            int portNumber;
+        };
+
+
     ~LoginWindow();
 private slots:
     void on_pushButton_clicked();
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
+    struct changeHostPort connectToServer(int port);
 
 };
 
