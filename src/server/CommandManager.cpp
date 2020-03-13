@@ -103,7 +103,7 @@ void CommandManager::setClientUsername() {
     Logger::info("Setting client username from " + clientConnection->getUsername() +
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
-    
+
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     sendOnlineStatusList();
 }

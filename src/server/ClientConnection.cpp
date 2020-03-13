@@ -77,6 +77,8 @@ void ClientConnection::terminateConnection() {
     Logger::warn("Thread is about to die");
     alive = false;
     server->getConnectionManager()->updateConnectionList();
+
+    commandManager->sendOnlineStatusList();
 }
 
 
