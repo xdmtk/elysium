@@ -12,6 +12,8 @@ class CoreSettings {
 public:
 
     CoreSettings(Server *s);
+    CoreSettings();
+
 
     enum ConfigEnvironment {
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
@@ -27,16 +29,18 @@ public:
         ClientNormalMessage,
         ServerSetUsername
     };
-
     std::string getHostName();
     int getPortNumber();
+    void setConfigEnvironments(ConfigEnvironment e);
+
+
+
 
 private:
     Server * server;
     ConfigEnvironment env;
 
     void setConfigEnvironment();
-    void setConfigEnvironment(ConfigEnvironment e);
 };
 
 

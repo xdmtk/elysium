@@ -78,14 +78,13 @@ void LoginWindow::on_pushButton_clicked(){
 
 }
 
-
-
-struct changeHostPort connectToServer(int port);
-
-struct LoginWindow::changeHostPort LoginWindow::connectToServer(int port) {
+/* This struct functions returns a struct that holds the port information that was chosen
+   it will return both the port number and the
+struct LoginWindow::changeHostPort LoginWindow::connectToServer(int p) {
     CoreSettings::ConfigEnvironment env;
 
-    switch (port) {
+  /*Based on the index passed in when the button is clicked*/
+    switch (p) {
         case 0:
             env = CoreSettings::ConfigEnvironment::JoshDev; break;
         case 1:
@@ -99,12 +98,19 @@ struct LoginWindow::changeHostPort LoginWindow::connectToServer(int port) {
         case 5:
             env = CoreSettings::ConfigEnvironment::Production;
     }
-    coreSettings->setConfigEnvironment(env);
 
+    /*instanse of core settings class to call nonstatic functions*/
+    CoreSettings c;
+    c.setConfigEnvironments(env);
+    QString hostName = QString::fromStdString(c.getHostName());
+    int port = c.getPortNumber();
 
-    return hp;
+    /*holds port that was chosen*/
+    struct LoginWindow::changeHostPort hostPort;
+    hostPort.portNumber = port;
+    hostPort.hostName = hostName;
+    /*returns the struct holding port info*/
 }
-
 
 
 
