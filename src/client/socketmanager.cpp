@@ -59,9 +59,11 @@ void SocketManager::sendTypingIndicator()
 
 void SocketManager::sendNoTypingIndicator()
 {
-    QString msgToSend ="";
-    msgToSend.append(CoreSettings::Protocol::NoTyping);
-    writeToServer(msgToSend);
+    QTimer::singleShot(200, [&](){
+        QString msgToSend ="";
+        msgToSend.append(CoreSettings::Protocol::NoTyping);
+        writeToServer(msgToSend);
+    });
 }
 
 void SocketManager::sendBasicChatMessage(QString msg) {

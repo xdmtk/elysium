@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QAbstractSocket>
 #include <QTcpSocket>
+#include <QTimer>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
 
@@ -36,6 +37,7 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString updateUsersTyping(CoreSettings::Protocol,std::string);
+    QTimer *timer;
 
 
 };

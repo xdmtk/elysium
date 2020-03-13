@@ -138,7 +138,7 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
     //1.Check for protocol and then either add or delete user from vector
     if(type == CoreSettings::Protocol::TypingIndicator && index == -1)
         usersTyping.push_front(currentUser);
-    else if((type == CoreSettings::Protocol::NoTyping))
+    else if((type == CoreSettings::Protocol::NoTyping && index != -1))
         usersTyping.remove(index);
 
     //2.If there is at least one user typing display prompt
@@ -151,3 +151,4 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
     return typingPrompt;
 
 }
+
