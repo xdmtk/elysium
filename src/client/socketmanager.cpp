@@ -59,7 +59,7 @@ void SocketManager::sendTypingIndicator()
 
 void SocketManager::sendNoTypingIndicator()
 {
-    QTimer::singleShot(200, [&](){
+    QTimer::singleShot(250, [&](){
         QString msgToSend ="";
         msgToSend.append(CoreSettings::Protocol::NoTyping);
         writeToServer(msgToSend);

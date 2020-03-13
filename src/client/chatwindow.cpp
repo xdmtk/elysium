@@ -144,7 +144,7 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
     //2.If there is at least one user typing display prompt
     if(usersTyping.size() != 0){
         for(QVector<QString>::iterator it = usersTyping.begin(); it != usersTyping.end(); it++)
-            typingPrompt += *it + ",";
+            typingPrompt += *it + ", ";
         typingPrompt += " is typing ...";
 
     }
