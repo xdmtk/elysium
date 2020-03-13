@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>733</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,7 +53,7 @@ color:white;</string>
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:black;</string>
+      <string notr="true">background:rgb(106, 106, 106);</string>
      </property>
      <property name="title">
       <string/>
@@ -61,8 +61,8 @@ color:white;</string>
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>170</y>
+        <x>170</x>
+        <y>410</y>
         <width>318</width>
         <height>24</height>
        </rect>
@@ -86,7 +86,7 @@ color:white;</string>
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>281</width>
+        <width>581</width>
         <height>51</height>
        </rect>
       </property>
@@ -117,10 +117,10 @@ color:#00FF7F;</string>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>90</y>
+        <x>180</x>
+        <y>310</y>
         <width>301</width>
-        <height>26</height>
+        <height>31</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -153,10 +153,10 @@ color:black;</string>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>130</y>
+        <x>180</x>
+        <y>360</y>
         <width>301</width>
-        <height>26</height>
+        <height>31</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -188,6 +188,55 @@ color:black;</string>
           <string notr="true">background-color: #FFFFF0;
 color:black;</string>
          </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>210</y>
+        <width>330</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QComboBox" name="ServerBox">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+         <item>
+          <property name="text">
+           <string>Production Server - - (elysium-project.net)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sebastian V-Host - - (sebastian.elysium-project.net)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nick V-Host - - (nick.elysium-project.net)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Erick V-Host - - (erick.elysium-project.net)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Daniel V-Host - - (daniel.elysium-project.net)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Josh V-Host - - (josh.elysium-project.net)</string>
+          </property>
+         </item>
         </widget>
        </item>
       </layout>

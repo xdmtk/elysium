@@ -8,11 +8,13 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    ui->horizontalLayout_4
 }
 
 LoginWindow::~LoginWindow(){
     delete ui;
 }
+
 
 void LoginWindow::on_pushButton_clicked(){
     QString username = ui->lineEdit_username->text();
@@ -28,3 +30,4 @@ void LoginWindow::on_pushButton_clicked(){
         QMessageBox::warning(this,"pushButton_login","Username and password is not correct");
     }
 }
+
