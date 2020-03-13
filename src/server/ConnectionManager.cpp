@@ -141,8 +141,23 @@ void ConnectionManager::broadcastMessageToClients(std::string msg) {
 }
 
 /**
- *  Elininate all sockets current managed through the connectedClientList
+ *  Eliminate all sockets current managed through the connectedClientList
  */
 void ConnectionManager::killAllConnections() {
     connectedClientList.clear();
+}
+
+
+std::string ConnectionManager::getConnectedUserListCSV() {
+
+    std::string clientListCSV;
+    for (auto client : connectedClientList) {
+        clientListCSV.append(client->getUsername() + ",");
+    }
+
+    if (!clientListCSV.empty()) {
+        clientListCSV.substr(0, clientListCSV.size() - 1);
+    }
+
+    return clientListCSV;
 }

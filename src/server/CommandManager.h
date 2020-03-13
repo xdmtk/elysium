@@ -20,6 +20,7 @@ private:
     void sendTypingIndicator();
     void sendNoTypingIndicator();
     void setClientUsername();
+    void sendOnlineStatusList();
 };
 
 

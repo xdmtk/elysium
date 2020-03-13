@@ -1,5 +1,6 @@
 #include "CommandManager.h"
 #include "ClientConnection.h"
+#include "ConnectionManager.h"
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
@@ -43,6 +44,11 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             Logger::info("Received NoTyping protocol indicator");
             sendNoTypingIndicator();
             break;
+        case CoreSettings::Protocol::ServerRequestOnlineStatus:
+            sendOnlineStatusList();
+            Logger::info("Received ServerRequestOnlineStatus indicator");
+            break;
+            
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
             break;
@@ -98,6 +104,8 @@ void CommandManager::setClientUsername() {
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
 }
+
+
 /*
  * When TypingIndicator protocol is recieved this sends a message
  * via server to ConnectionManager which in turn uses broadcast
@@ -110,9 +118,19 @@ void CommandManager::sendTypingIndicator(){
     server->broadcastMessage(incomingMessage);
 
 }
+
+
 void CommandManager::sendNoTypingIndicator() {
     Logger::info("Sending no type indicator");
     incomingMessage = CoreSettings::Protocol::NoTyping;
     incomingMessage.append(clientConnection->getUsername());
     server->broadcastMessage(incomingMessage);
+}
+
+
+void CommandManager::sendOnlineStatusList() {
+    Logger::info("Sending online status list");
+    incomingMessage = CoreSettings::Protocol::ClientReceiveOnlineStatus;
+    incomingMessage.append(server->getConnectionManager()->getConnectedUserListCSV());
+    clientConnection->sendMessageToClient(incomingMessage);
 }
