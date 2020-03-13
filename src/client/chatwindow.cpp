@@ -15,7 +15,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
     ui->inputDisplay->setPlaceholderText("Type here");
-    ui->friendsDisplay->setPlaceholderText("Friends list");
+    ui->friendsDisplay->setPlaceholderText("Loading Friends List");
 
     ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
                                      "color:white;");

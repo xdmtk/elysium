@@ -40,6 +40,6 @@ void CommandManager::addIncomingMessageToChat(QString msg) {
 void CommandManager::updateOnlineUserlist(QString userlistString) {
     QStringList userlist = userlistString.split(",");
     if (!userlist.empty()) {
-
+        chatWindow->setOnlineUserList(userlist);
     }
 }

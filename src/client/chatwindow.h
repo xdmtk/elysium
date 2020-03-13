@@ -25,6 +25,8 @@ public:
     void display(QString msg);
     void setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user);
     void setOnlineUserList(QStringList userlist);
+    bool isConnected() {return socket->isConnectedToServer();}
+    SocketManager * getSocketManager() {return socket;}
 
     ~ChatWindow();
 private slots:

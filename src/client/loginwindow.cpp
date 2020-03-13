@@ -39,6 +39,12 @@ void LoginWindow::on_pushButton_clicked(){
          * remotely */
         chatGui->setUsername(ui->lineEdit_username->text());
 
+        QTimer::singleShot(1000, [&]{
+            if (chatGui->isConnected()) {
+                chatGui->getSocketManager()->requestOnlineUserlist();
+            }
+        });
+
         /* Show the Chatwindow */
         chatGui->show();
         
