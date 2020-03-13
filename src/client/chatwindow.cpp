@@ -1,6 +1,6 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
-
+#include "commandmanager.h"
 
 /*
  * Constructor:
@@ -28,7 +28,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);
-    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
+    commandManager = new CommandManager(this, socket);
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
 void ChatWindow::setUsername(QString u) {
@@ -84,27 +85,9 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * read from the server. It reads the data and then displays
  * it to the ChatWindow GUI
  */
-void ChatWindow::display() {
-    std::string temp;
-    QString qInput,userName;
-
-    temp = socket->readServerData();
-    CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
-    temp = temp.substr(1);
-
-    switch (response){
-        case CoreSettings::Protocol::ServerBroadcastMessage:
-            qInput = QString::fromUtf8(temp.c_str());
-                ui->outputDisplay->append(qInput);
-                ui->typingIndicator->setText("");
-            break;
-        case CoreSettings::Protocol::TypingIndicator:
-            ui->typingIndicator->setText(updateUsersTyping(response,temp));
-            break;
-        case CoreSettings::Protocol::NoTyping:
-            ui->typingIndicator->setText(updateUsersTyping(response,temp));
-            break;
-    }
+void ChatWindow::display(QString msg) {
+    ui->outputDisplay->append(msg);
+    ui->typingIndicator->setText("");
 }
 
 /**
@@ -129,7 +112,7 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
  * typing and then sends a prompt back with the updated list
  * @return QString with prompt of current users typing
  */
-QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
+QString ChatWindow::getUpdatedTypingPrompt(CoreSettings::Protocol type,
                                       std::string userName){
     QString typingPrompt = "";
     QByteArray currentUser(userName.c_str(), userName.length());
@@ -152,3 +135,11 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
 
 }
 
+void ChatWindow::setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user) {
+    ui->typingIndicator->setText(getUpdatedTypingPrompt(indicator, user));
+}
+
+
+void ChatWindow::activateCommandManager() {
+    commandManager->handleIncomingMessage();
+}

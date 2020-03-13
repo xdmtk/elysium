@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    commandmanager.cpp \
     main.cpp \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     ../core/CoreSettings.h \
     chatwindow.h \
+    commandmanager.h \
     loginwindow.h \
     socketmanager.h
 

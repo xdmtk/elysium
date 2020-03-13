@@ -48,7 +48,7 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             sendOnlineStatusList();
             Logger::info("Received ServerRequestOnlineStatus indicator");
             break;
-            
+
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
             break;
@@ -106,8 +106,8 @@ void CommandManager::setClientUsername() {
 }
 
 
-/*
- * When TypingIndicator protocol is recieved this sends a message
+/**
+ * When TypingIndicator protocol is received this sends a message
  * via server to ConnectionManager which in turn uses broadcast
  * message to clients.
  */
