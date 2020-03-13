@@ -1,5 +1,9 @@
 #include "Logger.h"
 
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <array>
 #include <csignal>
 #include <fstream>
 #include <ios>
@@ -13,6 +17,19 @@
 bool Logger::writeToConsole = false;
 bool Logger::writeToFile = true;
 bool Logger::terminateOnFatal = true;
+
+
+/** 
+ * Helper function to Log the latest commit for the running instance.
+ * Helpful in verifying which version of the server is being ran at
+ * any given moment 
+ */
+std::string Logger::getLatestBuildCommit() {
+    std::string gitDirectory = getHomeDirectory() + "/elysium";
+    std::string gitLog = Logger::execShellCommand(
+            std::string("cd " + gitDirectory + " && git log | head -1").c_str());
+    return gitLog;
+}
 
 /**
  * Simple helper function to return the current year, month,
@@ -84,13 +101,41 @@ void Logger::log(std::string msg, Logger::LogLevel level) {
 }
 
 /**
- * Builds a hidden directory at the running users home directory for log file storage
+ * Builds and returns a hidden directory at the running users home
+ * directory for log file storage
  * @return
  */
 std::string Logger::getLogDirectory() {
-    std::string logDirectoryPath = "/home/" + std::string(getenv("USER")) + "/.elysium-logs/";
+    std::string logDirectoryPath = getHomeDirectory() + "/.elysium-logs/";
     mkdir(logDirectoryPath.c_str(), 0777);
     return logDirectoryPath;
+}
+
+/**
+ * Returns the executing users home directory
+ * @return
+ */
+std::string Logger::getHomeDirectory() {
+    return "/home/" + std::string(getenv("USER"));
+}
+
+
+/**
+ * Function to execute a command on the server shell and return the response
+ * as a string
+ */
+std::string Logger::execShellCommand(const char* cmd) {
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+    if (!pipe) {
+        Logger::error("Popen() failed - Cannot execute shell command");
+        return "";
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
 }
 
 /**
@@ -117,4 +162,5 @@ void Logger::error(std::string msg){
 void Logger::fatal(std::string msg){
     log(std::move(msg), LogLevel::Info);
 }
+
 

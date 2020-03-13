@@ -1,7 +1,8 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
 #include <QMainWindow>
-#include <QtDebug>
+#include <QAbstractSocket>
+#include <QTcpSocket>
 #include "socketmanager.h"
 
 
@@ -15,15 +16,21 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
-    ~ChatWindow();
 
+    QString getUsername() {return username;}
+    void setUsername(QString u);
+
+    ~ChatWindow();
 private slots:
     void on_inputDisplay_returnPressed();
     void on_actionLight_mode_triggered();
     void on_actionDark_mode_triggered();
+    void display();
 private:
     Ui::ChatWindow *ui;
-    SocketManager socket;
+    SocketManager * socket;
+    QString username;
+
 };
 
 #endif // CHATWINDOW_H

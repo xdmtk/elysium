@@ -1,17 +1,104 @@
+#include "chatwindow.h"
 #include "socketmanager.h"
+#include "../core/CoreSettings.h"
+#include <QString>
 
-SocketManager::SocketManager(){
+/*
+ * Constructor:
+ * Connects to host and displays message based on connection
+ * waitForConnected parameter is in millieseconds
+ */
+SocketManager::SocketManager(ChatWindow * cw) {
 
-    tcpSocket = new QTcpSocket();
-}
+    /* Set a pointer back to the ChatWindow */
+    chatWindow = cw;
 
-void SocketManager::connect(){
-    tcpSocket->connectToHost("elysium-project.net",6692);
-
-    if(!tcpSocket->waitForConnected(1000)){
-        qDebug() << "Error" << tcpSocket->errorString();
+    /* Attempt to connect to the server */
+    tcpSocket.connectToHost("elysium-project.net",6692);
+    if(tcpSocket.waitForConnected(2000)){
+        qDebug() << "Connected!";
     }
     else{
-        qDebug() << "connected";
+
+        /* TODO: Should probably either close or disable the ChatWindow if 
+         * there is a connection failure.. or even possibly instantiate the SocketManager
+         * from the LoginWindow class before showing the ChatWindow */
+        qDebug() << "Not Connected-->" + tcpSocket.errorString();
+        qDebug() << tcpSocket.error();
     }
 }
+
+
+/*
+ * Get function:
+ * Returns the data from the server as a std::string
+ */
+std::string SocketManager::readServerData(){
+    return tcpSocket.readAll().toStdString();
+}
+
+
+/*
+ * Write function:
+ * Gets data through parameter in which is then sent to server
+ */
+void SocketManager::writeToServer(QString data) {
+
+    /* Do the const char * casting here instead of from the ChatWindow class */
+    tcpSocket.write(data.toStdString().c_str());
+}
+
+
+/**
+ * Sets the username on the server for this client by appending 
+ * a CoreSettings::Protocol enum as the first byte of the message 
+ * 
+ * @param - username - Username string to set on the server
+ */
+void SocketManager::setUsernameOnServer(QString username) {
+
+    QString msgToSend;
+
+    /* Append the Protocol indicator  */
+    msgToSend.append(CoreSettings::Protocol::ServerSetUsername);
+
+    /* Append the username (The server knows that the username comes directly
+     * after the Protocol indicator */
+    msgToSend.append(username);
+
+    /* Send the raw QString to the server */
+    writeToServer(msgToSend);
+}
+
+
+/**
+ * Sets the username on the server for this client by appending 
+ * a CoreSettings::Protocol enum as the first byte of the message 
+ * 
+ * @param - username - Username string to set on the server
+ */
+void SocketManager::sendBasicChatMessage(QString msg) {
+    
+   QString msgToSend;
+    
+   /* Append the Protocol indicator  */
+   msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
+
+   /* Append the message (The server knows that the message comes directly
+    * after the protocol indicator */
+   msgToSend.append(msg);
+
+   /* Send the raw QString to the server */
+   writeToServer(msgToSend);
+}
+
+
+/*
+ * Get function:
+ * Returns the member variable tcpSocket
+ */
+QTcpSocket *SocketManager::getSocket(){
+    return &tcpSocket;
+}
+
+

@@ -2,12 +2,20 @@
 <ui version="4.0">
  <class>LoginWindow</class>
  <widget class="QDialog" name="LoginWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>733</width>
     <height>551</height>
+=======
+    <width>316</width>
+    <height>143</height>
+>>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4
    </rect>
   </property>
   <property name="sizePolicy">
@@ -34,14 +42,13 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Elysium - Login</string>
   </property>
   <property name="whatsThis">
    <string/>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: black;
-color:white;</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -53,11 +60,16 @@ color:white;</string>
       </sizepolicy>
      </property>
      <property name="styleSheet">
+<<<<<<< HEAD
       <string notr="true">background:rgb(106, 106, 106);</string>
+=======
+      <string notr="true"/>
+>>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4
      </property>
      <property name="title">
       <string/>
      </property>
+<<<<<<< HEAD
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
@@ -241,6 +253,74 @@ color:black;</string>
        </item>
       </layout>
      </widget>
+=======
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_Title">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>32</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+          <kerning>false</kerning>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Elysium-Project</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="styleSheet">
+           <string notr="true">border-radius: 4px;</string>
+          </property>
+          <property name="placeholderText">
+           <string>Username</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgb(80,80,80);
+color:white;
+border-radius: 4px;</string>
+        </property>
+        <property name="text">
+         <string>Login</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+>>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4
     </widget>
    </item>
   </layout>

@@ -17,6 +17,17 @@ public:
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
     };
 
+    /* This enumeration can contain a maximum of 256 possible 
+     * flags/indicators to use in communicating special operations to/from
+     * the server
+     */
+    enum Protocol {
+        NoOperation,
+        ServerBroadcastMessage,
+        ClientNormalMessage,
+        ServerSetUsername
+    };
+
     std::string getHostName();
     int getPortNumber();
 
