@@ -13,7 +13,7 @@ def get_logs_to_delete():
 def generate_time_strings():
     time_strings = []
     now = datetime.date.today()
-    for x in range(0,3):
+    for x in range(0,4):
         before = now - datetime.timedelta(x)
         time_struct = before.timetuple()
         time_strings.append(str(time_struct.tm_mon).zfill(2) + '-' 
@@ -22,7 +22,7 @@ def generate_time_strings():
     return time_strings
 
 def verify_directory():
-    return os.getcwd().split('/')[-1:] == '.elysium-logs'
+    return os.getcwd().split('/')[-1:][0] == '.elysium-logs'
 
 
 def remove_stale_logs():
@@ -32,13 +32,15 @@ def remove_stale_logs():
     log_list = get_logs_to_delete()
 
     for log in log_list:
-        #subprocess.call(['rm', log])
-        print(log)
+        subprocess.call(['rm', log])
 
 def main():
 
     for user in users:
-        os.chdir(os.path.join(root_path, 'home', '.elysium-logs'))
-        remove_stale_logs()
+        try:
+            os.chdir(os.path.join(root_path, 'home', user, '.elysium-logs'))
+            remove_stale_logs()
+        except:
+            pass
 
 main()
