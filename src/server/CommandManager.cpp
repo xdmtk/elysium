@@ -128,7 +128,11 @@ void CommandManager::sendNoTypingIndicator() {
     server->broadcastMessage(incomingMessage);
 }
 
-
+/**
+ * Sends to the client the ClientReceiveOnlineStatus procotol enum,
+ * followed by a comma separated list of usernames of currently
+ * connected clients
+ */
 void CommandManager::sendOnlineStatusList() {
     Logger::info("Sending online status list");
     incomingMessage = CoreSettings::Protocol::ClientReceiveOnlineStatus;

@@ -119,7 +119,10 @@ void SocketManager::sendBasicChatMessage(QString msg) {
 
 }
 
-
+/**
+ * Sends the Protocol enumeration for the Server to respond
+ * with a list of usernames currently logged into the server
+ */
 void SocketManager::requestOnlineUserlist() {
 
     QString msgToSend;

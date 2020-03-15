@@ -32,10 +32,12 @@ ChatWindow::ChatWindow(QWidget *parent) :
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
+
 void ChatWindow::setUsername(QString u) {
     username = u;
     socket->setUsernameOnServer(username);
 }
+
 
 ChatWindow::~ChatWindow(){
     delete ui;
@@ -50,6 +52,8 @@ void ChatWindow::on_inputDisplay_returnPressed(){
    socket->sendBasicChatMessage(ui->inputDisplay->text());
    ui->inputDisplay->clear();
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when the user clicks on light mode
@@ -65,6 +69,8 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                       "color:black;");
 
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when the user clicks on dark mode
@@ -79,6 +85,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when there is data avaible to be
@@ -89,6 +97,7 @@ void ChatWindow::display(QString msg) {
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");
 }
+
 
 /**
  * Slot function:
@@ -104,6 +113,7 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
     else if(arg1 == 0 || arg1 == -1)
         socket->sendTypingIndicator();
 }
+
 
 /**
  * Modifier function:
@@ -135,15 +145,37 @@ QString ChatWindow::getUpdatedTypingPrompt(CoreSettings::Protocol type,
 
 }
 
+/**
+ * Called by CommandManager when either a TypingIndicator or NoTyping
+ * Protocol enumeratioin is received from the server. Sets the text
+ * of the QLabel that shows whether a user is typing or not.
+ *
+ * @param indicator - Either Typing or NoTyping
+ * @param user - Username string that broadcasted the typing indicator
+ *
+ */
 void ChatWindow::setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user) {
     ui->typingIndicator->setText(getUpdatedTypingPrompt(indicator, user));
 }
 
 
+/**
+ * Slot function wrapper to make a call to handleIncomingMessage.
+ * When calling connect() against a signal emitted by our socket object,
+ * apparently the slot function needs to be a member of the class that
+ * called connect()
+ */
 void ChatWindow::activateCommandManager() {
     commandManager->handleIncomingMessage();
 }
 
+
+/**
+ * Iterates a QStringList of usernames currently logged into
+ * the server. Called by the CommandManager when a 
+ * ClientReceiveOnlineStatus Protocol enumeration is 
+ * received from the server.
+ */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
     ui->friendsDisplay->clear();
     for (auto user : userlist) {

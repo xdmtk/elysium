@@ -3,6 +3,8 @@
 #include "chatwindow.h"
 #include <QMessageBox>
 #include <QRegExpValidator>
+
+
 /*
  * Constructor:
  * Constructs the object for use
@@ -12,10 +14,15 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+
+    /* Only allow alphanumeric characters, dashes and underscores in the
+     * username field */
     usernameRegex = new QRegExp("[A-Za-z0-9_-]+");
     regex = new QRegExpValidator(*usernameRegex);
     ui->lineEdit_username->setValidator(regex);
 }
+
+
 /*
  * Destructor:
  * Delete the object
@@ -23,6 +30,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
 LoginWindow::~LoginWindow(){
     delete ui;
 }
+
 
 /*
  * Slot function:
@@ -42,15 +50,24 @@ void LoginWindow::on_pushButton_clicked(){
         /* Sets username locally - Sends protocol msg to server to set username
          * remotely */
         chatGui->setUsername(ui->lineEdit_username->text());
-
+        
+        /* Wait a second before retrieving the userlist (reason being the timing
+         * of messages is still a bit wonky. TODO: May need to implement a message
+         * delimiter) */
         QTimer::singleShot(1000, [&]{
+
+            /* On successful connection, get the online userlist */
             if (chatGui->isConnected()) {
                 chatGui->getSocketManager()->requestOnlineUserlist();
             }
+
+            /* If the connection failed, close the ChatWindow, clear out the username
+             * field, and show a message box alerting the user of the connection failure */
             else {
                 chatGui->close();
                 ui->lineEdit_username->clear();
                 this->show();
+
                 QMessageBox alert;
                 alert.setText("Failed to connect to server!");
                 alert.exec();
