@@ -3,6 +3,8 @@ import os, sys, subprocess
 # Path evaluation
 git_url = 'https://gitlab.com/csun380spring2020/elysium'
 user = os.environ.get('USER')
+if user == "root":
+    user = "xdmtk"
 home_path = os.path.join('/', 'home', user)
 git_path = os.path.join(home_path, 'elysium')
 git_web_path = os.path.join(git_path, 'src/web/main-site')
