@@ -35,7 +35,7 @@ if len(sys.argv) == 2 and sys.argv[1] == '-master' and os.geteuid == 0:
 
 else:
     # Remove existing web directory
-    subprocess.call('rm', '-rf', web_path)
+    subprocess.call(['rm', '-rf', web_path])
 
     # Copy repo web directory to user web directory
     subprocess.call(['cp', '-r', git_web_path, web_path]) 
