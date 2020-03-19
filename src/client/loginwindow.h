@@ -8,16 +8,18 @@ namespace Ui {
 class LoginWindow;
 }
 
+struct portInfo {
+        QString hostName;
+        int portNumber;
+    };
+
 class LoginWindow : public QDialog
 {
     Q_OBJECT
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
-    struct changeHostPort {
-            QString hostName;
-            int portNumber;
-        };
+    portInfo getPortInfo();
 
 
     ~LoginWindow();
@@ -26,8 +28,9 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
-    struct changeHostPort connectToServer(int port);
-
+    portInfo p;
+    portInfo retrieveNewPort(int port);
 };
+
 
 #endif // LOGINWINDOW_H

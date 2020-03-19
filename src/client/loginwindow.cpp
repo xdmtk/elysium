@@ -12,7 +12,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    ui->horizontalLayout_4
+    ui->horizontalLayout_4;
 
     /* List of the strigns to be put into the server box drop down menu */
     QStringList Ports = {"Josh V-Host - - (josh.elysium-project.net", "Sebastian V-Host - - (sebastian.elysium-project.net)",
@@ -31,9 +31,9 @@ LoginWindow::~LoginWindow(){
     delete ui;
 }
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 
-=======
+=======*/
 /*
  * Slot function:
  * When the enter button is pressed on the
@@ -41,7 +41,7 @@ LoginWindow::~LoginWindow(){
  * and password match and then will open
  * ChatWindow upon success
  */
->>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4
+/*>>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4*/
 void LoginWindow::on_pushButton_clicked(){
     int serverIndex;
 
@@ -58,7 +58,7 @@ void LoginWindow::on_pushButton_clicked(){
 
         /* Show the Chatwindow */
         chatGui->show();
-        
+
         /* Use hide() instead of close() to keep lifespan of instantiated objects */
         this->hide();
     }
@@ -79,12 +79,12 @@ void LoginWindow::on_pushButton_clicked(){
 }
 
 /* This struct functions returns a struct that holds the port information that was chosen
-   it will return both the port number and the
-struct LoginWindow::changeHostPort LoginWindow::connectToServer(int p) {
+   it will return both the port number and the*/
+portInfo LoginWindow::retrieveNewPort(int port) {
     CoreSettings::ConfigEnvironment env;
 
   /*Based on the index passed in when the button is clicked*/
-    switch (p) {
+    switch (port) {
         case 0:
             env = CoreSettings::ConfigEnvironment::JoshDev; break;
         case 1:
@@ -99,17 +99,16 @@ struct LoginWindow::changeHostPort LoginWindow::connectToServer(int p) {
             env = CoreSettings::ConfigEnvironment::Production;
     }
 
-    /*instanse of core settings class to call nonstatic functions*/
+    /*instense of core settings class to call nonstatic functions*/
     CoreSettings c;
     c.setConfigEnvironments(env);
-    QString hostName = QString::fromStdString(c.getHostName());
-    int port = c.getPortNumber();
 
     /*holds port that was chosen*/
-    struct LoginWindow::changeHostPort hostPort;
-    hostPort.portNumber = port;
-    hostPort.hostName = hostName;
+    portInfo hostInfo;
+    hostInfo.portNumber = c.getPortNumber();
+    hostInfo.hostName = QString::fromStdString(c.getHostName());
     /*returns the struct holding port info*/
+    return hostInfo;
 }
 
 

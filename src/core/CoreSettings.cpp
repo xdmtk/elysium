@@ -1,5 +1,6 @@
 #include "CoreSettings.h"
 #include "../server/Server.h"
+#include "../client/loginwindow.h"
 
 CoreSettings::CoreSettings(Server * s){
     server = s;
@@ -34,8 +35,9 @@ void CoreSettings::setConfigEnvironment() {
 }
 
 
-void CoreSettings::setConfigEnvironments(ConfigEnvironment e) {
+void CoreSettings::setConfigEnvironments() {
     env = e;
+
 }
 
 /**

@@ -1,6 +1,7 @@
 #ifndef SOCKETMANAGER_H
 #define SOCKETMANAGER_H
 #include <QTcpSocket>
+#include "loginwindow.h"
 
 class ChatWindow;
 class SocketManager

@@ -12,7 +12,7 @@ SocketManager::SocketManager(ChatWindow * cw) {
 
     /* Set a pointer back to the ChatWindow */
     chatWindow = cw;
-
+    portInfo p = retrieveNewPort();
     /* Attempt to connect to the server */
     tcpSocket.connectToHost("elysium-project.net",6692);
     if(tcpSocket.waitForConnected(2000)){
