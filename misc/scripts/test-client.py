@@ -6,7 +6,7 @@ def receive_server_msg():
         print(s.recv(4096))
 
 s = socket.socket()
-s.connect(('elysium-project.net', 6692))
+s.connect(('elysium-project.net', 6886))
 t = threading.Thread(target=receive_server_msg)
 t.start()
 

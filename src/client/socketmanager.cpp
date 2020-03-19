@@ -12,8 +12,14 @@ SocketManager::SocketManager(ChatWindow * cw) {
 
     /* Set a pointer back to the ChatWindow */
     chatWindow = cw;
+<<<<<<< HEAD
     portInfo p = retrieveNewPort();
+=======
+
+
+>>>>>>> master
     /* Attempt to connect to the server */
+
     tcpSocket.connectToHost("elysium-project.net",6692);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
@@ -69,6 +75,28 @@ void SocketManager::setUsernameOnServer(QString username) {
     /* Send the raw QString to the server */
     writeToServer(msgToSend);
 }
+/*
+ * Write function:
+ * Gets the protocol that someone is typing and sends
+ * off to server
+ */
+void SocketManager::sendTypingIndicator()
+{
+    QString msgToSend = "";
+    msgToSend.append(CoreSettings::Protocol::TypingIndicator);
+    writeToServer(msgToSend);
+
+
+}
+
+void SocketManager::sendNoTypingIndicator()
+{
+    QTimer::singleShot(250, [&](){
+        QString msgToSend ="";
+        msgToSend.append(CoreSettings::Protocol::NoTyping);
+        writeToServer(msgToSend);
+    });
+}
 
 
 /**
@@ -80,16 +108,16 @@ void SocketManager::setUsernameOnServer(QString username) {
 void SocketManager::sendBasicChatMessage(QString msg) {
     
    QString msgToSend;
-    
-   /* Append the Protocol indicator  */
-   msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
+   if(msg.size() != 0){
+       /* Append the Protocol indicator  */
+       msgToSend.append(CoreSettings::Protocol::ServerBroadcastMessage);
+       /* Append the message (The server knows that the message comes directly
+        * after the protocol indicator */
+       msgToSend.append(msg);
+       /* Send the raw QString to the server */
+       writeToServer(msgToSend);
+   }
 
-   /* Append the message (The server knows that the message comes directly
-    * after the protocol indicator */
-   msgToSend.append(msg);
-
-   /* Send the raw QString to the server */
-   writeToServer(msgToSend);
 }
 
 

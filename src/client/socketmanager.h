@@ -11,6 +11,8 @@ public:
     std::string readServerData();
     void sendBasicChatMessage(QString msg);
     void setUsernameOnServer(QString username);
+    void sendTypingIndicator();
+    void sendNoTypingIndicator();
     QTcpSocket *getSocket();
 
 private:
