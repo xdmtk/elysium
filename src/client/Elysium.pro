@@ -27,6 +27,7 @@ HEADERS += \
     ../core/CoreSettings.h \
     chatwindow.h \
     loginwindow.h \
+    portInfo.h \
     socketmanager.h
 
 FORMS += \

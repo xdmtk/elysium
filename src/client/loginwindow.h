@@ -1,17 +1,13 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 #include <QDialog>
+#include <portInfo.h>
 
 class ChatWindow;
 
 namespace Ui {
 class LoginWindow;
 }
-
-struct portInfo {
-        QString hostName;
-        int portNumber;
-    };
 
 class LoginWindow : public QDialog
 {
@@ -29,7 +25,7 @@ private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
     portInfo p;
-    portInfo retrieveNewPort(int port);
+    void retrieveNewPort(int port);
 };
 
 

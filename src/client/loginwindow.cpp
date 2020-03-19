@@ -78,9 +78,15 @@ void LoginWindow::on_pushButton_clicked(){
 
 }
 
+/*returns the struct holdiong the port info*/
+portInfo LoginWindow::getPortInfo(){
+  return p;
+}
+
+
 /* This struct functions returns a struct that holds the port information that was chosen
    it will return both the port number and the*/
-portInfo LoginWindow::retrieveNewPort(int port) {
+void LoginWindow::retrieveNewPort(int port) {
     CoreSettings::ConfigEnvironment env;
 
   /*Based on the index passed in when the button is clicked*/
@@ -104,11 +110,8 @@ portInfo LoginWindow::retrieveNewPort(int port) {
     c.setConfigEnvironments(env);
 
     /*holds port that was chosen*/
-    portInfo hostInfo;
-    hostInfo.portNumber = c.getPortNumber();
-    hostInfo.hostName = QString::fromStdString(c.getHostName());
-    /*returns the struct holding port info*/
-    return hostInfo;
+    p.portNumber = c.getPortNumber();
+    p.hostName = QString::fromStdString(c.getHostName());
 }
 
 

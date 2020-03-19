@@ -12,15 +12,11 @@ SocketManager::SocketManager(ChatWindow * cw) {
 
     /* Set a pointer back to the ChatWindow */
     chatWindow = cw;
-<<<<<<< HEAD
-    portInfo p = retrieveNewPort();
-=======
 
-
->>>>>>> master
     /* Attempt to connect to the server */
-
-    tcpSocket.connectToHost("elysium-project.net",6692);
+    /*tcpSocket.connectToHost("elysium-project.net",6692);*/
+    /*Uses info for server instance chosen at login*/
+    tcpSocket.connectToHost(cw->getPortInfo().hostName, cw->getPortInfo().portNumber);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
     }

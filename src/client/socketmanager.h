@@ -2,6 +2,7 @@
 #define SOCKETMANAGER_H
 #include <QTcpSocket>
 #include "loginwindow.h"
+#include <portInfo.h>
 
 class ChatWindow;
 class SocketManager

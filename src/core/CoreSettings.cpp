@@ -35,9 +35,8 @@ void CoreSettings::setConfigEnvironment() {
 }
 
 
-void CoreSettings::setConfigEnvironments() {
+void CoreSettings::setConfigEnvironments(ConfigEnvironment e) {
     env = e;
-
 }
 
 /**
