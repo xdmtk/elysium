@@ -73,10 +73,14 @@ void ClientConnection::sendMessageToClient(std::string msg) {
  */
 void ClientConnection::terminateConnection() {
 
-    // Set alive flag, and tell the server to update its connection list
+    /* Set alive flag, and tell the server to update its connection list */
     Logger::warn("Thread is about to die");
     alive = false;
     server->getConnectionManager()->updateConnectionList();
+
+    /* Broadcast an updated Username list to connected clients to show this
+     * thread logging off the server */
+    commandManager->sendOnlineStatusList();
 }
 
 

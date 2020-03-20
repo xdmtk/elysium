@@ -1,6 +1,6 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
-
+#include "commandmanager.h"
 
 /*
  * Constructor:
@@ -15,7 +15,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
     ui->inputDisplay->setPlaceholderText("Type here");
-    ui->friendsDisplay->setPlaceholderText("Friends list");
+    ui->friendsDisplay->setPlaceholderText("Loading Friends List");
 
     ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
                                      "color:white;");
@@ -28,13 +28,16 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);
-    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
+    commandManager = new CommandManager(this, socket);
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
+
 
 void ChatWindow::setUsername(QString u) {
     username = u;
     socket->setUsernameOnServer(username);
 }
+
 
 ChatWindow::~ChatWindow(){
     delete ui;
@@ -49,6 +52,8 @@ void ChatWindow::on_inputDisplay_returnPressed(){
    socket->sendBasicChatMessage(ui->inputDisplay->text());
    ui->inputDisplay->clear();
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when the user clicks on light mode
@@ -64,6 +69,8 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                       "color:black;");
 
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when the user clicks on dark mode
@@ -78,34 +85,19 @@ void ChatWindow::on_actionDark_mode_triggered() {
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 }
+
+
 /*
  * Slot function:
  * This slot is emmited when there is data avaible to be
  * read from the server. It reads the data and then displays
  * it to the ChatWindow GUI
  */
-void ChatWindow::display() {
-    std::string temp;
-    QString qInput,userName;
-
-    temp = socket->readServerData();
-    CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
-    temp = temp.substr(1);
-
-    switch (response){
-        case CoreSettings::Protocol::ServerBroadcastMessage:
-            qInput = QString::fromUtf8(temp.c_str());
-                ui->outputDisplay->append(qInput);
-                ui->typingIndicator->setText("");
-            break;
-        case CoreSettings::Protocol::TypingIndicator:
-            ui->typingIndicator->setText(updateUsersTyping(response,temp));
-            break;
-        case CoreSettings::Protocol::NoTyping:
-            ui->typingIndicator->setText(updateUsersTyping(response,temp));
-            break;
-    }
+void ChatWindow::display(QString msg) {
+    ui->outputDisplay->append(msg);
+    ui->typingIndicator->setText("");
 }
+
 
 /**
  * Slot function:
@@ -122,6 +114,7 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
         socket->sendTypingIndicator();
 }
 
+
 /**
  * Modifier function:
  * @param client protocol with the associated userName
@@ -129,7 +122,7 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
  * typing and then sends a prompt back with the updated list
  * @return QString with prompt of current users typing
  */
-QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
+QString ChatWindow::getUpdatedTypingPrompt(CoreSettings::Protocol type,
                                       std::string userName){
     QString typingPrompt = "";
     QByteArray currentUser(userName.c_str(), userName.length());
@@ -152,3 +145,40 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
 
 }
 
+/**
+ * Called by CommandManager when either a TypingIndicator or NoTyping
+ * Protocol enumeratioin is received from the server. Sets the text
+ * of the QLabel that shows whether a user is typing or not.
+ *
+ * @param indicator - Either Typing or NoTyping
+ * @param user - Username string that broadcasted the typing indicator
+ *
+ */
+void ChatWindow::setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user) {
+    ui->typingIndicator->setText(getUpdatedTypingPrompt(indicator, user));
+}
+
+
+/**
+ * Slot function wrapper to make a call to handleIncomingMessage.
+ * When calling connect() against a signal emitted by our socket object,
+ * apparently the slot function needs to be a member of the class that
+ * called connect()
+ */
+void ChatWindow::activateCommandManager() {
+    commandManager->handleIncomingMessage();
+}
+
+
+/**
+ * Iterates a QStringList of usernames currently logged into
+ * the server. Called by the CommandManager when a 
+ * ClientReceiveOnlineStatus Protocol enumeration is 
+ * received from the server.
+ */
+void ChatWindow::setOnlineUserList(QStringList userlist) {
+    ui->friendsDisplay->clear();
+    for (auto user : userlist) {
+        ui->friendsDisplay->append(user);
+    }
+}

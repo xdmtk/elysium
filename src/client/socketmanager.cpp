@@ -13,12 +13,15 @@ SocketManager::SocketManager(ChatWindow * cw) {
     /* Set a pointer back to the ChatWindow */
     chatWindow = cw;
 
+    connectedToServer = false;
+
 
     /* Attempt to connect to the server */
 
     tcpSocket.connectToHost("elysium-project.net",6692);
-    if(tcpSocket.waitForConnected(2000)){
+    if(tcpSocket.waitForConnected(1000)){
         qDebug() << "Connected!";
+        connectedToServer = true;
     }
     else{
 
@@ -114,6 +117,17 @@ void SocketManager::sendBasicChatMessage(QString msg) {
        writeToServer(msgToSend);
    }
 
+}
+
+/**
+ * Sends the Protocol enumeration for the Server to respond
+ * with a list of usernames currently logged into the server
+ */
+void SocketManager::requestOnlineUserlist() {
+
+    QString msgToSend;
+    msgToSend.append(CoreSettings::Protocol::ServerRequestOnlineStatus);
+    writeToServer(msgToSend);
 }
 
 

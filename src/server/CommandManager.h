@@ -10,6 +10,7 @@ class CommandManager {
 public:
     CommandManager(Server *s, ClientConnection *c);
     void handleMessageAndResponse(std::string msg);
+    void sendOnlineStatusList();
 
 private:
     Server * server;

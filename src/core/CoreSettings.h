@@ -1,7 +1,3 @@
-//
-// Created by xdmtk on 2/7/20.
-//
-
 #ifndef ELYSIUM_SERVER_CORESETTINGS_H
 #define ELYSIUM_SERVER_CORESETTINGS_H
 
@@ -27,7 +23,9 @@ public:
         ClientNormalMessage,
         ServerSetUsername,
         TypingIndicator,
-        NoTyping
+        NoTyping,
+        ServerRequestOnlineStatus,
+        ClientReceiveOnlineStatus
     };
 
     std::string getHostName();
