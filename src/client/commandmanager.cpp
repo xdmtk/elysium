@@ -40,7 +40,10 @@ void CommandManager::handleIncomingMessage() {
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to
          * the ChatWindow with a CommandManager wrapper around a ChatWindow function display() */
         case CoreSettings::Protocol::ServerBroadcastMessage:
+
+            /* Scan the message for a '@' user mention */
             chatWindow->getNotificationManager()->detectUserMention(QString::fromUtf8(temp.c_str()));
+
             addIncomingMessageToChat(QString::fromUtf8(temp.c_str()));
             break;
 
