@@ -9,7 +9,7 @@ class Database{
     private $username ;
     private $password;
     private $email;
-    private $verify = 'Y';
+    private $verified = 'Y';
 
     public function __construct(){
          $this->conn = null;
@@ -40,7 +40,7 @@ class Database{
                   username=:username,
                   password=:password,
                   email=:email,
-                  verify=:verify";
+                  verified=:verified";
 
         $stmt = $this->conn->prepare($query);
 
@@ -68,14 +68,14 @@ class Database{
             $this->username = htmlspecialchars(strip_tags($this->username));
             $this->password = htmlspecialchars(strip_tags($this->password));
             $this->email = htmlspecialchars(strip_tags($this->email));
-            $this->verify = htmlspecialchars_decode(strip_tags($this->verify));
+            $this->verified = htmlspecialchars_decode(strip_tags($this->verified));
 
             //6. Bind Data
             $stmt->bindValue(":id", null, PDO::PARAM_INT);
             $stmt->bindParam(":username", $this->username);
             $stmt->bindParam(":password", $this->password);
             $stmt->bindParam(":email", $this->email);
-            $stmt->bindParam(":verify", $this->verify);
+            $stmt->bindParam(":verified", $this->verify);
 
             //7. Execute Query
             if($stmt->execute()){
