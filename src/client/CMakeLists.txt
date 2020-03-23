@@ -15,7 +15,7 @@ set(SOURCE_FILES
         main.cpp
         socketmanager.cpp
         socketmanager.h
-        )
+        notificationmanager.cpp notificationmanager.h)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5Quick REQUIRED)

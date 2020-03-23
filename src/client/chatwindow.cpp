@@ -1,6 +1,7 @@
 #include "chatwindow.h"
 #include "ui_chatwindow.h"
 #include "commandmanager.h"
+#include "notificationmanager.h"
 
 /*
  * Constructor:
@@ -12,6 +13,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
+
+    // TODO: Get this out of the code. Set this in the UI designer
     ui->friendsDisplay->setReadOnly(1);
     ui->outputDisplay->setReadOnly(1);
     ui->inputDisplay->setPlaceholderText("Type here");
@@ -25,10 +28,15 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
     ui->typingIndicator->setStyleSheet("color:green");
+
+
+    this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);
     commandManager = new CommandManager(this, socket);
+    notificationManager = new NotificationManager(this);
+
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 

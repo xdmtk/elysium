@@ -22,6 +22,7 @@ SOURCES += \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
     loginwindow.cpp \
+    notificationmanager.cpp \
     socketmanager.cpp
 
 HEADERS += \
@@ -29,13 +30,18 @@ HEADERS += \
     chatwindow.h \
     commandmanager.h \
     loginwindow.h \
+    notificationmanager.h \
     socketmanager.h
 
 FORMS += \
     chatwindow.ui \
     loginwindow.ui
 
+RC_ICON = ../resources/keyboard-key-e.png
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+  resources.qrc

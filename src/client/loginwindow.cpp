@@ -14,7 +14,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-
+    this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
     /* Only allow alphanumeric characters, dashes and underscores in the
      * username field */
     usernameRegex = new QRegExp("[A-Za-z0-9_-]+");
