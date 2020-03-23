@@ -45,12 +45,12 @@ class Database{
         $stmt = $this->conn->prepare($query);
 
         //2. Run query to check if userName exists
-        $chkUserName = $this->conn->prepare("SELECT username FROM clients WHERE username=:username");
+        $chkUserName = $this->conn->prepare("SELECT username FROM users WHERE username=:username");
         $chkUserName->bindParam(":username", $this->username);
         $chkUserName->execute();
 
         //3. Run query to check if email already exists
-        $chkEmail = $this->conn->prepare("SELECT email FROM clients WHERE email=:email");
+        $chkEmail = $this->conn->prepare("SELECT email FROM users WHERE email=:email");
         $chkEmail->bindParam(":email", $this->email);
         $chkEmail->execute();
 
