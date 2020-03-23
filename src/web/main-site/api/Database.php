@@ -75,7 +75,7 @@ class Database{
             $stmt->bindParam(":username", $this->username);
             $stmt->bindParam(":password", $this->password);
             $stmt->bindParam(":email", $this->email);
-            $stmt->bindParam(":verified", $this->verify);
+            $stmt->bindParam(":verified", $this->verified);
 
             //7. Execute Query
             if($stmt->execute()){
