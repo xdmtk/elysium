@@ -1,5 +1,5 @@
 <?php
-	
+  
   //Headers
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json');
@@ -11,10 +11,4 @@
 
   //1.Connect to DB
   $database = new Database();
-  //2.Set values from form and check for empty para
-  //$database->setFormValues($_POST);
-
-  if($database->setFormValues($_POST) && $database->chkPasswordStrength()){
-  	  $database->create();
-
-  }
+  $database->verifyAndRegister($_POST);

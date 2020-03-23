@@ -1,26 +1,22 @@
 <?php
+include_once '../api/Environment.php';
 class Database{
 
-    //DB Parameters
-    private $DB_HOST = 'localhost';
-    private $DB_USER = 'root';
-    private $DB_PASS = '1234';
-    private $DB_NAME = 'Chat';
-    private $DB_TABLE = 'clients';
     private $conn;
 
     //Table Parameters
-    private $id = 'null';
+    private $id;
     private $username ;
     private $password;
     private $email;
+    private $verify = 'Y';
 
     public function __construct(){
          $this->conn = null;
 
         //1. Connect to DB and check for valid connection
         try{
-            $this->conn = new PDO('mysql:host=' . $this->DB_HOST . ';dbname=' . $this->DB_NAME, $this->DB_USER, $this->DB_PASS );
+            $this->conn = new PDO('mysql:host=' . Environment::get("DB_HOST") . ';dbname=' . Environment::get("DB_NAME"), Environment::get("DB_USER"), Environment::get("DB_PASS") );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         } catch(PDOException $e){
@@ -34,16 +30,17 @@ class Database{
      * Creates the query and validates if 
      * username or email exists in DB
      */
-    public function create(){
+    private function create(){
 
         //1. Create Query
         $query = "INSERT INTO " .
-              $this->DB_TABLE . "
+              Environment::get("DB_TABLE") . "
                 SET
                   id=:id,
                   username=:username,
                   password=:password,
-                  email=:email";
+                  email=:email,
+                  verify=:verify";
 
         $stmt = $this->conn->prepare($query);
 
@@ -71,12 +68,14 @@ class Database{
             $this->username = htmlspecialchars(strip_tags($this->username));
             $this->password = htmlspecialchars(strip_tags($this->password));
             $this->email = htmlspecialchars(strip_tags($this->email));
+            $this->verify = htmlspecialchars_decode(strip_tags($this->verify));
 
             //6. Bind Data
             $stmt->bindValue(":id", null, PDO::PARAM_INT);
             $stmt->bindParam(":username", $this->username);
             $stmt->bindParam(":password", $this->password);
             $stmt->bindParam(":email", $this->email);
+            $stmt->bindParam(":verify", $this->verify);
 
             //7. Execute Query
             if($stmt->execute()){
@@ -92,7 +91,7 @@ class Database{
     * Gets values from the form and the checks if there empty
     * If not empty assign values to member variables
     */
-    public function setFormValues(array $request){
+    private function setFormValues(array $request){
 
         //1.If fields aren't empty assign values to member variables
         if(!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])){
@@ -113,7 +112,7 @@ class Database{
      * uppercase, lowercase, numeric, special char
      * and password length is greater than 8
      */
-    public function chkPasswordStrength(){
+    private function chkPasswordStrength(){
 
         //1. Check if password contains at least one values
         $password = $this->password;
@@ -129,10 +128,14 @@ class Database{
             return false;
         }
         else{
-             echo 'Strong password';
+            echo 'Strong password';
             return true;
         }
-
     }
 
+    public function verifyAndRegister(){
+        if(self::setFormValues($_POST) && self::chkPasswordStrength())
+            self::create();
+  }    
 }
+
