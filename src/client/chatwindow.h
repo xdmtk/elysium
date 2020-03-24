@@ -22,6 +22,7 @@ public:
 
     QString getUsername() {return username;}
     void setUsername(QString u);
+    portInfo getPortInfo();
 
     ~ChatWindow();
 private slots:
@@ -37,7 +38,7 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString updateUsersTyping(CoreSettings::Protocol,std::string);
-
+    portInfo p;
 
 };
 

@@ -27,6 +27,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->typingIndicator->setStyleSheet("color:green");
     ui->inputDisplay->focusWidget();
 
+    p = ((LoginWindow) parent).getPortInfo();
+
     socket = new SocketManager(this);
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
 }
@@ -151,4 +153,12 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
     return typingPrompt;
 
 }
+
+
+/*returns the struct holdiong the port info*/
+portInfo ChatWindow::getPortInfo(){
+  return p;
+}
+
+
 
