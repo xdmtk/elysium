@@ -31,7 +31,7 @@ void NotificationManager::detectUserMention(const QString& msg) {
     QStringList tokens = msg.split(" ");
     for (auto token : tokens) {
         if (token.indexOf("@") != 0) continue;
-        if (token.mid(1) == chatWindow->getUsername()) {
+        if (token.mid(1) == chatWindow->getUsername() || token.mid(1) == "here") {
             fireUserMentionNotification(msg);
         }
     }
