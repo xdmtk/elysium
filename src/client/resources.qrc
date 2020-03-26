@@ -8,5 +8,7 @@
     <qresource prefix="/">
         <file>resources/help.png</file>
         <file>resources/setup.png</file>
+        <file>resources/send_active.png</file>
+        <file>resources/send_inactive.png</file>
     </qresource>
 </RCC>
