@@ -5,4 +5,8 @@
     <qresource prefix="/login">
         <file>resources/signon.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>resources/help.png</file>
+        <file>resources/setup.png</file>
+    </qresource>
 </RCC>

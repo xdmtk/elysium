@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>231</width>
-    <height>356</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -37,7 +37,7 @@
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Elysium - Login</string>
+   <string>Sign On</string>
   </property>
   <property name="whatsThis">
    <string/>
@@ -222,6 +222,94 @@
    </property>
    <property name="text">
     <string>Auto-login</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>44</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/help.png</normaloff>:/resources/help.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>100</width>
+     <height>100</height>
+    </size>
+   </property>
+   <property name="autoRepeatInterval">
+    <number>92</number>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>310</y>
+     <width>44</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/setup.png</normaloff>:/resources/setup.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>100</width>
+     <height>100</height>
+    </size>
+   </property>
+   <property name="autoRepeatInterval">
+    <number>92</number>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_password_2">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>343</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Version 0.1.0</string>
    </property>
   </widget>
  </widget>
