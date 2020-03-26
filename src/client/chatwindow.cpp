@@ -98,10 +98,14 @@ void ChatWindow::display(QString msg) {
  * when arg2 reaches 0 then user is not typing
  */
 void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
-    if(arg2 == 0)
+    if(arg2 == 0) {
         socket->sendNoTypingIndicator();
-    else if(arg1 == 0 || arg1 == -1)
+        ui->sendQLabel->setPixmap(QPixmap(":/resources/send_inactive.png"));
+    }
+    else if(arg1 == 0 || arg1 == -1) {
         socket->sendTypingIndicator();
+        ui->sendQLabel->setPixmap(QPixmap(":/resources/send_active.png"));
+    }
 }
 
 
@@ -168,6 +172,12 @@ void ChatWindow::activateCommandManager() {
  */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
     ui->friendsDisplay->clear();
+    if ((userlist.size()-1)== 1) {
+        ui->peopleHereLabel->setText("<b>1 person here</b>");
+    }
+    else {
+        ui->peopleHereLabel->setText("<b>"+QString::number(userlist.size()-1)+" people here</b>");
+    }
     for (auto user : userlist) {
         ui->friendsDisplay->append(user);
     }

@@ -107,7 +107,7 @@
      <rect>
       <x>560</x>
       <y>10</y>
-      <width>76</width>
+      <width>191</width>
       <height>16</height>
      </rect>
     </property>
@@ -179,6 +179,9 @@
     </property>
     <property name="frame">
      <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
     <property name="placeholderText">
      <string/>

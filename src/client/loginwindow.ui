@@ -10,14 +10,20 @@
     <x>0</x>
     <y>0</y>
     <width>231</width>
-    <height>371</height>
+    <height>410</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>231</width>
+    <height>410</height>
+   </size>
   </property>
   <property name="sizeIncrement">
    <size>
@@ -51,7 +57,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>30</y>
      <width>211</width>
      <height>191</height>
     </rect>
@@ -98,7 +104,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>310</y>
+     <y>350</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -136,7 +142,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>222</y>
+     <y>262</y>
      <width>141</width>
      <height>21</height>
     </rect>
@@ -152,7 +158,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>220</y>
+     <y>260</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -165,7 +171,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
+     <y>240</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -178,7 +184,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>250</y>
+     <y>290</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -191,7 +197,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>80</x>
-     <y>250</y>
+     <y>290</y>
      <width>141</width>
      <height>21</height>
     </rect>
@@ -210,7 +216,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>280</y>
+     <y>320</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -223,7 +229,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>280</y>
+     <y>320</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -236,7 +242,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>310</y>
+     <y>350</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -274,7 +280,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>310</y>
+     <y>350</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -312,7 +318,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>343</y>
+     <y>380</y>
      <width>71</width>
      <height>20</height>
     </rect>
@@ -324,6 +330,56 @@ background: #c0c0c0;
    </property>
    <property name="text">
     <string>Version 0.1.0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white; background: #878c94</string>
+   </property>
+   <property name="text">
+    <string>   Elysium</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>210</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white; background: #878c94</string>
+   </property>
+   <property name="text">
+    <string>       Instant Messenger</string>
    </property>
   </widget>
  </widget>
