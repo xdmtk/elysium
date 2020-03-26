@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/resources/keyboard-key-e.png</normaloff>:/icons/resources/keyboard-key-e.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color:black;
 color:white;</string>
@@ -44,6 +48,9 @@ color:white;</string>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="4" column="0" colspan="2">
@@ -63,6 +70,9 @@ color:white;</string>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+        <property name="placeholderText">
+         <string>Type here...</string>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -72,6 +82,12 @@ color:white;</string>
           <width>200</width>
           <height>400</height>
          </size>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Loading Friends List...</string>
         </property>
        </widget>
       </item>
@@ -110,7 +126,7 @@ color:white;</string>
      <x>0</x>
      <y>0</y>
      <width>859</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
@@ -193,6 +209,8 @@ color:white;</string>
   <tabstop>friendsDisplay</tabstop>
   <tabstop>outputDisplay</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

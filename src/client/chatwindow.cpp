@@ -13,24 +13,6 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui(new Ui::ChatWindow)
 {
     ui->setupUi(this);
-
-    // TODO: Get this out of the code. Set this in the UI designer
-    ui->friendsDisplay->setReadOnly(1);
-    ui->outputDisplay->setReadOnly(1);
-    ui->inputDisplay->setPlaceholderText("Type here");
-    ui->friendsDisplay->setPlaceholderText("Loading Friends List");
-
-    ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
-                                     "color:white;");
-    ui->inputDisplay->setStyleSheet("background: rgb(80,80,80);"
-                                    "color:white;"
-                                    "border: 1px solid black;");
-    ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
-                                      "color:white;");
-    ui->typingIndicator->setStyleSheet("color:green");
-
-
-    this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);

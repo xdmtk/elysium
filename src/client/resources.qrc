@@ -2,4 +2,7 @@
     <qresource prefix="/icons">
         <file>resources/keyboard-key-e.png</file>
     </qresource>
+    <qresource prefix="/login">
+        <file>resources/signon.png</file>
+    </qresource>
 </RCC>
