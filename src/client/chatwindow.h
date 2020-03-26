@@ -9,6 +9,7 @@
 
 
 class CommandManager;
+class NotificationManager;
 namespace Ui {
 class ChatWindow;
 }
@@ -27,6 +28,7 @@ public:
     void setOnlineUserList(QStringList userlist);
     bool isConnected() {return socket->isConnectedToServer();}
     SocketManager * getSocketManager() {return socket;}
+    NotificationManager * getNotificationManager() {return notificationManager;}
 
     ~ChatWindow();
 private slots:
@@ -40,6 +42,7 @@ private:
     Ui::ChatWindow *ui;
     SocketManager * socket;
     CommandManager * commandManager;
+    NotificationManager * notificationManager;
     QString username;
     QVector<QString> usersTyping;
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
