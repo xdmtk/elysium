@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Courier</family>
+    <family>MS Shell Dlg 2</family>
     <pointsize>8</pointsize>
    </font>
   </property>
@@ -22,10 +22,6 @@
   <property name="windowIcon">
    <iconset resource="resources.qrc">
     <normaloff>:/icons/resources/keyboard-key-e.png</normaloff>:/icons/resources/keyboard-key-e.png</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color:black;
-color:white;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -38,12 +34,6 @@ color:white;</string>
           <width>16777215</width>
           <height>400</height>
          </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Courier</family>
-          <pointsize>14</pointsize>
-         </font>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
@@ -61,14 +51,11 @@ color:white;</string>
           <height>300</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <family>Courier</family>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
         <property name="styleSheet">
          <string notr="true"/>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
         </property>
         <property name="placeholderText">
          <string>Type here...</string>
@@ -126,12 +113,13 @@ color:white;</string>
      <x>0</x>
      <y>0</y>
      <width>859</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Courier</family>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -144,12 +132,6 @@ color:white;</string>
     <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuFile">
-    <property name="font">
-     <font>
-      <family>Courier New</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
     <property name="title">
      <string>File</string>
     </property>
@@ -161,11 +143,6 @@ color:white;</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuTools">
-    <property name="font">
-     <font>
-      <family>Courier</family>
-     </font>
-    </property>
     <property name="title">
      <string>Tools</string>
     </property>
