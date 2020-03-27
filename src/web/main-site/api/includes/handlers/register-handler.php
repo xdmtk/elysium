@@ -22,6 +22,7 @@
     * in account class
     */
     if(isset($_POST['registerButton'])){
+        echo 'inside register-handler.php';
 
         if(!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])){
             $userName = cleanUsername($_POST['username']);

@@ -3,7 +3,7 @@ include("../api/includes/classes/Environment.php");
 class Database{
 
     private $conn;
-    
+
     /*
     * Connect to database and check 
     * for errors
@@ -86,7 +86,7 @@ class Database{
      * username or email exists in DB
      */
     private function create($userName,$password,$email,$verify){
-        
+        echo 'inside create - Database';
         //1. Create Query
         $query = "INSERT INTO " .
               Environment::get("DB_TABLE") . "
@@ -104,7 +104,7 @@ class Database{
 
         //6. Bind Data
         $stmt = $this->bindQuery($stmt,$userName,$password,$email,$verify);
-
+        echo 'after bind';
         //7. Execute Query
         if($stmt->execute())
             echo 'Successful post';
@@ -117,7 +117,9 @@ class Database{
     * If username and email aren't taken then register user to db
     */
     public function verifyAndRegister($userName, $password, $email, $verified){
+        echo 'inside verify and create';
        if($this->userExists($userName) && $this->emailExists($email))
+        echo 'going into create';
              $this->create($userName, $password, $email, $verified);
   }    
 }
