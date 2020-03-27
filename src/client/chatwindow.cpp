@@ -2,7 +2,7 @@
 #include "ui_chatwindow.h"
 #include "commandmanager.h"
 #include "notificationmanager.h"
-
+#include "soundmanager.h"
 /*
  * Constructor:
  * Sets style of the ChatWindow up
@@ -16,7 +16,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);
-    commandManager = new CommandManager(this, socket);
+    soundManager = new SoundManager();
+    commandManager = new CommandManager(this, socket, soundManager);
     notificationManager = new NotificationManager(this);
 
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
