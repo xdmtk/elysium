@@ -18,6 +18,8 @@ public:
     ~LoginWindow();
 private slots:
     void on_pushButton_clicked();
+    void on_lineEdit_username_editingFinished();
+
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;

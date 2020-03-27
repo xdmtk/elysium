@@ -97,3 +97,6 @@ void LoginWindow::on_pushButton_clicked(){
 bool LoginWindow::validateUsername() {
     return ui->lineEdit_username->text().length();
 }
+
+void LoginWindow::on_lineEdit_username_editingFinished() {
+}
