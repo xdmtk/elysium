@@ -49,6 +49,7 @@ class Database{
         $chkUserName->bindParam(":username", $this->username);
         $chkUserName->execute();
 
+
         //3. Run query to check if email already exists
         $chkEmail = $this->conn->prepare("SELECT email FROM users WHERE email=:email");
         $chkEmail->bindParam(":email", $this->email);
