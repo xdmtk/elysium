@@ -10,6 +10,18 @@
     <height>563</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>775</width>
+    <height>563</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>MS Shell Dlg 2</family>
@@ -64,9 +76,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>450</y>
+      <y>439</y>
       <width>751</width>
-      <height>20</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="orientation">
@@ -100,6 +112,263 @@
     </property>
     <property name="pixmap">
      <pixmap resource="resources.qrc">:/resources/send_inactive.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontColorButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontcolor.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontBackgroundButton">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontbackgroundcolor.png</pixmap>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>431</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontSmallerButton">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontlower.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontRegularButton">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontregular.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontLargerButton">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontlarger.png</pixmap>
+    </property>
+   </widget>
+   <widget class="Line" name="line_3">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>430</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontBoldButton">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/bold.png</pixmap>
+    </property>
+   </widget>
+   <widget class="Line" name="line_4">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>430</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontUnderlineButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/underline.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="fontItalicsButton">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>433</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/italics.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="emailButton">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>433</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/email.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="hyperLinkButton">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>433</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/hyperlink.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pictureButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>433</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/picture.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="emojiButton">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>433</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/chatbar/resources/emoji.png</pixmap>
+    </property>
+   </widget>
+   <widget class="Line" name="line_5">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>430</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_6">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>430</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
     </property>
    </widget>
    <widget class="QLabel" name="peopleHereLabel">
