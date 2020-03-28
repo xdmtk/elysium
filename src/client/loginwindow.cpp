@@ -88,6 +88,7 @@ void LoginWindow::on_pushButton_clicked(){
                 chatGui->close();
                 ui->lineEdit_username->clear();
                 this->show();
+                cpw->hide();
 
                 QMessageBox alert;
                 alert.setText("Failed to connect to server!");

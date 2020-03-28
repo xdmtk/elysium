@@ -30,6 +30,9 @@ class Database{
     * has been verified
     */
     public function updateVerification($userName){
+
+
+
         $this->setVerification($userName);
     }
     private function setVerification($userName){
@@ -47,7 +50,7 @@ class Database{
     * Check if user exists in DB and 
     * @return true if user doesn't exist in database
     */
-    private function userDoesntExist($userName){
+    public function userDoesntExist($userName){
         
         $chkUserName = $this->conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
@@ -66,7 +69,7 @@ class Database{
     * if they aren't
     * @return true if email doesn't exist in database
     */
-    private function emailDoesntExist($email){
+    public function emailDoesntExist($email){
 
         //1.Prepare statement for checking
         $chkEmail = $this->conn->prepare("SELECT email FROM " . Environment::get("DB_TABLE") . " WHERE email=:email");

@@ -2,7 +2,21 @@
 	include("includes/classes/Database.php");
 
 	$conn = new Database();
-	$conn->updateVerification($_GET['token']);
+	$icon = '';
+	$msg = '';
+	$title = '';
+    if ($conn->userDoesntExist($_GET['token']))	 {
+        $title = 'Whoops!';
+        $icon = 'exclamation';
+        $msg = "Sorry, this link isn't valid. Check the request and try again";
+    }
+    else {
+        $title = 'Thank you!';
+        $icon = 'check';
+        $msg = "Thanks for verifying your email with us. Enjoy the Elysium-Project Chat Application!";
+        $conn->updateVerification($_GET['token']);
+    }
+
 	$thanks = "
 	<html lang=\"en\">
 <head>
@@ -21,12 +35,12 @@
 </head>
 <body>
 	<header class=\"site-header\" id=\"header\">
-		<h1 class=\"site-header__title\" data-lead-id=\"site-header-title\">THANK YOU!</h1>
+		<h1 class=\"site-header__title\" data-lead-id=\"site-header-title\">$title</h1>
 	</header>
 
 	<div class=\"main-content\">
-		<i class=\"fa fa-check main-content__checkmark\" id=\"checkmark\"></i>
-		<p class=\"main-content__body\" data-lead-id=\"main-content-body\">Thanks for verifying your email with us. Enjoy the Elysium-Project Chat Application!</p>
+		<i class=\"fa fa-$icon main-content__checkmark\" id=\"checkmark\"></i>
+		<p class=\"main-content__body\" data-lead-id=\"main-content-body\">$msg</p>
 	</div>
 
 	<footer class=\"site-footer\" id=\"footer\">
