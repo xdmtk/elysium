@@ -1,6 +1,7 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 #include "chatwindow.h"
+#include "commandmanager.h"
 #include "connectionprogresswindow.h"
 #include <QMessageBox>
 #include <QRegExpValidator>
@@ -110,10 +111,26 @@ void LoginWindow::on_pushButton_clicked(){
 
 
 bool LoginWindow::sendAuthenticationRequest() {
+    QEventLoop loop;
     QString passwordHash = QCryptographicHash::hash(ui->lineEdit_password->text().toUtf8(),
                                                     QCryptographicHash::Sha1).toHex();
-
-    return true;
+    chatGui->getSocketManager()->sendAuthenticationRequest(
+                ui->lineEdit_username->text(),
+                passwordHash
+                );
+    connect(chatGui->getCommandManager(),
+            &CommandManager::authReplyReceivedAndSet, &loop, &QEventLoop::quit);
+    loop.exec();
+    if (chatGui->getCommandManager()->getAuthSuccess()) {
+        return true;
+    }
+    else {
+        QMessageBox alert;
+        alert.setText("Authentication failed! Reason: " + chatGui->getCommandManager()
+                      ->getAuthReply());
+        alert.exec();
+        return false;
+    }
 }
 
 

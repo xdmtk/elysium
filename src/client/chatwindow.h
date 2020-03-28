@@ -29,6 +29,7 @@ public:
     bool isConnected() {return socket->isConnectedToServer();}
     SocketManager * getSocketManager() {return socket;}
     NotificationManager * getNotificationManager() {return notificationManager;}
+    CommandManager * getCommandManager() {return commandManager;}
 
     ~ChatWindow();
 private slots:

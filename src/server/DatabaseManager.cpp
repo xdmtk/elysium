@@ -24,11 +24,11 @@ bool DatabaseManager::authenticateClient(std::string username, std::string passw
 
 
 bool DatabaseManager::verifyEnvironmentValues() {
-    return DB_HOST != "" &&
-            DB_NAME != "" &&
-            DB_TABLE != "" &&
-            DB_USER != "" &&
-            DB_PASS != "";
+    return !DB_HOST.empty() &&
+            !DB_NAME.empty() &&
+            !DB_TABLE.empty() &&
+            !DB_USER.empty() &&
+            !DB_PASS.empty();
 }
 
 

@@ -57,6 +57,10 @@ void CommandManager::handleIncomingMessage() {
         case CoreSettings::Protocol::ClientReceiveOnlineStatus:
             updateOnlineUserlist(QString::fromUtf8(temp.c_str()));
             break;
+        case CoreSettings::Protocol::ClientAcceptAuthentication:
+        case CoreSettings::Protocol::ClientRejectAuthentication:
+            handleAuthReply(QString::fromUtf8(temp.c_str()));
+            break;
 
         default:
             break;
@@ -86,4 +90,21 @@ void CommandManager::updateOnlineUserlist(QString userlistString) {
     if (!userlist.empty()) {
         chatWindow->setOnlineUserList(userlist);
     }
+}
+
+void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol protocol) {
+    if (protocol == CoreSettings::Protocol::ClientRejectAuthentication) {
+        setAuthReply(reply.split(",")[1], false);
+    }
+    else {
+        setAuthReply(QString::null, true);
+    }
+
+}
+
+
+void CommandManager::setAuthReply(QString reply, bool val) {
+    authSuccess = val;
+    authReply = reply;
+    emit authReplyReceivedAndSet();
 }

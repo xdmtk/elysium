@@ -140,3 +140,9 @@ QTcpSocket *SocketManager::getSocket(){
 }
 
 
+void SocketManager::sendAuthenticationRequest(QString username, QString password) {
+
+
+}
+
+

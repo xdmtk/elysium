@@ -157,6 +157,7 @@ void CommandManager::authenticateClient() {
     }
     else {
         incomingMessage = CoreSettings::Protocol::ClientRejectAuthentication;
+        incomingMessage.append("," + databaseManager->getFailureReason());
     }
     clientConnection->sendMessageToClient(incomingMessage);
 }

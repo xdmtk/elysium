@@ -12,6 +12,7 @@ public:
     void setUsernameOnServer(QString username);
     void sendTypingIndicator();
     void sendNoTypingIndicator();
+    void sendAuthenticationRequest(QString username, QString password);
     void requestOnlineUserlist();
     bool isConnectedToServer() {return connectedToServer;};
     QTcpSocket *getSocket();
