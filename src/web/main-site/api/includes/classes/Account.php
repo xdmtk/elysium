@@ -4,18 +4,21 @@
 	class Account{
 
 		/**
-		* @param User parameters from login
-		* If all the fields are valid then it creates
-		* a database object and uploads the user to 
-		* DB.
+		* @param user fields for table
+		* Checks to make sure all the values are valid
+		* then sends email verification to user
+		* and lastly inputs the user in DB with a 
+		* 'N' value for verification field
 		*/
 		public function register($userName,$password,$email){
 
 			if($this->validateUserName($userName) &&
 				$this->validateEmail($email) &&
 				$this->validatePassword($password)){
+
+				$this->sendRegisterLink($email,$userName);
 				$dataBase = new Database();
-				$dataBase->verifyAndRegister($userName,$password,$email,'Y');
+				$dataBase->verifyAndRegister($userName,$password,$email,'N');
 			}
 		}
 
@@ -26,7 +29,6 @@
 		* @return true if its a valid username 
 		*/
 		public function validateUserName($userName){
-
 			if(strlen($userName) > 25 || strlen($userName) < 5 ){
 				echo 'Username must be between 5 and 25 characters';
 				return false;
@@ -61,14 +63,23 @@
 	        }
 		}
 
-		public function sendEmailVerify($email){
-			
-			 $email = htmlspecialchars(strip_tags($email));
-			 $to = "sebastianbabble@gmail.com";
-			 $subject = "Please confirm your account with Elysium";
-			 $headers = "From: staff@elysium-project.net\r\n";
-			 $message = "Yo welcome to elysium";
-			 mail($to, $subject,$message,$headers);
+		/**
+		* @param username and email
+		* Calls xdmtk api to send an email to user with a link
+		* when this link is clicked it will send the user
+		* to verified.php where we update verification field
+		*/	
+		public function sendRegisterLink($email,$username){
+			$callback = "elysium-project.net/api/verified.php?token=";
+			$body = "https://api.xdmtk.org/mailer/index.php?to=";
+			$url_request = $body . $email .
+						  "&token=". $username .
+						  "&callback=" .$callback ; 
+
+		  $curl = curl_init();
+		  curl_setopt($curl,CURLOPT_URL, $url_request);
+		  curl_exec($curl);
+			 
 		}
 
 		/**
@@ -84,6 +95,9 @@
 			}
 			return true;
 		}
+		
+
+	
 		
 	}
  ?>

@@ -3,7 +3,6 @@ include("../api/includes/classes/Environment.php");
 class Database{
 
     private $conn;
-
     /*
     * Connect to database and check 
     * for errors
@@ -24,13 +23,34 @@ class Database{
     }
 
     /**
+    * @param username
+    * calls setVerification which essentially 
+    * creates query to update the DB table
+    * with a value of 'Y' indicating user
+    * has been verified
+    */
+    public function updateVerification($userName){
+        echo $userName;
+        $this->setVerification($userName);
+    }
+    private function setVerification($userName){
+        $verified = 'Y';
+        $query = $this->conn->prepare("UPDATE " . Environment::get("DB_TABLE") . 
+                                      " SET verified=:verified WHERE 
+                                      username =:username ");
+        $query->bindParam(":verified",$verified );
+        $query->bindParam(":username", $userName);
+        $query->execute();
+
+    }
+    /**
     * @param value of userName 
     * Check if user exists in DB and 
     * @return true if user doesn't exist in database
     */
     private function userExists($userName){
         
-        $chkUserName = $this->conn->prepare("SELECT username FROM clients WHERE username=:username");
+        $chkUserName = $this->conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
@@ -51,13 +71,13 @@ class Database{
     private function emailExists($email){
 
         //1.Prepare statement for checking
-        $chkEmail = $this->conn->prepare("SELECT email FROM clients WHERE email=:email");
+        $chkEmail = $this->conn->prepare("SELECT email FROM " . Environment::get("DB_TABLE") . " WHERE email=:email");
         $chkEmail->bindParam(":email", $email);
         $chkEmail->execute();
 
         //2.Check if table has a row with current username 
         if($chkEmail->rowCount() > 0){
-            echo 'Error: User already exists';
+            echo 'Error: Email already exists';
             return false;
         }
 
@@ -86,7 +106,7 @@ class Database{
      * username or email exists in DB
      */
     private function create($userName,$password,$email,$verify){
-        echo 'inside create - Database';
+        
         //1. Create Query
         $query = "INSERT INTO " .
               Environment::get("DB_TABLE") . "
@@ -104,7 +124,7 @@ class Database{
 
         //6. Bind Data
         $stmt = $this->bindQuery($stmt,$userName,$password,$email,$verify);
-        echo 'after bind';
+
         //7. Execute Query
         if($stmt->execute())
             echo 'Successful post';
@@ -117,9 +137,7 @@ class Database{
     * If username and email aren't taken then register user to db
     */
     public function verifyAndRegister($userName, $password, $email, $verified){
-        echo 'inside verify and create';
        if($this->userExists($userName) && $this->emailExists($email))
-        echo 'going into create';
              $this->create($userName, $password, $email, $verified);
   }    
 }
