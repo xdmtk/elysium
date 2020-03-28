@@ -22,9 +22,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
-void ChatWindow::setUsername(QString u) {
+void ChatWindow::setLocalUsername(QString u) {
     username = u;
-    socket->setUsernameOnServer(username);
 }
 
 

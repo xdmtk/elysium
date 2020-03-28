@@ -22,7 +22,7 @@ public:
     explicit ChatWindow(QWidget *parent = nullptr);
 
     QString getUsername() {return username;}
-    void setUsername(QString u);
+    void setLocalUsername(QString u);
     void display(QString msg);
     void setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user);
     void setOnlineUserList(QStringList userlist);

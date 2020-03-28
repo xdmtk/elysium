@@ -4,6 +4,7 @@
 #include <QRegExpValidator>
 
 class ChatWindow;
+class ConnectionProgressWindow;
 
 namespace Ui {
 class LoginWindow;
@@ -23,10 +24,12 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
+    ConnectionProgressWindow *cpw;
     QRegExp * usernameRegex;
     QRegExpValidator * regex;
     bool validateUsername();
-
+    bool validatePassword();
+    bool sendAuthenticationRequest();
 };
 
 #endif // LOGINWINDOW_H
