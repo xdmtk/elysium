@@ -6,14 +6,115 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>369</width>
-    <height>148</height>
+    <width>555</width>
+    <height>232</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <widget class="QLabel" name="stepOneLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>30</y>
+     <width>161</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_blank_square.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stepTwoLabel">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>30</y>
+     <width>161</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_blank_square.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stepThreeLabel">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>30</y>
+     <width>161</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_blank_square.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stepOneAction">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>111</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_step1.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stepTwoAction">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>40</y>
+     <width>111</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_step2.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="stepThreeAction">
+   <property name="geometry">
+    <rect>
+     <x>383</x>
+     <y>40</y>
+     <width>131</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/connection/resources/signon_step3.png</pixmap>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
