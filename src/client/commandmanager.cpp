@@ -59,7 +59,7 @@ void CommandManager::handleIncomingMessage() {
             break;
         case CoreSettings::Protocol::ClientAcceptAuthentication:
         case CoreSettings::Protocol::ClientRejectAuthentication:
-            handleAuthReply(QString::fromUtf8(temp.c_str()));
+            handleAuthReply(QString::fromUtf8(temp.c_str()), response);
             break;
 
         default:
@@ -97,7 +97,7 @@ void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol proto
         setAuthReply(reply.split(",")[1], false);
     }
     else {
-        setAuthReply(QString::null, true);
+        setAuthReply("", true);
     }
 
 }
@@ -106,5 +106,4 @@ void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol proto
 void CommandManager::setAuthReply(QString reply, bool val) {
     authSuccess = val;
     authReply = reply;
-    emit authReplyReceivedAndSet();
 }

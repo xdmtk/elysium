@@ -1,13 +1,17 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
 #include <QString>
+#include <QMainWindow>
 #include "../core/CoreSettings.h"
 
 class ChatWindow;
 class SocketManager;
 class CommandManager
 {
+
 public:
+
+
     CommandManager(ChatWindow * cw, SocketManager * socket);
 
     void handleIncomingMessage();

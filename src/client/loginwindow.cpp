@@ -3,10 +3,12 @@
 #include "chatwindow.h"
 #include "commandmanager.h"
 #include "connectionprogresswindow.h"
+#include <csignal>
 #include <QMessageBox>
 #include <QRegExpValidator>
 #include <QCryptographicHash>
 #include <QThread>
+#include <QTime>
 
 
 
@@ -74,6 +76,10 @@ void LoginWindow::on_pushButton_clicked(){
                         cpw->hide();
                     });
                 }
+                else {
+                    cpw->hide();
+                    this->show();
+                }
 
             }
             /* If the connection failed, close the ChatWindow, clear out the username
@@ -118,9 +124,11 @@ bool LoginWindow::sendAuthenticationRequest() {
                 ui->lineEdit_username->text(),
                 passwordHash
                 );
-    connect(chatGui->getCommandManager(),
-            &CommandManager::authReplyReceivedAndSet, &loop, &QEventLoop::quit);
-    loop.exec();
+
+    QTime dieTime= QTime::currentTime().addSecs(1);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
     if (chatGui->getCommandManager()->getAuthSuccess()) {
         return true;
     }

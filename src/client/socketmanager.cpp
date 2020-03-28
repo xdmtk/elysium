@@ -18,7 +18,7 @@ SocketManager::SocketManager(ChatWindow * cw) {
 
     /* Attempt to connect to the server */
 
-    tcpSocket.connectToHost("elysium-project.net",6692);
+    tcpSocket.connectToHost("elysium-project.net",6886);
     if(tcpSocket.waitForConnected(1000)){
         qDebug() << "Connected!";
         connectedToServer = true;
@@ -141,8 +141,10 @@ QTcpSocket *SocketManager::getSocket(){
 
 
 void SocketManager::sendAuthenticationRequest(QString username, QString password) {
-
-
+    QString msgToSend;
+    msgToSend.append(CoreSettings::Protocol::ServerRequestAuthentication);
+    msgToSend.append(username + "," + password);
+    writeToServer(msgToSend);
 }
 
 
