@@ -18,8 +18,29 @@
 
 				$this->sendRegisterLink($email,$userName);
 				$dataBase = new Database();
-				$dataBase->verifyAndRegister($userName,$password,$email,'N');
+				return $dataBase->verifyAndRegister($userName,$password,$email,'N');
+
 			}
+			else {
+			    if (!$this->validateUserName($userName)) {
+			        return json_encode([
+			            'status' => 'failure',
+                        'reason' => 'Invalid username. Alphanumeric characters only'
+                    ]);
+                }
+                if (!$this->validatePassword($password)) {
+                    return json_encode([
+                        'status' => 'failure',
+                        'reason' => 'Invalid password. Not strong enough'
+                    ]);
+                }
+                if (!$this->validateEmail($email)) {
+                    return json_encode([
+                        'status' => 'failure',
+                        'reason' => 'Invalid email'
+                    ]);
+                }
+            }
 		}
 
 		/**
@@ -29,9 +50,11 @@
 		* @return true if its a valid username 
 		*/
 		public function validateUserName($userName){
-			if(strlen($userName) > 25 || strlen($userName) < 5 ){
+			if(!preg_match("[A-Za-z0-9_-]+", $userName) ||
+                strlen($userName) > 25 || strlen($userName) < 2 ){
 				return false;
 			}
+
 			return true;
 		}
 

@@ -22,7 +22,7 @@
             $password = sha1($_POST['password']);
 
             $account = new Account();
-            $account->register($userName, $password, $email);
+            echo $account->register($userName, $password, $email);
         }
         
    

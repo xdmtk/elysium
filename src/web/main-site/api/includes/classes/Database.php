@@ -129,8 +129,21 @@ class Database{
     * If username and email aren't taken then register user to db
     */
     public function verifyAndRegister($userName, $password, $email, $verified){
-       if($this->userExists($userName) && $this->emailExists($email))
-             $this->create($userName, $password, $email, $verified);
+       if(!$this->userExists($userName) && !$this->emailExists($email)) {
+
+           $this->create($userName, $password, $email, $verified);
+           return json_encode([
+                'status' => 'success',
+                'reason' => ''
+           ]);
+
+       }
+       else {
+           return json_encode([
+               'status' => 'failure',
+               'reason' => 'username or email already exists'
+           ]);
+       }
   }    
 }
 
