@@ -50,7 +50,7 @@
 		* @return true if its a valid username 
 		*/
 		public function validateUserName($userName){
-			if(!preg_match("[A-Za-z0-9_-]+", $userName) ||
+			if(!preg_match("/[A-Za-z0-9_-]+/", $userName) ||
                 strlen($userName) > 25 || strlen($userName) < 2 ){
 				return false;
 			}
@@ -65,6 +65,9 @@
 		* @return true if its a valid password
 		*/ 
 		public function validatePassword($password){
+
+		    // Temporarily relax password strength requirments
+            return true;
 
 			//1. Check if password contains at least one values
 	        $password = $password;
