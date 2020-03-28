@@ -105,7 +105,7 @@ class Database{
      * Creates the query and validates if 
      * username or email exists in DB
      */
-    private function create($userName,$password,$email,$verify){
+    private function create($userName,$password,$email,$verified){
         
         //1. Create Query
         $query = "INSERT INTO " .
@@ -115,15 +115,15 @@ class Database{
                   username=:username,
                   password=:password,
                   email=:email,
-                  verify=:verify";
+                  verified=:verified";
 
         //2.Prepare query 
         $stmt = $this->conn->prepare($query);
 
-        $verify = htmlspecialchars_decode(strip_tags($verify));
+        $verified = htmlspecialchars_decode(strip_tags($verified));
 
         //6. Bind Data
-        $stmt = $this->bindQuery($stmt,$userName,$password,$email,$verify);
+        $stmt = $this->bindQuery($stmt,$userName,$password,$email,$verified);
 
         //7. Execute Query
         if($stmt->execute())
