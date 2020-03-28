@@ -13,7 +13,7 @@ DatabaseManager::DatabaseManager(Server *s) {
 
 bool DatabaseManager::authenticateClient(std::string username, std::string password) {
     std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "verify_user.php";
-    std::string result_str = Logger::execShellCommand((verifyUserScriptLocation +
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
             " " + username + " " + password).c_str());
     Logger::debug(result_str);
     if (result_str.substr(0, result_str.find(",")) == "true") {
