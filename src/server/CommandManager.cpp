@@ -149,16 +149,21 @@ void CommandManager::sendOnlineStatusList() {
 
 
 void CommandManager::authenticateClient() {
+    bool authSuccess;
     std::string username, password;
     password = incomingMessage.substr(incomingMessage.find(",")+1);
     username = incomingMessage.substr(0, incomingMessage.find(","));
     if (databaseManager->authenticateClient(username, password)) {
         incomingMessage = CoreSettings::Protocol::ClientAcceptAuthentication;
+        authSuccess = true;
     }
     else {
         incomingMessage = CoreSettings::Protocol::ClientRejectAuthentication;
         incomingMessage.append("," + databaseManager->getFailureReason());
-        clientConnection->terminateConnection();
+        authSuccess = false
     }
     clientConnection->sendMessageToClient(incomingMessage);
+    if (!authSuccess) {
+        clientConnection->terminateConnection();
+    }
 }
