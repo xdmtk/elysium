@@ -113,8 +113,8 @@ class Database{
                 SET
                   id=:id,
                   username=:username,
-                  password=:password,
                   email=:email,
+                  password=:password,
                   verified=:verified";
 
         //2.Prepare query 
