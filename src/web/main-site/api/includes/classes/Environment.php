@@ -7,7 +7,7 @@
 	    const DB_NAME = 'DB_NAME';
 	    const DB_TABLE = 'DB_TABLE';
 	    const VALUE = 1;
-	    const ENV_PATH = "../private.env";
+	    const ENV_PATH = "/var/www/private.env";
 
 	    /*
 	    * Gets value of env name and passes to it back
