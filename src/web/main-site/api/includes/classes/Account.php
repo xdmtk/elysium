@@ -70,7 +70,7 @@
 		* to verified.php where we update verification field
 		*/	
 		public function sendRegisterLink($email,$username){
-			$callback = "https://elysium-project.net/api/verified.php?token=";
+			$callback = "https://sebastian.elysium-project.net/api/verified.php?token=";
 			$body = "https://api.xdmtk.org/mailer/index.php?to=";
 			$url_request = $body . $email .
 						  "&token=". $username .
