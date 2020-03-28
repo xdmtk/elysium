@@ -12,12 +12,12 @@
     * Gets value of env name and passes to it back
     */
     function read_env($val){
-        $env_handle = fopen(self::ENV_PATH,"r") or die("Unable to open file!");
+        $env_handle = fopen(ENV_PATH,"r") or die("Unable to open file!");
         while(!feof($env_handle)){
             $line = explode ("=", fgets($env_handle));
             if($line[0] == $val){
                 fclose($env_handle);
-                return trim($line[self::VALUE]);
+                return trim($line[VALUE]);
             }
         }
     }
