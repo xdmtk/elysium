@@ -1,6 +1,7 @@
 #include "CommandManager.h"
 #include "ClientConnection.h"
 #include "ConnectionManager.h"
+#include "DatabaseManager.h"
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
@@ -8,6 +9,7 @@
 CommandManager::CommandManager(Server *s, ClientConnection *c) {
     server = s;
     clientConnection = c;
+    databaseManager = server->getDatabaseManager();
 }
 
 
@@ -47,6 +49,10 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
         case CoreSettings::Protocol::ServerRequestOnlineStatus:
             sendOnlineStatusList();
             Logger::info("Received ServerRequestOnlineStatus indicator");
+            break;
+        case CoreSettings::Protocol::ServerRequestAuthentication:
+            authenticateClient();
+            Logger::info("Received ServerRequestAuthentication");
             break;
 
         default:
@@ -138,4 +144,11 @@ void CommandManager::sendOnlineStatusList() {
     incomingMessage = CoreSettings::Protocol::ClientReceiveOnlineStatus;
     incomingMessage.append(server->getConnectionManager()->getConnectedUserListCSV());
     server->broadcastMessage(incomingMessage);
+}
+
+
+void CommandManager::authenticateClient() {
+
+
+
 }

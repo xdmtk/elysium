@@ -25,7 +25,10 @@ public:
         TypingIndicator,
         NoTyping,
         ServerRequestOnlineStatus,
-        ClientReceiveOnlineStatus
+        ClientReceiveOnlineStatus,
+        ServerRequestAuthentication,
+        ClientAcceptAuthentication,
+        ClientRejectAuthentication
     };
 
     std::string getHostName();

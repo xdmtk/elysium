@@ -4,6 +4,7 @@
 class SignalManager;
 class ConnectionManager;
 class CoreSettings;
+class DatabaseManager;
 class Server {
 
 public:
@@ -13,11 +14,13 @@ public:
     SignalManager * getSignalManager();
     ConnectionManager * getConnectionManager();
     CoreSettings * getCoreSettings();
+    DatabaseManager * getDatabaseManager();
 
 private:
     SignalManager * signalManager;
     ConnectionManager * connectionManager;
     CoreSettings * coreSettings;
+    DatabaseManager * databaseManager;
 
 };
 #endif //ELYSIUM_SERVER_SERVER_H
