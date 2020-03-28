@@ -16,7 +16,7 @@ class Database{
             $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         } catch(PDOException $e){
-            echo 'Connection Error: ' . $e->getMessage();
+            //echo 'Connection Error: ' . $e->getMessage();
         }
 
         return $this->conn;
@@ -55,7 +55,6 @@ class Database{
         $chkUserName->execute();
 
         if($chkUserName->rowCount() > 0){
-            echo 'Error: User already exists';
             return false;
         }
         return true;
@@ -77,7 +76,6 @@ class Database{
 
         //2.Check if table has a row with current username 
         if($chkEmail->rowCount() > 0){
-            echo 'Error: Email already exists';
             return false;
         }
 
@@ -90,6 +88,7 @@ class Database{
     * @return Db connection with binded query 
     */
     private function bindQuery($stmt,$userName,$password,$email,$verified){
+
         $stmt->bindValue(":id", null, PDO::PARAM_INT);
         $stmt->bindParam(":username", $userName);
         $stmt->bindParam(":password", $password);
@@ -107,7 +106,6 @@ class Database{
      */
     private function create($userName,$password,$email,$verified){
         
-        //1. Create Query
         $query = "INSERT INTO " .
               Environment::get("DB_TABLE") . "
                 SET
@@ -117,19 +115,14 @@ class Database{
                   password=:password,
                   verified=:verified";
 
-        //2.Prepare query 
         $stmt = $this->conn->prepare($query);
 
         $verified = htmlspecialchars_decode(strip_tags($verified));
 
-        //6. Bind Data
         $stmt = $this->bindQuery($stmt,$userName,$password,$email,$verified);
 
-        //7. Execute Query
-        if($stmt->execute())
-            echo 'Successful post';
-        else
-            echo 'There must have been a problem with the post';
+        $stmt->execute();
+        
     }
         
     /**

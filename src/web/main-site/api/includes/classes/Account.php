@@ -30,7 +30,6 @@
 		*/
 		public function validateUserName($userName){
 			if(strlen($userName) > 25 || strlen($userName) < 5 ){
-				echo 'Username must be between 5 and 25 characters';
 				return false;
 			}
 			return true;
@@ -54,11 +53,9 @@
 	        //2. If password doesn't meet all requirments then return false 
 	        if(!$uppercase || !$lowercase || !$number || !$specialChars || 
 	            strlen($password) < 8) {
-	            echo'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character';
 	            return false;
 	        }
 	        else{
-	            echo 'Strong password';
 	            return true;
 	        }
 		}
@@ -76,9 +73,9 @@
 						  "&token=". $username .
 						  "&callback=" .$callback ; 
 
-		  $curl = curl_init();
-		  curl_setopt($curl,CURLOPT_URL, $url_request);
-		  curl_exec($curl);
+		  	$curl = curl_init();
+		  	curl_setopt($curl,CURLOPT_URL, $url_request);
+		  	curl_exec($curl);
 			 
 		}
 
@@ -90,7 +87,6 @@
 		*/
 		public function validateEmail($email){
 			if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-				echo 'Not a valid email address';
 				return false;
 			}
 			return true;
