@@ -63,12 +63,12 @@ void LoginWindow::on_pushButton_clicked(){
 
                 if (sendAuthenticationRequest()) {
                     cpw->updateConnectionStateUI(ConnectionProgressWindow::ConnectionProgress::Authenticated);
-                    chatGui->getSocketManager()->setUsernameOnServer(ui->lineEdit_username->text());
-                    chatGui->setLocalUsername(ui->lineEdit_username->text());
-                    chatGui->getSocketManager()->requestOnlineUserlist();
+                    chatGui->getSocketManager()->setUsernameOnServer(ui->lineEdit_username->text().trimmed());
+                    chatGui->setLocalUsername(ui->lineEdit_username->text().trimmed());
 
                     QTimer::singleShot(1000, [&] {
                         /* Show the Chatwindow */
+                        chatGui->getSocketManager()->requestOnlineUserlist();
                         chatGui->show();
                         cpw->hide();
                     });

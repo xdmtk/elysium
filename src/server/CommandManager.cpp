@@ -2,6 +2,7 @@
 #include "ClientConnection.h"
 #include "ConnectionManager.h"
 #include "DatabaseManager.h"
+#include "../core/CoreSettings.h"
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
@@ -148,7 +149,14 @@ void CommandManager::sendOnlineStatusList() {
 
 
 void CommandManager::authenticateClient() {
-
-
-
+    std::string username, password;
+    password = incomingMessage.substr(incomingMessage.find(",")+1);
+    username = incomingMessage.substr(0, incomingMessage.find(","));
+    if (databaseManager->authenticateClient(username, password)) {
+        incomingMessage = CoreSettings::Protocol::ClientAcceptAuthentication;
+    }
+    else {
+        incomingMessage = CoreSettings::Protocol::ClientRejectAuthentication;
+    }
+    clientConnection->sendMessageToClient(incomingMessage);
 }

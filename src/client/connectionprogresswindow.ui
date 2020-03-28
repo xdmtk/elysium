@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>555</width>
-    <height>212</height>
+    <height>199</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,7 +115,7 @@
   <widget class="QLabel" name="progressTextLabel">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>190</x>
      <y>150</y>
      <width>381</width>
      <height>31</height>
@@ -123,6 +123,19 @@
    </property>
    <property name="text">
     <string>Step 1: Connecting to Server</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>551</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
    </property>
   </widget>
  </widget>

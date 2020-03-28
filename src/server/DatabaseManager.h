@@ -13,6 +13,7 @@ private:
 
     Server * server;
     std::string getEnvironmentValue(std::string key);
+    bool verifyEnvironmentValues();
 
     const std::string DB_HOST = getEnvironmentValue("DB_HOST");
     const std::string DB_NAME = getEnvironmentValue("DB_NAME");

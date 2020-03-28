@@ -1,9 +1,13 @@
 #include "DatabaseManager.h"
+#include "Logger.h"
 #include <fstream>
 #include <vector>
 
 DatabaseManager::DatabaseManager(Server *s) {
     server = s;
+    if (!verifyEnvironmentValues())  {
+        Logger::fatal("Could not parse values from Environment file! Server cannot continue");
+    }
 }
 
 
@@ -11,6 +15,15 @@ bool DatabaseManager::authenticateClient(std::string username, std::string passw
 
 
 }
+
+bool DatabaseManager::verifyEnvironmentValues() {
+    return DB_HOST != "" &&
+            DB_NAME != "" &&
+            DB_TABLE != "" &&
+            DB_USER != "" &&
+            DB_PASS != "";
+}
+
 
 std::string DatabaseManager::getEnvironmentValue(std::string key) {
     std::string line;
@@ -22,10 +35,10 @@ std::string DatabaseManager::getEnvironmentValue(std::string key) {
         }
         envLines.close();
     }
-    for (auto entry : lines) {
+    for (const auto& entry : lines) {
         if (entry.find(key) != -1) {
-            return (entry.substr(entry.find("=")));
+            return (entry.substr(entry.find("=")+1));
         }
     }
-    return NULL;
+    return "";
 }
