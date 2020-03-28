@@ -33,28 +33,28 @@
     function userExists($userName){
         global $conn;
         /** @var  $chkUserName  PDOStatement */
-        $chkUserName = $conn->prepare("SELECT username FROM " . get("DB_TABLE") ." WHERE username=:username");
+        $chkUserName = $conn->prepare("SELECT * FROM " . get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
         if($chkUserName->rowCount() > 0){
-            $row = $chkUserName->fetchAll();
-            if ($row[0]['verified'] == 'Y') {
                 global $argv;
+		$row = $chkUserName->fetchAll();
+            if ($row[0]['verified'] == 'Y') {
                 if ($row[0]['password'] == $argv[2]) {
-                    return [true => 'success'];
+                    return ['true', 'success'];
                 }
                 else {
 
-                    return [false => 'password_incorrect'];
+                    return ['false','password_incorrect'];
                 }
             }
             else {
-                return [false => 'unverified'];
+                return ['false','unverified'];
             }
 
         }
-        return [false => 'user_not_found'];
+        return ['false','user_not_found'];
     }
 
 
@@ -63,7 +63,7 @@
         $conn = new PDO('mysql:host=' . get("DB_HOST") . ';dbname=' . get("DB_NAME"), get("DB_USER"), get("DB_PASS") );
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         global $argv;
-        echo userExists($argv[1]);
+        echo userExists($argv[1])[0] . "," . userExists($argv[1])[1];
     }
 
 main();
