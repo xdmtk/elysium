@@ -108,7 +108,15 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
         ui->sendQLabel->setPixmap(QPixmap(":/resources/send_active.png"));
     }
 }
-
+/**
+ * Sound initially off, buttons toggle it on/off.
+ */
+void ChatWindow::on_actionSound_on_triggered(){
+    commandManager->updateSoundSettings(true);
+}
+void ChatWindow::on_actionSound_off_triggered(){
+    commandManager->updateSoundSettings(false);
+}
 
 /**
  * Modifier function:
@@ -183,3 +191,4 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
         ui->friendsDisplay->append(user);
     }
 }
+

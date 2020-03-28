@@ -10,6 +10,7 @@ public:
     CommandManager(ChatWindow * cw, SocketManager * socket, SoundManager * sm);
 
     void handleIncomingMessage();
+    void updateSoundSettings(bool onOff);
 
 private:
     ChatWindow * chatWindow;
@@ -17,6 +18,7 @@ private:
     SoundManager * soundManager;
     void addIncomingMessageToChat(QString msg);
     void updateOnlineUserlist(QString userlist);
+
 };
 
 #endif // COMMANDMANAGER_H

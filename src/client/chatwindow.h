@@ -37,6 +37,8 @@ private slots:
     void on_actionLight_mode_triggered();
     void on_actionDark_mode_triggered();
     void on_inputDisplay_cursorPositionChanged(int arg1, int arg2);
+    void on_actionSound_on_triggered();
+    void on_actionSound_off_triggered();
     void activateCommandManager();
 
 private:

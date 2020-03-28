@@ -89,3 +89,10 @@ void CommandManager::updateOnlineUserlist(QString userlistString) {
         chatWindow->setOnlineUserList(userlist);
     }
 }
+/**
+ * Updatest the sound settings for the user. Additional
+ * options may be added for @ mentions and different sounds.
+ */
+void CommandManager::updateSoundSettings(bool onOff){
+    soundManager->setSoundSetting(onOff);
+}
