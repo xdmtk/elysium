@@ -33,7 +33,7 @@
     function userExists($userName){
         global $conn;
         /** @var  $chkUserName  PDOStatement */
-        $chkUserName = $conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
+        $chkUserName = $conn->prepare("SELECT username FROM " . get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
