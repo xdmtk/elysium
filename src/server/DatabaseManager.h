@@ -9,12 +9,14 @@ class DatabaseManager {
 public:
     DatabaseManager(Server * s);
     bool authenticateClient(std::string username, std::string password);
+    std::string getFailureReason() {return failureReason;}
 private:
 
     Server * server;
+    std::string failureReason;
     std::string getEnvironmentValue(std::string key);
     bool verifyEnvironmentValues();
-
+    void setFailureReason(std::string s) {failureReason = s;}
     const std::string DB_HOST = getEnvironmentValue("DB_HOST");
     const std::string DB_NAME = getEnvironmentValue("DB_NAME");
     const std::string DB_TABLE = getEnvironmentValue("DB_TABLE");

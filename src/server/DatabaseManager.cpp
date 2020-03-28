@@ -12,9 +12,16 @@ DatabaseManager::DatabaseManager(Server *s) {
 
 
 bool DatabaseManager::authenticateClient(std::string username, std::string password) {
-
-
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "verify_user.php";
+    std::string result_str = Logger::execShellCommand((verifyUserScriptLocation +
+            " " + username + " " + password).c_str());
+    if (result_str.substr(0, result_str.find(",")) == "true") {
+        return true;
+    }
+    setFailureReason(result_str.substr(result_str.find(",")+1));
+    return false;
 }
+
 
 bool DatabaseManager::verifyEnvironmentValues() {
     return DB_HOST != "" &&
