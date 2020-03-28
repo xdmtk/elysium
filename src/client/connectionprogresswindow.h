@@ -11,9 +11,15 @@ class ConnectionProgressWindow : public QDialog
 {
     Q_OBJECT
 
+
 public:
+    enum ConnectionProgress {
+        StartState, ConnectedToServer, Authenticated
+    };
+
     explicit ConnectionProgressWindow(QWidget *parent = nullptr);
     ~ConnectionProgressWindow();
+    void updateConnectionStateUI(ConnectionProgress state);
 
 private:
     Ui::ConnectionProgessWindow *ui;

@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QRegExpValidator>
 #include <QCryptographicHash>
+#include <QThread>
+
 
 
 /*
@@ -51,21 +53,25 @@ void LoginWindow::on_pushButton_clicked(){
         cpw = new ConnectionProgressWindow();
         this->hide();
         cpw->show();
+        cpw->updateConnectionStateUI(ConnectionProgressWindow::ConnectionProgress::StartState);
 
         QTimer::singleShot(1000, [&]{
 
             /* On successful connection, initiate authentication request */
             if (chatGui->isConnected()) {
+                cpw->updateConnectionStateUI(ConnectionProgressWindow::ConnectionProgress::ConnectedToServer);
 
                 if (sendAuthenticationRequest()) {
+                    cpw->updateConnectionStateUI(ConnectionProgressWindow::ConnectionProgress::Authenticated);
                     chatGui->getSocketManager()->setUsernameOnServer(ui->lineEdit_username->text());
                     chatGui->setLocalUsername(ui->lineEdit_username->text());
                     chatGui->getSocketManager()->requestOnlineUserlist();
 
-                    /* Show the Chatwindow */
-                    chatGui->show();
-                    cpw->hide();
-
+                    QTimer::singleShot(1000, [&] {
+                        /* Show the Chatwindow */
+                        chatGui->show();
+                        cpw->hide();
+                    });
                 }
 
             }
@@ -104,6 +110,9 @@ void LoginWindow::on_pushButton_clicked(){
 
 
 bool LoginWindow::sendAuthenticationRequest() {
+    QString passwordHash = QCryptographicHash::hash(ui->lineEdit_password->text().toUtf8(),
+                                                    QCryptographicHash::Sha1).toHex();
+
     return true;
 }
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>555</width>
-    <height>232</height>
+    <height>212</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,6 +110,19 @@
    </property>
    <property name="pixmap">
     <pixmap resource="resources.qrc">:/connection/resources/signon_step3.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="progressTextLabel">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>150</y>
+     <width>381</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Step 1: Connecting to Server</string>
    </property>
   </widget>
  </widget>
