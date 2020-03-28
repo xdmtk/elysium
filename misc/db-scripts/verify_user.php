@@ -7,6 +7,7 @@
     const DB_TABLE = 'DB_TABLE';
     const VALUE = 1;
     const ENV_PATH = "/var/www/private.env";
+    $conn = "";
 
     /*
     * Gets value of env name and passes to it back
@@ -30,9 +31,9 @@
     }
 
     function userExists($userName){
-
+        global $conn;
         /** @var  $chkUserName  PDOStatement */
-        $chkUserName = $this->conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
+        $chkUserName = $conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
@@ -58,8 +59,9 @@
 
 
     function main() {
-        $this->conn = new PDO('mysql:host=' . get("DB_HOST") . ';dbname=' . get("DB_NAME"), get("DB_USER"), get("DB_PASS") );
-        $this->conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        global $conn;
+        $conn = new PDO('mysql:host=' . get("DB_HOST") . ';dbname=' . get("DB_NAME"), get("DB_USER"), get("DB_PASS") );
+        $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         global $argv;
         echo userExists($argv[1]);
     }
