@@ -30,7 +30,6 @@ class Database{
     * has been verified
     */
     public function updateVerification($userName){
-        echo $userName;
         $this->setVerification($userName);
     }
     private function setVerification($userName){
