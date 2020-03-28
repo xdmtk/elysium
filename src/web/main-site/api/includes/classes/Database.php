@@ -89,12 +89,12 @@ class Database{
     * takes the values and binds them to the query string
     * @return Db connection with binded query 
     */
-    private function bindQuery($stmt,$userName,$password,$email,$verify){
+    private function bindQuery($stmt,$userName,$password,$email,$verified){
         $stmt->bindValue(":id", null, PDO::PARAM_INT);
         $stmt->bindParam(":username", $userName);
         $stmt->bindParam(":password", $password);
         $stmt->bindParam(":email", $email);
-        $stmt->bindParam(":verify", $verify);
+        $stmt->bindParam(":verified", $verified);
 
         return $stmt;
     }
