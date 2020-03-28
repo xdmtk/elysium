@@ -14,6 +14,7 @@ public:
     void setUsername(std::string u);
     std::string getUsername();
     bool isAlive();
+    void terminateConnection();
 private:
 
     int socketFileDescriptor, bufferSize, alive;
@@ -23,7 +24,6 @@ private:
     CommandManager * commandManager;
 
     void setClientConnectionConfiguration();
-    void terminateConnection();
 
     void clearReceiveBuffer(char *buffer);
 };
