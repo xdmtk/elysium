@@ -153,16 +153,23 @@
     });
 
     $('#login-btn').click(function(){
+        $('#login-btn').fadeOut(function() {$(this).text("Sending Request");}).fadeIn("slow");
         $.post("api/register.php", {
                 'username' : $('#username').val(),
                 'password' : $('#password').val(),
                 'email' : $('#email').val(),
             },
             function(data, status, xhr) {
-                console.log(data + status + xhr);
-                $('.login-box').slideUp("slow");
-                $('.success-box h1').text('Thank you! Check email for confirmation');
-                $('.success-box').delay(600).fadeIn("slow");
+                if (status == 'success') {
+                    $('.login-box').slideUp("slow");
+                    $('.success-box h1').text('Thank you! Check email for confirmation');
+                    $('.success-box').delay(600).fadeIn("slow");
+                }
+                else {
+                    $('.login-box').slideUp("slow");
+                    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+                    $('.success-box').delay(600).fadeIn("slow");
+                }
             }
         );
     });
