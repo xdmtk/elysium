@@ -167,7 +167,12 @@
                 }
                 else {
                     $('.login-box').slideUp("slow");
-                    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+		    if (data.length) {
+			    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+		    }
+		    else {
+			    $('.success-box h1').text('Unknown error occurred');
+		    }
                     $('.success-box').delay(600).fadeIn("slow");
                 }
             }
