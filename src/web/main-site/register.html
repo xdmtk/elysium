@@ -160,7 +160,7 @@
                 'email' : $('#email').val(),
             },
             function(data, status, xhr) {
-                if (status == 'success' && JSON.parse(data)['status'] == 'success') {
+                if (status == 'success' && data.length && JSON.parse(data)['status'] == 'success') {
                     $('.login-box').slideUp("slow");
                     $('.success-box h1').text('Thank you! Check email for confirmation');
                     $('.success-box').delay(600).fadeIn("slow");
