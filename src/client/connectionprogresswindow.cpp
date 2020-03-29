@@ -1,6 +1,13 @@
 #include "connectionprogresswindow.h"
 #include "ui_connectionprogresswindow.h"
 
+/**
+ * @brief ConnectionProgressWindow::ConnectionProgressWindow
+ * Basic constructor for a Form class that shows the state
+ * of the initial server connection process
+ *
+ * @param parent
+ */
 ConnectionProgressWindow::ConnectionProgressWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConnectionProgessWindow) {
@@ -8,10 +15,24 @@ ConnectionProgressWindow::ConnectionProgressWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+
+/**
+ * @brief ConnectionProgressWindow::~ConnectionProgressWindow
+ * Basic destructor for the class
+ */
 ConnectionProgressWindow::~ConnectionProgressWindow() {
     delete ui;
 }
 
+
+/**
+ * @brief ConnectionProgressWindow::updateConnectionStateUI
+ * Called continuously during the initial Server connection process
+ * and updates the UI based on the current state of the connection
+ * process
+ *
+ * @param state - An enum representing progress in the connection process
+ */
 void ConnectionProgressWindow::updateConnectionStateUI(ConnectionProgress state) {
     switch (state) {
         case ConnectionProgress::StartState:

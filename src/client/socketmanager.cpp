@@ -140,6 +140,13 @@ QTcpSocket *SocketManager::getSocket(){
 }
 
 
+/**
+ * @brief SocketManager::sendAuthenticationRequest
+ * Raw formation of the Authentication Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param password
+ */
 void SocketManager::sendAuthenticationRequest(QString username, QString password) {
     QString msgToSend;
     msgToSend.append(CoreSettings::Protocol::ServerRequestAuthentication);

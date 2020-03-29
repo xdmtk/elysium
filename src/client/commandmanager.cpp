@@ -92,6 +92,16 @@ void CommandManager::updateOnlineUserlist(QString userlistString) {
     }
 }
 
+
+/**
+ * @brief CommandManager::handleAuthReply
+ *
+ * Called when the Client receives the servers response after requesting
+ * to authenticate.
+ *
+ * @param reply - Reply is set on failure, and gives a reason for Authentication failure
+ * @param protocol - The Protocol indicator received, either ClientRejectAuthentication or ClientAcceptAuthentication
+ */
 void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol protocol) {
     if (protocol == CoreSettings::Protocol::ClientRejectAuthentication) {
         setAuthReply(reply.split(",")[1], false);
@@ -103,6 +113,14 @@ void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol proto
 }
 
 
+/**
+ * @brief CommandManager::setAuthReply
+ * Called after the Client has processed the received response from the Server
+ * after requesting authentication
+ *
+ * @param reply - The reason for failure
+ * @param val - A boolean indicating auth success or failure
+ */
 void CommandManager::setAuthReply(QString reply, bool val) {
     authSuccess = val;
     authReply = reply;

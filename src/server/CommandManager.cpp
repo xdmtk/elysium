@@ -128,6 +128,11 @@ void CommandManager::sendTypingIndicator(){
 }
 
 
+/**
+ * When NoTypingIndicator protocol is received this sends a message
+ * via server to ConnectionManager which in turn uses broadcast
+ * message to clients.
+ */
 void CommandManager::sendNoTypingIndicator() {
     Logger::info("Sending no type indicator");
     incomingMessage = CoreSettings::Protocol::NoTyping;
@@ -148,11 +153,26 @@ void CommandManager::sendOnlineStatusList() {
 }
 
 
+/**
+ * Called when the Client requests the server to authenticate an
+ * incoming username/password combo.
+ *
+ * On success, a ClientAcceptAuthentication protocol indicator is
+ * sent back to the Client.
+ *
+ * On failure, a ClientRejectAuthentication protocol indicator
+ * is sent back to the Client and the connection is then terminated
+ */
 void CommandManager::authenticateClient() {
+
     bool authSuccess;
     std::string username, password;
+
+    /* Split the user/pass by comma delimited */
     password = incomingMessage.substr(incomingMessage.find(",")+1);
     username = incomingMessage.substr(0, incomingMessage.find(","));
+
+    /* Call on the Database manager to verify client credentials */
     if (databaseManager->authenticateClient(username, password)) {
         incomingMessage = CoreSettings::Protocol::ClientAcceptAuthentication;
         authSuccess = true;
@@ -162,7 +182,12 @@ void CommandManager::authenticateClient() {
         incomingMessage.append("," + databaseManager->getFailureReason());
         authSuccess = false;
     }
+
+    /* Send back the correct Protocol indicator based on Authentication success
+     * or failure */
     clientConnection->sendMessageToClient(incomingMessage);
+
+    /* On failure, terminate the connection */
     if (!authSuccess) {
         clientConnection->terminateConnection();
     }

@@ -3,19 +3,35 @@
 #include <fstream>
 #include <vector>
 
+
+/**
+ * This class should handle all Database related operations.
+ *
+ * @param s - Pointer back to the Server
+ */
 DatabaseManager::DatabaseManager(Server *s) {
     server = s;
+
     if (!verifyEnvironmentValues())  {
         Logger::fatal("Could not parse values from Environment file! Server cannot continue");
     }
 }
 
 
+/**
+ * Invokes the PHP interpreter against a quick PHP script to verify the
+ * authentication status of the given username and password
+ * @param username
+ * @param password
+ * @return
+ */
 bool DatabaseManager::authenticateClient(std::string username, std::string password) {
+
     std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "verify_user.php";
     std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
             " " + username + " " + password).c_str());
-    Logger::debug(result_str);
+
+
     if (result_str.substr(0, result_str.find(",")) == "true") {
         return true;
     }
@@ -24,6 +40,10 @@ bool DatabaseManager::authenticateClient(std::string username, std::string passw
 }
 
 
+/**
+ * Verifies the ENV values were parsed correctly
+ * @return - True on successful parse, False when some credentials are missing
+ */
 bool DatabaseManager::verifyEnvironmentValues() {
     return !DB_HOST.empty() &&
             !DB_NAME.empty() &&
@@ -33,6 +53,11 @@ bool DatabaseManager::verifyEnvironmentValues() {
 }
 
 
+/**
+ * Quick function to pull the environment values from the given key
+ * @param key - A key to get the associated value in the ENV file
+ * @return - The value corresponding to the given key
+ */
 std::string DatabaseManager::getEnvironmentValue(std::string key) {
     std::string line;
     std::vector<std::string> lines;
