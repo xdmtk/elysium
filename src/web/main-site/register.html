@@ -158,16 +158,10 @@
                 'password' : $('#password').val(),
                 'email' : $('#email').val(),
             },
-            function(response) {
-                console.log(response);
+            function(data, status, xhr) {
+                console.log(data + status + xhr);
                 $('.login-box').slideUp("slow");
                 $('.success-box h1').text('Thank you! Check email for confirmation');
-                $('.success-box').delay(600).fadeIn("slow");
-            },
-            function(error) {
-                console.log(error);
-                $('.login-box').slideUp("slow");
-                $('.success-box h1').text('Problem with registration: ' + error);
                 $('.success-box').delay(600).fadeIn("slow");
             }
         );
