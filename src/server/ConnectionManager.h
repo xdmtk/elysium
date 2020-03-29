@@ -16,6 +16,7 @@ public:
     void updateConnectionList();
     void killAllConnections();
     void broadcastMessageToClients(std::string msg);
+    std::string getConnectedUserListCSV();
 
 private:
     Server * server;

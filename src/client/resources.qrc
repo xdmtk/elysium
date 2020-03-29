@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>resources/keyboard-key-e.png</file>
+    </qresource>
+    <qresource prefix="/login">
+        <file>resources/signon.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>resources/help.png</file>
+        <file>resources/setup.png</file>
+        <file>resources/send_active.png</file>
+        <file>resources/send_inactive.png</file>
+    </qresource>
+    <qresource prefix="/chatbar">
+        <file>resources/bold.png</file>
+        <file>resources/email.png</file>
+        <file>resources/emoji.png</file>
+        <file>resources/fontbackgroundcolor.png</file>
+        <file>resources/fontcolor.png</file>
+        <file>resources/fontlarger.png</file>
+        <file>resources/fontlower.png</file>
+        <file>resources/fontregular.png</file>
+        <file>resources/hyperlink.png</file>
+        <file>resources/italics.png</file>
+        <file>resources/picture.png</file>
+        <file>resources/underline.png</file>
+    </qresource>
+</RCC>

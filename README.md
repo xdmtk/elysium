@@ -11,6 +11,7 @@ All documentation in GitLab Wiki. Local markdown copies and flow charts located 
 * [Git Guidelines](https://gitlab.com/csun380spring2020/elysium/-/wikis/Git%20Guidelines)
 * [Tips](https://gitlab.com/csun380spring2020/elysium/-/wikis/Tips)
 
+
 ### Client
 * [Building](https://gitlab.com/csun380spring2020/elysium/-/wikis/Client%20Building)
 * [Specifications](https://gitlab.com/csun380spring2020/elysium/-/wikis/Client%20Specifications)
@@ -22,3 +23,11 @@ All documentation in GitLab Wiki. Local markdown copies and flow charts located 
 * [Specifications](https://gitlab.com/csun380spring2020/elysium/-/wikis/Server%20Specifications)
 ---
 ![](https://cdn.discordapp.com/attachments/644925714621005824/680280111685042266/Untitled_Diagram.jpg)
+
+
+### UI Screenshots
+##### Login Window
+![](http://i.imgur.com/oWNje7i.png)
+
+##### Main Chat Window
+![](http://i.imgur.com/Ny5A0er.png)

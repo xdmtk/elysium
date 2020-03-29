@@ -72,7 +72,7 @@ function get_log_data() {
     ];
 
     /* Setup unix users */
-    $users = ['xdmtk', 'daniel' . 'erick', 'josh', 'nick', 'sebastian'];
+    $users = ['xdmtk', 'daniel' , 'erick', 'josh', 'nick', 'sebastian'];
 
     /* Grab the correct log file (filename is stamped by UTC time) */
     date_default_timezone_set('UTC');
@@ -112,11 +112,47 @@ function output_server_status_css($instance_owner) {
 		echo "server-offline";
 	}
 }
+
+function server_statistics() {
+	
+		$log_data = get_log_data();
+		foreach ($log_data as $instance => $logs) {
+
+				$info = 0; $warn = 0; $debug = 0; 
+				$error = 0; $fatal = 0;
+
+				echo "<b>".$instance."</b><br>";
+				foreach ($logs as $line) {
+					if (strpos($line, "[INFO]") !== false) { $info++;}
+					if (strpos($line, "[DEBUG]") !== false) { $debug++;}
+					if (strpos($line, "[WARN]") !== false) { $warn++;}
+					if (strpos($line, "[ERROR]") !== false) { $error++;}
+					if (strpos($line, "[FATAL]") !== false) { $fatal++;}
+				}
+				echo "INFO: " . $info . " | DEBUG: " . $debug . " | WARN: " .
+						$warn . " | ERROR: " . $error . " | FATAL: " . $fatal .
+						"<br><br>";
+
+		}
+}
 ?>
 
 
 
 <style>
+.server-statistics {
+
+    list-style-type: none;
+    font-family: arial;
+    margin: auto;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 28px;
+	width: 300px;
+    font-size: 12px;
+}
+
 .server-status-info p{
   margin:auto;
   padding:10px;
@@ -645,9 +681,12 @@ function outputLogData(user) {
                 <p class="server-info">Sebastian</p>
                 <div class="hdd"></div>
             </div>
-        </a>
+	</a>
 
 
+    </div>
+    <div class="server-statistics">
+		<?php server_statistics() ?>
     </div>
 </div>
 <?php 

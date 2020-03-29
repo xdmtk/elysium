@@ -3,6 +3,7 @@
 #include "chatwindow.h"
 #include <QMessageBox>
 #include "../core/CoreSettings.h"
+#include <QRegExpValidator>
 
 /*
  * Constructor:
@@ -13,7 +14,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    ui->horizontalLayout_4;
+//    ui->horizontalLayout_4;
 
     /* List of the strigns to be put into the server box drop down menu */
     QStringList Ports = {"Production Server - - (elysium-project.net)", "Sebastian V-Host - - (sebastian.elysium-project.net)",
@@ -23,7 +24,16 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->ServerBox->addItems(Ports);
     ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
                                      "color:white;");
+
+    this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
+    /* Only allow alphanumeric characters, dashes and underscores in the
+     * username field */
+    usernameRegex = new QRegExp("[A-Za-z0-9_-]+");
+    regex = new QRegExpValidator(*usernameRegex);
+    ui->lineEdit_username->setValidator(regex);
 }
+
+
 /*
  * Destructor:
  * Delete the object
@@ -32,9 +42,7 @@ LoginWindow::~LoginWindow(){
     delete ui;
 }
 
-/*<<<<<<< HEAD
 
-=======*/
 /*
  * Slot function:
  * When the enter button is pressed on the
@@ -47,7 +55,7 @@ void LoginWindow::on_pushButton_clicked(){
     int serverIndex;
 
     /* Need to enter a username to initiate connection to server */
-    if (ui->lineEdit_username->text().length()) {
+    if (validateUsername()) {
         serverIndex = ui->ServerBox->currentIndex();
         retrieveNewPort(serverIndex);
 
@@ -57,6 +65,29 @@ void LoginWindow::on_pushButton_clicked(){
         /* Sets username locally - Sends protocol msg to server to set username
          * remotely */
         chatGui->setUsername(ui->lineEdit_username->text());
+        
+        /* Wait a second before retrieving the userlist (reason being the timing
+         * of messages is still a bit wonky. TODO: May need to implement a message
+         * delimiter) */
+        QTimer::singleShot(1000, [&]{
+
+            /* On successful connection, get the online userlist */
+            if (chatGui->isConnected()) {
+                chatGui->getSocketManager()->requestOnlineUserlist();
+            }
+
+            /* If the connection failed, close the ChatWindow, clear out the username
+             * field, and show a message box alerting the user of the connection failure */
+            else {
+                chatGui->close();
+                ui->lineEdit_username->clear();
+                this->show();
+
+                QMessageBox alert;
+                alert.setText("Failed to connect to server!");
+                alert.exec();
+            }
+        });
 
         /* Show the Chatwindow */
         chatGui->show();
@@ -113,3 +144,9 @@ void LoginWindow::retrieveNewPort(int port) {
 
 
 
+bool LoginWindow::validateUsername() {
+    return ui->lineEdit_username->text().length();
+}
+
+void LoginWindow::on_lineEdit_username_editingFinished() {
+}
