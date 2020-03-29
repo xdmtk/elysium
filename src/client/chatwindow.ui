@@ -539,11 +539,20 @@
    </property>
   </action>
   <action name="actionSound_on">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>On</string>
    </property>
   </action>
   <action name="actionSound_off">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Off</string>
    </property>
