@@ -15,7 +15,6 @@ class LoginWindow : public QDialog
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
-    portInfo getPortInfo();
 
 
     ~LoginWindow();

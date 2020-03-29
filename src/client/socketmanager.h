@@ -9,6 +9,7 @@ class SocketManager
 {
 public:
     SocketManager(ChatWindow * cw);
+    SocketManager(portInfo pass, ChatWindow * cw);
     std::string readServerData();
     void sendBasicChatMessage(QString msg);
     void setUsernameOnServer(QString username);

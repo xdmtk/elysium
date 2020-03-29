@@ -67,6 +67,29 @@ std::string CoreSettings::getHostName() {
     return "https://" + hostName + "elysium-project.net";
 }
 
+
+std::string CoreSettings::getHostName2() {
+
+    std::string hostName;
+    switch (env) {
+        case ConfigEnvironment::DanielDev:
+            hostName = "daniel."; break;
+        case ConfigEnvironment::ErickDev:
+            hostName = "erick."; break;
+        case ConfigEnvironment::SebastianDev:
+            hostName = "sebastian."; break;
+        case ConfigEnvironment::NickDev:
+            hostName = "nick."; break;
+        case ConfigEnvironment::JoshDev:
+            hostName = "josh."; break;
+        case ConfigEnvironment::Production:
+        default:
+            hostName = ""; break;
+    }
+
+    return hostName + "elysium-project.net";
+}
+
 /**
  * Arbitrary port numbers for each given Vhost and production environment
  *

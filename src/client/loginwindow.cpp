@@ -3,6 +3,7 @@
 #include "chatwindow.h"
 #include <QMessageBox>
 #include "../core/CoreSettings.h"
+
 /*
  * Constructor:
  * Constructs the object for use
@@ -15,9 +16,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->horizontalLayout_4;
 
     /* List of the strigns to be put into the server box drop down menu */
-    QStringList Ports = {"Josh V-Host - - (josh.elysium-project.net", "Sebastian V-Host - - (sebastian.elysium-project.net)",
+    QStringList Ports = {"Production Server - - (elysium-project.net)", "Sebastian V-Host - - (sebastian.elysium-project.net)",
                          "Nick V-Host - - (nick.elysium-project.net)", "Erick V-Host - - (erick.elysium-project.net)",
-                         "Daniel V-Host - - (daniel.elysium-project.net)", "Production Server - - (elysium-project.net)"};
+                         "Daniel V-Host - - (daniel.elysium-project.net)", "Josh V-Host - - (josh.elysium-project.net"};
     /* Add Qlist to the server boc and set the color and background of the box */
     ui->ServerBox->addItems(Ports);
     ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
@@ -48,9 +49,10 @@ void LoginWindow::on_pushButton_clicked(){
     /* Need to enter a username to initiate connection to server */
     if (ui->lineEdit_username->text().length()) {
         serverIndex = ui->ServerBox->currentIndex();
+        retrieveNewPort(serverIndex);
 
         /* Instantiate ChatWindow */
-        chatGui = new ChatWindow(this);
+        chatGui = new ChatWindow(p, this);
 
         /* Sets username locally - Sends protocol msg to server to set username
          * remotely */
@@ -78,11 +80,6 @@ void LoginWindow::on_pushButton_clicked(){
 
 }
 
-/*returns the struct holdiong the port info*/
-portInfo LoginWindow::getPortInfo(){
-  return p;
-}
-
 
 /* This struct functions returns a struct that holds the port information that was chosen
    it will return both the port number and the*/
@@ -92,7 +89,7 @@ void LoginWindow::retrieveNewPort(int port) {
   /*Based on the index passed in when the button is clicked*/
     switch (port) {
         case 0:
-            env = CoreSettings::ConfigEnvironment::JoshDev; break;
+            env = CoreSettings::ConfigEnvironment::Production ;break;
         case 1:
             env = CoreSettings::ConfigEnvironment::SebastianDev; break;
         case 2:
@@ -102,7 +99,7 @@ void LoginWindow::retrieveNewPort(int port) {
         case 4:
             env = CoreSettings::ConfigEnvironment::DanielDev; break;
         case 5:
-            env = CoreSettings::ConfigEnvironment::Production;
+           env = CoreSettings::ConfigEnvironment::JoshDev;
     }
 
     /*instense of core settings class to call nonstatic functions*/
@@ -111,7 +108,7 @@ void LoginWindow::retrieveNewPort(int port) {
 
     /*holds port that was chosen*/
     p.portNumber = c.getPortNumber();
-    p.hostName = QString::fromStdString(c.getHostName());
+    p.hostName = QString::fromStdString(c.getHostName2());
 }
 
 

@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
+#include <portInfo.h>
 
 
 
@@ -19,10 +20,10 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
+    ChatWindow(portInfo pass, QWidget *parent = nullptr);
 
     QString getUsername() {return username;}
     void setUsername(QString u);
-    portInfo getPortInfo();
 
     ~ChatWindow();
 private slots:

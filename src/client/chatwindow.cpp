@@ -27,9 +27,32 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->typingIndicator->setStyleSheet("color:green");
     ui->inputDisplay->focusWidget();
 
-    p = ((LoginWindow) parent).getPortInfo();
-
     socket = new SocketManager(this);
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
+}
+
+ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::ChatWindow)
+{
+    ui->setupUi(this);
+    ui->friendsDisplay->setReadOnly(1);
+    ui->outputDisplay->setReadOnly(1);
+    ui->inputDisplay->setPlaceholderText("Type here");
+    ui->friendsDisplay->setPlaceholderText("Friends list");
+
+    ui->outputDisplay->setStyleSheet("background: rgb(80,80,80);"
+                                     "color:white;");
+    ui->inputDisplay->setStyleSheet("background: rgb(80,80,80);"
+                                    "color:white;"
+                                    "border: 1px solid black;");
+    ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
+                                      "color:white;");
+    ui->typingIndicator->setStyleSheet("color:green");
+    ui->inputDisplay->focusWidget();
+
+    p = pass;
+    socket = new SocketManager(p, this);
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::display);
 }
 
@@ -155,10 +178,6 @@ QString ChatWindow::updateUsersTyping(CoreSettings::Protocol type,
 }
 
 
-/*returns the struct holdiong the port info*/
-portInfo ChatWindow::getPortInfo(){
-  return p;
-}
 
 
 
