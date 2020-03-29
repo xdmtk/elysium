@@ -496,6 +496,14 @@
     <property name="title">
      <string>Tools</string>
     </property>
+    <widget class="QMenu" name="menuSound">
+     <property name="title">
+      <string>Sound</string>
+     </property>
+     <addaction name="actionSound_on"/>
+     <addaction name="actionSound_off"/>
+    </widget>
+    <addaction name="menuSound"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
@@ -528,6 +536,25 @@
   <action name="actionLight_mode">
    <property name="text">
     <string>Light mode</string>
+   </property>
+  </action>
+  <action name="actionSound_on">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>On</string>
+   </property>
+  </action>
+  <action name="actionSound_off">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Off</string>
    </property>
   </action>
  </widget>
