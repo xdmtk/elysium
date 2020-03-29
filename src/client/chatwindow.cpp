@@ -114,10 +114,12 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
 void ChatWindow::on_actionSound_on_triggered(){
     commandManager->updateSoundSettings(true);
     ui->actionSound_off->setChecked(false);
+    ui->actionSound_on->setChecked(true);
 }
 void ChatWindow::on_actionSound_off_triggered(){
     commandManager->updateSoundSettings(false);
     ui->actionSound_on->setChecked(false);
+    ui->actionSound_off->setChecked(true);
 }
 
 /**
