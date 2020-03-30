@@ -1,0 +1,132 @@
+.header{
+  maring-top: 0px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.navbar-custom{
+  background-color: rgba(47, 64, 92, .3);
+
+}
+.navbar .nav .nav-item .nav-link{
+  color: #1a0000;
+  font-family: Courier New;
+
+}
+
+.navbar .navbar-brand{
+
+  color: #1a0000;
+  font-family: Courier New;
+}
+body{
+  padding-top: 10px;
+  background-color:black;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yFbEFAv/mountains-motion-background_bvfnn_hzx__F0000.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    font-family: "Lato", "Aril", sans-serif;
+}
+
+h1 {
+    color: #ddd;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    margin: 0 0 25px 0;
+    font-size: 16px;
+}
+
+input {
+    display: inline-block;
+    background: none;
+    border: none;
+    outline: none;
+    color: #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align:center;
+}
+
+.input-area {
+    margin: 0px 0px 12px;
+    padding: 8px;
+}
+
+.btn {
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background: none;
+    border: 1px solid #ddd;
+    font-weight: 300;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 5px #000;
+    transition: ease-in 0.2s;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #ddd;
+    color: #333;
+}
+
+i {
+    color: #ddd;
+    margin: 0 5px 0 0;
+}
+
+.question {
+    display: inline-block;
+    color: #ddd;
+    font-size: 12px;
+}
+
+.reg-btn {
+    color: #ddd;
+    margin-left: 5px;
+    font-size: 12px;
+
+}
+
+.question-box {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.success-box {
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    width: 360px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+}
+
+.success-box h1 {
+    color: #ddd;
+    margin-top: 6%;
+}

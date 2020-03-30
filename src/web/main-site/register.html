@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel = "stylesheet" href = "main.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+</head>
+<div class = "col-md-8 mx-auto" >
+  <nav class= "navbar navbar-custom justify-content-left">
+    <a class="navbar-brand" href="home.html">Elysium</a>
+    <ul class = "nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#download">Download</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#support">Support</a>
+      </li>
+      <li class= "nav-item">
+        <a class="nav-link active" href="register.html">Register</a>
+      </li>
+
+      </ul
+    </nav>
+  </div>
+<div class="login-box col-md-8 mx-auto">
+    <div class="input-section">
+        <i class="far fa-user"></i>
+        <input id="username" class="input-area" type="text" placeholder="Username">
+    </div>
+    <div class="input-section">
+        <i class="fas fa-lock"></i>
+        <input id="password" class="input-area" type="password" placeholder="Password">
+        <br>
+        <i class="fas fa-lock"></i>
+        <input class="input-area" type="password" placeholder="Confirm Password">
+    </div>
+    <div class="input-section">
+        <i class="far fa-envelope"></i>
+        <input id="email" class="input-area" type="text" placeholder="Email">
+    </div>
+    <button class="btn col-md-2 mx-auto" id="login-btn">Register</button>
+</div>
+<div class="success-box">
+    <h1>You have successfully registered. Check email for confirmation.</h1>
+
+
+</div>
+<script>
+    $(".reg-btn").click(function() {
+        $(".hidden").slideToggle("slow");
+        if ($("#login-btn").text() === "Login") {
+            $("#login-btn").text("Register");
+            $(".question").text("Already a member?");
+            $(".reg-btn").text("Login");
+        } else {
+            $("#login-btn").text("Login");
+            $(".question").text("Not a member?");
+            $(".reg-btn").text("Register");
+        }
+    });
+
+    $('#login-btn').click(function(){
+        $('#login-btn').fadeOut(function() {$(this).text("Sending Request");}).fadeIn("slow");
+        $.post("api/register.php", {
+                'username' : $('#username').val(),
+                'password' : $('#password').val(),
+                'email' : $('#email').val(),
+            },
+            function(data, status, xhr) {
+                if (status == 'success') {
+                    $('.login-box').slideUp("slow");
+                    $('.success-box h1').text('Thank you! Check email for confirmation');
+                    $('.success-box').delay(600).fadeIn("slow");
+                }
+                else {
+                    $('.login-box').slideUp("slow");
+                    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+                    $('.success-box').delay(600).fadeIn("slow");
+                }
+            }
+        );
+    });
+</script>
+</html>

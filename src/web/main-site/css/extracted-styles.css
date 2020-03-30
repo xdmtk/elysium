@@ -32,3 +32,28 @@ option {
     text-align: center;
     vertical-align: middle;
     }
+
+  .navbar .nav .nav-item .nav-link{
+      color: #1a0000;
+
+    }
+
+.navbar .navbar-brand{
+
+  color: #1a0000;
+  font-family: Century Gothic;
+    }
+body.main{
+  padding-top: 10px;
+  background-color:black;
+    }
+#Portfolio{
+  color:white;
+  background-color:#1a0000;
+  font-family: Courier New;
+}
+#Contact{
+  color: white;
+  background-color:#1a0000;
+  font-family: Courier New;
+    }
