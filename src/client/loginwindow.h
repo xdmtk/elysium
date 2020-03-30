@@ -23,6 +23,10 @@ private slots:
     void on_pushButton_clicked();
     void on_lineEdit_username_editingFinished();
 
+    void on_lineEdit_password_returnPressed();
+
+    void on_lineEdit_username_returnPressed();
+
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
