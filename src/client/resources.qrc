@@ -25,4 +25,7 @@
         <file>resources/picture.png</file>
         <file>resources/underline.png</file>
     </qresource>
+    <qresource prefix="/sounds">
+        <file>resources/new-message-woosh.wav</file>
+    </qresource>
 </RCC>
