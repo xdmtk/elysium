@@ -30,11 +30,8 @@ HEADERS += \
     chatwindow.h \
     commandmanager.h \
     loginwindow.h \
-<<<<<<< HEAD
     portInfo.h \
-=======
     notificationmanager.h \
->>>>>>> origin/master
     socketmanager.h
 
 FORMS += \

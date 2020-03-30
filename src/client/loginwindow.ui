@@ -5,12 +5,15 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>231</width>
-    <height>410</height>
+    <height>439</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,7 +25,7 @@
   <property name="maximumSize">
    <size>
     <width>231</width>
-    <height>410</height>
+    <height>439</height>
    </size>
   </property>
   <property name="sizeIncrement">
@@ -91,7 +94,7 @@ background: #c0c0c0;
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>:/icons/resources/keyboard-key-e.png</pixmap>
+    <pixmap resource="resources.qrc">:/icons/resources/keyboard-key-e.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -104,7 +107,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>350</y>
+     <y>380</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -119,7 +122,7 @@ background: #c0c0c0;
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="resources.qrc">
      <normaloff>:/login/resources/signon.png</normaloff>:/login/resources/signon.png</iconset>
    </property>
    <property name="iconSize">
@@ -205,18 +208,21 @@ background: #c0c0c0;
    <property name="styleSheet">
     <string notr="true">background: white;</string>
    </property>
+   <property name="text">
+    <string/>
+   </property>
    <property name="echoMode">
     <enum>QLineEdit::Password</enum>
    </property>
    <property name="placeholderText">
-    <string>Not Yet Implemented</string>
+    <string>Password</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
+     <y>350</y>
      <width>91</width>
      <height>21</height>
     </rect>
@@ -229,7 +235,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>150</x>
-     <y>320</y>
+     <y>350</y>
      <width>71</width>
      <height>21</height>
     </rect>
@@ -242,7 +248,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>380</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -257,7 +263,7 @@ background: #c0c0c0;
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="resources.qrc">
      <normaloff>:/resources/help.png</normaloff>:/resources/help.png</iconset>
    </property>
    <property name="iconSize">
@@ -280,7 +286,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>350</y>
+     <y>380</y>
      <width>44</width>
      <height>31</height>
     </rect>
@@ -295,7 +301,7 @@ background: #c0c0c0;
     <string/>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="resources.qrc">
      <normaloff>:/resources/setup.png</normaloff>:/resources/setup.png</iconset>
    </property>
    <property name="iconSize">
@@ -318,7 +324,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>380</y>
+     <y>410</y>
      <width>71</width>
      <height>20</height>
     </rect>
@@ -380,6 +386,29 @@ background: #c0c0c0;
    </property>
    <property name="text">
     <string>       Instant Messenger</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="ServerBox">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>320</y>
+     <width>141</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>320</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Server</string>
    </property>
   </widget>
  </widget>

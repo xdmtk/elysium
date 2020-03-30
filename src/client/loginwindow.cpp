@@ -20,6 +20,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     QStringList Ports = {"Production Server - - (elysium-project.net)", "Sebastian V-Host - - (sebastian.elysium-project.net)",
                          "Nick V-Host - - (nick.elysium-project.net)", "Erick V-Host - - (erick.elysium-project.net)",
                          "Daniel V-Host - - (daniel.elysium-project.net)", "Josh V-Host - - (josh.elysium-project.net"};
+
     /* Add Qlist to the server boc and set the color and background of the box */
     ui->ServerBox->addItems(Ports);
     ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
