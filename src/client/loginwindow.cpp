@@ -59,7 +59,7 @@ void LoginWindow::on_pushButton_clicked(){
     if (validateUsername()) {
         serverIndex = ui->ServerBox->currentIndex();
         retrieveNewPort(serverIndex);
-
+        qDebug()  << serverIndex;
         /* Instantiate ChatWindow */
         chatGui = new ChatWindow(p, this);
 
@@ -141,6 +141,8 @@ void LoginWindow::retrieveNewPort(int port) {
     /*holds port that was chosen*/
     p.portNumber = c.getPortNumber();
     p.hostName = QString::fromStdString(c.getHostName2());
+    qDebug() << p. portNumber << p.hostName;
+
 }
 
 

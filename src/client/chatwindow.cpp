@@ -31,7 +31,7 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
 
     p = pass;
 
-    socket = new SocketManager(this);
+    socket = new SocketManager(p, this);
     commandManager = new CommandManager(this, socket);
     notificationManager = new NotificationManager(this);
 

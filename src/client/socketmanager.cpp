@@ -42,6 +42,8 @@ SocketManager::SocketManager(portInfo pass, ChatWindow * cw) {
     tcpSocket.connectToHost(pass.hostName, pass.portNumber);
     if(tcpSocket.waitForConnected(2000)){
         qDebug() << "Connected!";
+        connectedToServer = true;
+
     }
     else{
 
