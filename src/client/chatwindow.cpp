@@ -33,8 +33,10 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
     p = pass;
 
     socket = new SocketManager(p, this);
+    soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
     notificationManager = new NotificationManager(this);
+
 
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
