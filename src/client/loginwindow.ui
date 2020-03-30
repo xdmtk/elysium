@@ -397,6 +397,36 @@ background: #c0c0c0;
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>Production Server - - (elysium-project.net)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Sebastian V-Host - - (sebastian.elysium-project.net)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Nick V-Host - - (nick.elysium-project.net)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Erick V-Host - - (erick.elysium-project.net</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Daniel V-Host - - (daniel.elysium-project.net)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Josh V-Host - - (josh.elysium-project.net</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">

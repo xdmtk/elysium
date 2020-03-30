@@ -50,7 +50,6 @@ private:
     NotificationManager * notificationManager;
     QString username;
     QVector<QString> usersTyping;
-    QString updateUsersTyping(CoreSettings::Protocol,std::string);
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
     portInfo p;
     SoundManager * soundManager;

@@ -30,10 +30,9 @@ public:
         ClientReceiveOnlineStatus
     };
     std::string getHostName();
-    std::string getHostName2();
 
     int getPortNumber();
-    void setConfigEnvironments(ConfigEnvironment e);
+    void setConfigEnvironment(ConfigEnvironment e);
 
 
 

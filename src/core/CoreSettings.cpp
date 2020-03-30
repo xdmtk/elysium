@@ -35,7 +35,7 @@ void CoreSettings::setConfigEnvironment() {
 }
 
 
-void CoreSettings::setConfigEnvironments(ConfigEnvironment e) {
+void CoreSettings::setConfigEnvironment(ConfigEnvironment e) {
     env = e;
 }
 
@@ -46,29 +46,6 @@ void CoreSettings::setConfigEnvironments(ConfigEnvironment e) {
  * @return - Returns the hostname to connect to
  */
 std::string CoreSettings::getHostName() {
-
-    std::string hostName;
-    switch (env) {
-        case ConfigEnvironment::DanielDev:
-            hostName = "daniel."; break;
-        case ConfigEnvironment::ErickDev:
-            hostName = "erick."; break;
-        case ConfigEnvironment::SebastianDev:
-            hostName = "sebastian."; break;
-        case ConfigEnvironment::NickDev:
-            hostName = "nick."; break;
-        case ConfigEnvironment::JoshDev:
-            hostName = "josh."; break;
-        case ConfigEnvironment::Production:
-        default:
-            hostName = ""; break;
-    }
-
-    return "https://" + hostName + "elysium-project.net";
-}
-
-
-std::string CoreSettings::getHostName2() {
 
     std::string hostName;
     switch (env) {

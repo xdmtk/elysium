@@ -14,15 +14,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-//    ui->horizontalLayout_4;
 
-    /* List of the strigns to be put into the server box drop down menu */
-    QStringList Ports = {"Production Server - - (elysium-project.net)", "Sebastian V-Host - - (sebastian.elysium-project.net)",
-                         "Nick V-Host - - (nick.elysium-project.net)", "Erick V-Host - - (erick.elysium-project.net)",
-                         "Daniel V-Host - - (daniel.elysium-project.net)", "Josh V-Host - - (josh.elysium-project.net"};
-
-    /* Add Qlist to the server boc and set the color and background of the box */
-    ui->ServerBox->addItems(Ports);
     ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
                                      "color:white;");
 
@@ -51,7 +43,6 @@ LoginWindow::~LoginWindow(){
  * and password match and then will open
  * ChatWindow upon success
  */
-/*>>>>>>> 3298ba63fdebfa08d4cd73de36330c254c8589d4*/
 void LoginWindow::on_pushButton_clicked(){
     int serverIndex;
 
@@ -136,11 +127,11 @@ void LoginWindow::retrieveNewPort(int port) {
 
     /*instense of core settings class to call nonstatic functions*/
     CoreSettings c;
-    c.setConfigEnvironments(env);
+    c.setConfigEnvironment(env);
 
     /*holds port that was chosen*/
     p.portNumber = c.getPortNumber();
-    p.hostName = QString::fromStdString(c.getHostName2());
+    p.hostName = QString::fromStdString(c.getHostName());
 }
 
 
