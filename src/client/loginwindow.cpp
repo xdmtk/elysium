@@ -100,3 +100,15 @@ bool LoginWindow::validateUsername() {
 
 void LoginWindow::on_lineEdit_username_editingFinished() {
 }
+
+/*enter pushed in password box will click the push button*/
+void LoginWindow::on_lineEdit_password_returnPressed()
+{
+    ui->pushButton->click();
+}
+
+/*enter pushed in username box will move focus to password box*/
+void LoginWindow::on_lineEdit_username_returnPressed()
+{
+    ui->lineEdit_password->setFocus();
+}
