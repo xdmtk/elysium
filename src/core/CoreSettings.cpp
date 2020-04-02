@@ -1,6 +1,5 @@
 #include "CoreSettings.h"
 #include "../server/Server.h"
-#include "../client/loginwindow.h"
 
 CoreSettings::CoreSettings(Server * s){
     server = s;
