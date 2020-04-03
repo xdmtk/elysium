@@ -23,11 +23,28 @@ ChatWindow::ChatWindow(QWidget *parent) :
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
+ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::ChatWindow)
+{
+    ui->setupUi(this);
+    ui->inputDisplay->focusWidget();
+
+    p = pass;
+
+    socket = new SocketManager(p, this);
+    soundManager = new SoundManager();
+    commandManager = new CommandManager(this, socket, soundManager);
+    notificationManager = new NotificationManager(this);
+
+
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
+}
+
 void ChatWindow::setUsername(QString u) {
     username = u;
     socket->setUsernameOnServer(username);
 }
-
 
 ChatWindow::~ChatWindow(){
     delete ui;

@@ -32,6 +32,7 @@ HEADERS += \
     chatwindow.h \
     commandmanager.h \
     loginwindow.h \
+    portInfo.h \
     notificationmanager.h \
     socketmanager.h \
     soundmanager.h

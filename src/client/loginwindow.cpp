@@ -2,8 +2,8 @@
 #include "ui_loginwindow.h"
 #include "chatwindow.h"
 #include <QMessageBox>
+#include "../core/CoreSettings.h"
 #include <QRegExpValidator>
-
 
 /*
  * Constructor:
@@ -14,6 +14,10 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+
+    ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
+                                     "color:white;");
+
     this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
     /* Only allow alphanumeric characters, dashes and underscores in the
      * username field */
@@ -40,12 +44,15 @@ LoginWindow::~LoginWindow(){
  * ChatWindow upon success
  */
 void LoginWindow::on_pushButton_clicked(){
+    int serverIndex;
 
     /* Need to enter a username to initiate connection to server */
     if (validateUsername()) {
+        serverIndex = ui->ServerBox->currentIndex();
+        retrieveNewPort(serverIndex);
 
         /* Instantiate ChatWindow */
-        chatGui = new ChatWindow(this);
+        chatGui = new ChatWindow(p, this);
 
         /* Sets username locally - Sends protocol msg to server to set username
          * remotely */
@@ -76,7 +83,7 @@ void LoginWindow::on_pushButton_clicked(){
 
         /* Show the Chatwindow */
         chatGui->show();
-        
+
         /* Use hide() instead of close() to keep lifespan of instantiated objects */
         this->hide();
     }
@@ -91,7 +98,42 @@ void LoginWindow::on_pushButton_clicked(){
         alert.setText("Please set a username!");
         alert.exec();
     }
+
+
+
 }
+
+
+/* This struct functions returns a struct that holds the port information that was chosen
+   it will return both the port number and the*/
+void LoginWindow::retrieveNewPort(int port) {
+    CoreSettings::ConfigEnvironment env;
+
+  /*Based on the index passed in when the button is clicked*/
+    switch (port) {
+        case 0:
+            env = CoreSettings::ConfigEnvironment::Production ;break;
+        case 1:
+            env = CoreSettings::ConfigEnvironment::SebastianDev; break;
+        case 2:
+            env = CoreSettings::ConfigEnvironment::NickDev; break;
+        case 3:
+            env = CoreSettings::ConfigEnvironment::ErickDev; break;
+        case 4:
+            env = CoreSettings::ConfigEnvironment::DanielDev; break;
+        case 5:
+           env = CoreSettings::ConfigEnvironment::JoshDev;
+    }
+
+    /*instense of core settings class to call nonstatic functions*/
+    CoreSettings c;
+    c.setConfigEnvironment(env);
+
+    /*holds port that was chosen*/
+    p.portNumber = c.getPortNumber();
+    p.hostName = QString::fromStdString(c.getHostName());
+}
+
 
 
 bool LoginWindow::validateUsername() {

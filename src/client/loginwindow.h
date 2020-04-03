@@ -1,6 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 #include <QDialog>
+#include <portInfo.h>
 #include <QRegExpValidator>
 
 class ChatWindow;
@@ -15,6 +16,8 @@ class LoginWindow : public QDialog
 
 public:
     explicit LoginWindow(QWidget *parent = nullptr);
+
+
     ~LoginWindow();
 private slots:
     void on_pushButton_clicked();
@@ -27,10 +30,13 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
+    portInfo p;
+    void retrieveNewPort(int port);
     QRegExp * usernameRegex;
     QRegExpValidator * regex;
     bool validateUsername();
 
 };
+
 
 #endif // LOGINWINDOW_H

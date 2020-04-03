@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
+#include <portInfo.h>
 
 class CommandManager;
 class NotificationManager;
@@ -20,6 +21,7 @@ class ChatWindow : public QMainWindow
 
 public:
     explicit ChatWindow(QWidget *parent = nullptr);
+    ChatWindow(portInfo pass, QWidget *parent = nullptr);
 
     QString getUsername() {return username;}
     void setUsername(QString u);
@@ -49,8 +51,8 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
+    portInfo p;
     SoundManager * soundManager;
-
 };
 
 #endif // CHATWINDOW_H
