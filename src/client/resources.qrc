@@ -25,6 +25,12 @@
         <file>resources/picture.png</file>
         <file>resources/underline.png</file>
     </qresource>
+    <qresource prefix="/connection">
+        <file>resources/signon_blank_square.png</file>
+        <file>resources/signon_step1.png</file>
+        <file>resources/signon_step2.png</file>
+        <file>resources/signon_step3.png</file>
+    </qresource>
     <qresource prefix="/sounds">
         <file>resources/new-message-woosh.wav</file>
     </qresource>

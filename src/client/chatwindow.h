@@ -24,13 +24,14 @@ public:
     ChatWindow(portInfo pass, QWidget *parent = nullptr);
 
     QString getUsername() {return username;}
-    void setUsername(QString u);
+    void setLocalUsername(QString u);
     void display(QString msg);
     void setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user);
     void setOnlineUserList(QStringList userlist);
     bool isConnected() {return socket->isConnectedToServer();}
     SocketManager * getSocketManager() {return socket;}
     NotificationManager * getNotificationManager() {return notificationManager;}
+    CommandManager * getCommandManager() {return commandManager;}
     SoundManager * getSoundManager() {return soundManager;}
 
     ~ChatWindow();

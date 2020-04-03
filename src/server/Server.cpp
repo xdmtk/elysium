@@ -1,5 +1,6 @@
 #include "../core/CoreSettings.h"
 #include "ConnectionManager.h"
+#include "DatabaseManager.h"
 #include "Logger.h"
 #include "SignalManager.h"
 
@@ -11,6 +12,7 @@ Server::Server(){
     coreSettings = new CoreSettings(this);
     signalManager = new SignalManager(this);
     connectionManager = new ConnectionManager(this);
+    databaseManager = new DatabaseManager(this);
 }
 
 void Server::start() {
@@ -41,4 +43,9 @@ ConnectionManager * Server::getConnectionManager() {
 
 CoreSettings * Server::getCoreSettings() {
     return coreSettings;
+}
+
+
+DatabaseManager * Server::getDatabaseManager() {
+    return databaseManager;
 }

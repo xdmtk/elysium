@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     commandmanager.cpp \
+    connectionprogresswindow.cpp \
     main.cpp \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     ../core/CoreSettings.h \
     chatwindow.h \
     commandmanager.h \
+    connectionprogresswindow.h \
     loginwindow.h \
     portInfo.h \
     notificationmanager.h \
@@ -39,6 +41,7 @@ HEADERS += \
 
 FORMS += \
     chatwindow.ui \
+    connectionprogresswindow.ui \
     loginwindow.ui
 
 RC_ICON = ../resources/keyboard-key-e.png

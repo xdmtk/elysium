@@ -19,10 +19,10 @@
    if(!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])){
             $userName = cleanUsername($_POST['username']);
             $email = cleanEmail($_POST['email']);
-            $password = password_hash(cleanPassword($_POST['password']),CRYPT_BLOWFISH, ['cost' => 12]);
+            $password = sha1($_POST['password']);
 
             $account = new Account();
-            $account->register($userName, $password, $email);
+            echo $account->register($userName, $password, $email);
         }
         
    

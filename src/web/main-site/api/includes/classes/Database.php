@@ -30,6 +30,9 @@ class Database{
     * has been verified
     */
     public function updateVerification($userName){
+
+
+
         $this->setVerification($userName);
     }
     private function setVerification($userName){
@@ -47,7 +50,7 @@ class Database{
     * Check if user exists in DB and 
     * @return true if user doesn't exist in database
     */
-    private function userExists($userName){
+    public function userDoesntExist($userName){
         
         $chkUserName = $this->conn->prepare("SELECT username FROM " . Environment::get("DB_TABLE") ." WHERE username=:username");
         $chkUserName->bindParam(":username", $userName);
@@ -66,7 +69,7 @@ class Database{
     * if they aren't
     * @return true if email doesn't exist in database
     */
-    private function emailExists($email){
+    public function emailDoesntExist($email){
 
         //1.Prepare statement for checking
         $chkEmail = $this->conn->prepare("SELECT email FROM " . Environment::get("DB_TABLE") . " WHERE email=:email");
@@ -129,8 +132,21 @@ class Database{
     * If username and email aren't taken then register user to db
     */
     public function verifyAndRegister($userName, $password, $email, $verified){
-       if($this->userExists($userName) && $this->emailExists($email))
-             $this->create($userName, $password, $email, $verified);
+       if($this->userDoesntExist($userName) && $this->emailDoesntExist($email)) {
+
+           $this->create($userName, $password, $email, $verified);
+           return json_encode([
+                'status' => 'success',
+                'reason' => ''
+           ]);
+
+       }
+       else {
+           return json_encode([
+               'status' => 'failure',
+               'reason' => 'username or email already exists'
+           ]);
+       }
   }    
 }
 
