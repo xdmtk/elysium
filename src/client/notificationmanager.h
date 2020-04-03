@@ -15,6 +15,6 @@ class NotificationManager {
         QSystemTrayIcon * systemTrayIcon;
         QIcon * projectIcon;
 
-    void fireUserMentionNotification(const QString& msg);
+    void fireUserMentionNotification(const QString& msg, const QString& sendingUser);
 };
 #endif //ELYSIUM_NOTIFICATIONMANAGER_H

@@ -29,10 +29,13 @@ NotificationManager::NotificationManager(ChatWindow *cw) {
  */
 void NotificationManager::detectUserMention(const QString& msg) {
     QStringList tokens = msg.split(" ");
+    QStringList u = tokens[0].split(":");
+    QString sendingUser = u[0];
+    qDebug()<<"Sending user: "<<sendingUser;
     for (auto token : tokens) {
         if (token.indexOf("@") != 0) continue;
         if (token.mid(1) == chatWindow->getUsername() || token.mid(1) == "here") {
-            fireUserMentionNotification(msg);
+            fireUserMentionNotification(msg, sendingUser);
         }
     }
 }
@@ -44,8 +47,9 @@ void NotificationManager::detectUserMention(const QString& msg) {
  *
  * @param msg - Incoming chat message
  */
-void NotificationManager::fireUserMentionNotification(const QString& msg) {
-    systemTrayIcon->showMessage("User Mention", msg, *projectIcon, 3000);
+void NotificationManager::fireUserMentionNotification(const QString& msg, const QString & sendingUser) {
+    if( sendingUser!= chatWindow->getUsername())
+        systemTrayIcon->showMessage("User Mention", msg, *projectIcon, 3000);
 }
 
 
