@@ -12,9 +12,6 @@ class CommandManager
 
 public:
 
-
-    CommandManager(ChatWindow * cw, SocketManager * socket);
-
     void handleIncomingMessage();
     void authReplyReceivedAndSet();
     QString getAuthReply() {return authReply;};
