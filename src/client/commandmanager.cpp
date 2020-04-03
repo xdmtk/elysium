@@ -2,14 +2,15 @@
 #include "commandmanager.h"
 #include "chatwindow.h"
 #include "notificationmanager.h"
+#include "soundmanager.h"
 
 
-
-CommandManager::CommandManager(ChatWindow * cw, SocketManager * s) {
+CommandManager::CommandManager(ChatWindow * cw, SocketManager * s, SoundManager * sm) {
 
     /* Set pointers back to the ChatWindow and SocketManager */
     chatWindow = cw;
     socket = s;
+    soundManager = sm;
 }
 
 
@@ -74,6 +75,7 @@ void CommandManager::handleIncomingMessage() {
  * @param msg - Message to be displayed in the ChatWindow
  */
 void CommandManager::addIncomingMessageToChat(QString msg) {
+    soundManager->newMessage();
     chatWindow->display(msg);
 }
 
@@ -124,4 +126,11 @@ void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol proto
 void CommandManager::setAuthReply(QString reply, bool val) {
     authSuccess = val;
     authReply = reply;
+}
+/**
+ * Updatest the sound settings for the user. Additional
+ * options may be added for @ mentions and different sounds.
+ */
+void CommandManager::updateSoundSettings(bool onOff){
+    soundManager->setSoundSetting(onOff);
 }

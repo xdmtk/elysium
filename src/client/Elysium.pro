@@ -1,5 +1,6 @@
 QT       += core gui
 QT       += network
+QT       += multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +25,8 @@ SOURCES += \
     chatwindow.cpp \
     loginwindow.cpp \
     notificationmanager.cpp \
-    socketmanager.cpp
+    socketmanager.cpp \
+    soundmanager.cpp
 
 HEADERS += \
     ../core/CoreSettings.h \
@@ -32,8 +34,10 @@ HEADERS += \
     commandmanager.h \
     connectionprogresswindow.h \
     loginwindow.h \
+    portInfo.h \
     notificationmanager.h \
-    socketmanager.h
+    socketmanager.h \
+    soundmanager.h
 
 FORMS += \
     chatwindow.ui \

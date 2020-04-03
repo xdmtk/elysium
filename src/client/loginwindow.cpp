@@ -5,11 +5,11 @@
 #include "connectionprogresswindow.h"
 #include <csignal>
 #include <QMessageBox>
+#include "../core/CoreSettings.h"
 #include <QRegExpValidator>
 #include <QCryptographicHash>
 #include <QThread>
 #include <QTime>
-
 
 
 /*
@@ -21,6 +21,10 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+
+    ui->ServerBox->setStyleSheet("background: rgb(80,80,80);"
+                                     "color:white;");
+
     this->setWindowIcon(QIcon(":/icons/resources/keyboard-key-e.png"));
     /* Only allow alphanumeric characters, dashes and underscores in the
      * username field */
@@ -48,13 +52,16 @@ LoginWindow::~LoginWindow(){
  * and launching the ChatWindow
  */
 void LoginWindow::on_pushButton_clicked(){
+    int serverIndex;
 
     /* Need to enter at least a username and password to
      * initiate connection to server */
     if (validateUsername() && validatePassword()) {
+        serverIndex = ui->ServerBox->currentIndex();
+        retrieveNewPort(serverIndex);
 
         /* Instantiate ChatWindow */
-        chatGui = new ChatWindow(this);
+        chatGui = new ChatWindow(p, this);
 
         /* Instantiate ConnectionProgressWindow */
         cpw = new ConnectionProgressWindow();
@@ -115,6 +122,8 @@ void LoginWindow::on_pushButton_clicked(){
                 alert.exec();
             }
         });
+        /* Use hide() instead of close() to keep lifespan of instantiated objects */
+        this->hide();
     }
     else {
 
@@ -179,6 +188,38 @@ bool LoginWindow::sendAuthenticationRequest() {
 }
 
 
+/* This struct functions returns a struct that holds the port information that was chosen
+   it will return both the port number and the*/
+void LoginWindow::retrieveNewPort(int port) {
+    CoreSettings::ConfigEnvironment env;
+
+  /*Based on the index passed in when the button is clicked*/
+    switch (port) {
+        case 0:
+            env = CoreSettings::ConfigEnvironment::Production ;break;
+        case 1:
+            env = CoreSettings::ConfigEnvironment::SebastianDev; break;
+        case 2:
+            env = CoreSettings::ConfigEnvironment::NickDev; break;
+        case 3:
+            env = CoreSettings::ConfigEnvironment::ErickDev; break;
+        case 4:
+            env = CoreSettings::ConfigEnvironment::DanielDev; break;
+        case 5:
+           env = CoreSettings::ConfigEnvironment::JoshDev;
+    }
+
+    /*instense of core settings class to call nonstatic functions*/
+    CoreSettings c;
+    c.setConfigEnvironment(env);
+
+    /*holds port that was chosen*/
+    p.portNumber = c.getPortNumber();
+    p.hostName = QString::fromStdString(c.getHostName());
+}
+
+
+
 bool LoginWindow::validateUsername() {
     return ui->lineEdit_username->text().length();
 }
@@ -189,4 +230,16 @@ bool LoginWindow::validatePassword() {
 }
 
 void LoginWindow::on_lineEdit_username_editingFinished() {
+}
+
+/*enter pushed in password box will click the push button*/
+void LoginWindow::on_lineEdit_password_returnPressed()
+{
+    ui->pushButton->click();
+}
+
+/*enter pushed in username box will move focus to password box*/
+void LoginWindow::on_lineEdit_username_returnPressed()
+{
+    ui->lineEdit_password->setFocus();
 }

@@ -12,13 +12,10 @@ SocketManager::SocketManager(ChatWindow * cw) {
 
     /* Set a pointer back to the ChatWindow */
     chatWindow = cw;
-
     connectedToServer = false;
 
-
     /* Attempt to connect to the server */
-
-    tcpSocket.connectToHost("elysium-project.net",6886);
+    tcpSocket.connectToHost("elysium-project.net",6692);
     if(tcpSocket.waitForConnected(1000)){
         qDebug() << "Connected!";
         connectedToServer = true;
@@ -33,6 +30,30 @@ SocketManager::SocketManager(ChatWindow * cw) {
     }
 }
 
+SocketManager::SocketManager(portInfo pass, ChatWindow * cw) {
+
+    /* Set a pointer back to the ChatWindow */
+    chatWindow = cw;
+    connectedToServer = false;
+
+
+    /* Attempt to connect to the server */
+    /*Uses info for server instance chosen at login*/
+    tcpSocket.connectToHost(pass.hostName, pass.portNumber);
+    if(tcpSocket.waitForConnected(2000)){
+        qDebug() << "Connected!";
+        connectedToServer = true;
+
+    }
+    else{
+
+        /* TODO: Should probably either close or disable the ChatWindow if
+         * there is a connection failure.. or even possibly instantiate the SocketManager
+         * from the LoginWindow class before showing the ChatWindow */
+        qDebug() << "Not Connected-->" + tcpSocket.errorString();
+        qDebug() << tcpSocket.error();
+    }
+}
 
 /*
  * Get function:

@@ -2,7 +2,7 @@
 #include "ui_chatwindow.h"
 #include "commandmanager.h"
 #include "notificationmanager.h"
-
+#include "soundmanager.h"
 /*
  * Constructor:
  * Sets style of the ChatWindow up
@@ -16,8 +16,27 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->inputDisplay->focusWidget();
 
     socket = new SocketManager(this);
-    commandManager = new CommandManager(this, socket);
+    soundManager = new SoundManager();
+    commandManager = new CommandManager(this, socket, soundManager);
     notificationManager = new NotificationManager(this);
+
+    connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
+}
+
+ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::ChatWindow)
+{
+    ui->setupUi(this);
+    ui->inputDisplay->focusWidget();
+
+    p = pass;
+
+    socket = new SocketManager(p, this);
+    soundManager = new SoundManager();
+    commandManager = new CommandManager(this, socket, soundManager);
+    notificationManager = new NotificationManager(this);
+
 
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
@@ -25,7 +44,6 @@ ChatWindow::ChatWindow(QWidget *parent) :
 void ChatWindow::setLocalUsername(QString u) {
     username = u;
 }
-
 
 ChatWindow::~ChatWindow(){
     delete ui;
@@ -105,7 +123,19 @@ void ChatWindow::on_inputDisplay_cursorPositionChanged(int arg1, int arg2){
         ui->sendQLabel->setPixmap(QPixmap(":/resources/send_active.png"));
     }
 }
-
+/**
+ * Sound initially off, buttons toggle it on/off.
+ */
+void ChatWindow::on_actionSound_on_triggered(){
+    commandManager->updateSoundSettings(true);
+    ui->actionSound_off->setChecked(false);
+    ui->actionSound_on->setChecked(true);
+}
+void ChatWindow::on_actionSound_off_triggered(){
+    commandManager->updateSoundSettings(false);
+    ui->actionSound_on->setChecked(false);
+    ui->actionSound_off->setChecked(true);
+}
 
 /**
  * Modifier function:
@@ -180,3 +210,4 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
         ui->friendsDisplay->append(user);
     }
 }
+

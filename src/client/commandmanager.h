@@ -6,6 +6,7 @@
 
 class ChatWindow;
 class SocketManager;
+class SoundManager;
 class CommandManager
 {
 
@@ -18,6 +19,8 @@ public:
     void authReplyReceivedAndSet();
     QString getAuthReply() {return authReply;};
     bool getAuthSuccess() {return authSuccess;};
+    CommandManager(ChatWindow * cw, SocketManager * socket, SoundManager * sm);
+    void updateSoundSettings(bool onOff);
 
 private:
     ChatWindow * chatWindow;
@@ -28,6 +31,8 @@ private:
     void updateOnlineUserlist(QString userlist);
     void setAuthReply(QString reply, bool val);
     void handleAuthReply(QString reply, CoreSettings::Protocol protocol);
+    SoundManager * soundManager;
+
 };
 
 #endif // COMMANDMANAGER_H
