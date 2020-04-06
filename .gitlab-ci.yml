@@ -13,6 +13,8 @@ client:
                 - cd /home/pipeline/elysium/src/client/
                 - cmake .
                 - make
+        tags:
+                - shell
 
 
 server:
@@ -21,4 +23,6 @@ server:
                 - cd /home/pipeline/elysium/src/server/
                 - cmake .
                 - make
+        tags:
+                - shell
 
