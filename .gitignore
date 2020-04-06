@@ -4,9 +4,14 @@ cmake-build-*
 .idea/
 .DS_Store
 *~
+
+# CMake generated files
 CMakeFiles/
 CMakeCache.txt
 Elysium_autogen/
 Makefile
 cmake_install.cmake
+
+# Build generated executables
 Elysium
+elysium-server
