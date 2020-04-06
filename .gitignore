@@ -4,3 +4,9 @@ cmake-build-*
 .idea/
 .DS_Store
 *~
+CMakeFiles/
+CMakeCache.txt
+Elysium_autogen/
+Makefile
+cmake_install.cmake
+Elysium

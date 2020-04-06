@@ -8,18 +8,25 @@ set(CMAKE_AUTOUIC ON)
 set(SOURCE_FILES
         chatwindow.cpp
         chatwindow.h
+	connectionprogresswindow.cpp
+	connectionprogresswindow.h
         commandmanager.cpp
         commandmanager.h
         loginwindow.cpp
         loginwindow.h
+	portInfo.h
+	../core/CoreSettings.cpp
+	../core/CoreSettings.h
         main.cpp
         socketmanager.cpp
         socketmanager.h
+	soundmanager.cpp
+	soundmanager.h
         notificationmanager.cpp notificationmanager.h)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)
-find_package(Qt5Quick REQUIRED)
-find_package(Qt5QuickWidgets REQUIRED)
+#find_package(Qt5Quick REQUIRED)
+#find_package(Qt5QuickWidgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Multimedia REQUIRED)
 find_package(Qt5MultimediaWidgets REQUIRED)
@@ -31,7 +38,7 @@ target_link_libraries(Elysium Qt5::Widgets)
 target_link_libraries(Elysium Qt5::Gui)
 target_link_libraries(Elysium Qt5::Multimedia)
 target_link_libraries(Elysium Qt5::MultimediaWidgets)
-target_link_libraries(Elysium Qt5::Quick)
+#target_link_libraries(Elysium Qt5::Quick)
 target_link_libraries(Elysium Qt5::Core)
-target_link_libraries(Elysium Qt5::QuickWidgets)
+#target_link_libraries(Elysium Qt5::QuickWidgets)
 

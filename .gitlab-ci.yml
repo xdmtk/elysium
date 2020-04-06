@@ -1,0 +1,12 @@
+before_script:
+        - apt update 
+        - apt install qt5-default
+        - apt install qtmultimedia5-dev
+
+build_client:
+        - cd /home/pipeline/elysium/src/client/
+        - cmake .
+
+build_server:
+        - cd /home/pipeline/elysium/src/server/
+        - cmake .
