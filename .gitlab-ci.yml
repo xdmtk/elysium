@@ -1,7 +1,9 @@
 stages:
+        - .pre
         - before_script
         - build_client
         - build_server
+        - .post
 
 
 before_script:
