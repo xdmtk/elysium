@@ -10,13 +10,15 @@ before_script:
         - apt install qtmultimedia5-dev
 
 build_client:
-        - cd /home/pipeline/elysium/src/client/
-        - cmake .
-        - make
+        script:
+                - cd /home/pipeline/elysium/src/client/
+                - cmake .
+                - make
 
 
 build_server:
-        - cd /home/pipeline/elysium/src/server/
-        - cmake .
-        - make
+        script:
+                - cd /home/pipeline/elysium/src/server/
+                - cmake .
+                - make
 
