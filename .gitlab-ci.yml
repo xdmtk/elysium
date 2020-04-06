@@ -1,3 +1,9 @@
+stages:
+        - before_script
+        - build_client
+        - build_server
+
+
 before_script:
         - apt update 
         - apt install qt5-default
@@ -6,7 +12,11 @@ before_script:
 build_client:
         - cd /home/pipeline/elysium/src/client/
         - cmake .
+        - make
+
 
 build_server:
         - cd /home/pipeline/elysium/src/server/
         - cmake .
+        - make
+
