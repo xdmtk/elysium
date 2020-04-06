@@ -5,9 +5,7 @@ stages:
 
 
 before_script:
-        - sudo apt update
-        - sudo apt install qt5-default
-        - sudo apt install qtmultimedia5-dev
+        - echo "Running builds"
 
 client:
         stage: client
