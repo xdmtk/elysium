@@ -44,7 +44,7 @@ FORMS += \
     connectionprogresswindow.ui \
     loginwindow.ui
 
-RC_ICON = ../resources/keyboard-key-e.png
+RC_ICONS = resources/appicon.ico
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
