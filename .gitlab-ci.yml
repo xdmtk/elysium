@@ -1,24 +1,24 @@
 stages:
-        - .pre
         - before_script
-        - build_client
-        - build_server
-        - .post
+        - client
+        - server
 
 
 before_script:
-        - apt update 
+        - apt update
         - apt install qt5-default
         - apt install qtmultimedia5-dev
 
-build_client:
+client:
+        stage: client
         script:
                 - cd /home/pipeline/elysium/src/client/
                 - cmake .
                 - make
 
 
-build_server:
+server:
+        stage: server
         script:
                 - cd /home/pipeline/elysium/src/server/
                 - cmake .
