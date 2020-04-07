@@ -1,7 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 #include <QDialog>
-#include <portInfo.h>
+#include "portInfo.h"
 #include <QRegExpValidator>
 
 class ChatWindow;

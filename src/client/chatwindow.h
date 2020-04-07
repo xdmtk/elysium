@@ -6,7 +6,7 @@
 #include <QTimer>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
-#include <portInfo.h>
+#include "portInfo.h"
 
 class CommandManager;
 class NotificationManager;

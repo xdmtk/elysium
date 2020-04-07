@@ -1,0 +1,28 @@
+stages:
+        - before_script
+        - client
+        - server
+
+
+before_script:
+        - echo "Running builds"
+
+client:
+        stage: client
+        script:
+                - cd /home/pipeline/elysium/src/client/
+                - cmake .
+                - make
+        tags:
+                - client
+
+
+server:
+        stage: server
+        script:
+                - cd /home/pipeline/elysium/src/server/
+                - cmake .
+                - make
+        tags:
+                - server
+
