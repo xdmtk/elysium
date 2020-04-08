@@ -13,7 +13,7 @@
     <x>0</x>
     <y>0</y>
     <width>231</width>
-    <height>439</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
   <property name="maximumSize">
    <size>
     <width>231</width>
-    <height>439</height>
+    <height>470</height>
    </size>
   </property>
   <property name="sizeIncrement">
@@ -324,7 +324,7 @@ background: #c0c0c0;
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>410</y>
+     <y>440</y>
      <width>71</width>
      <height>20</height>
     </rect>
@@ -335,7 +335,7 @@ background: #c0c0c0;
     </font>
    </property>
    <property name="text">
-    <string>Version 0.1.0</string>
+    <string>Version 0.9.2</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -439,6 +439,48 @@ background: #c0c0c0;
    </property>
    <property name="text">
     <string>Server</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_password_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>420</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Don't have an account?</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_password_4">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>420</y>
+     <width>61</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://elysium-project.net/register.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Register Here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::TextBrowserInteraction</set>
    </property>
   </widget>
  </widget>
