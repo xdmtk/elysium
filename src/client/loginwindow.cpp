@@ -8,8 +8,10 @@
 #include "../core/CoreSettings.h"
 #include <QRegExpValidator>
 #include <QCryptographicHash>
+#include <QDesktopServices>
 #include <QThread>
 #include <QTime>
+#include <QUrl>
 
 
 /*
@@ -242,4 +244,7 @@ void LoginWindow::on_lineEdit_password_returnPressed()
 void LoginWindow::on_lineEdit_username_returnPressed()
 {
     ui->lineEdit_password->setFocus();
+}
+
+void LoginWindow::on_label_password_4_linkActivated(const QString &link) {
 }

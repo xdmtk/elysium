@@ -28,6 +28,8 @@ private slots:
 
     void on_lineEdit_username_returnPressed();
 
+    void on_label_password_4_linkActivated(const QString &link);
+
 private:
     Ui::LoginWindow *ui;
     ChatWindow *chatGui;
