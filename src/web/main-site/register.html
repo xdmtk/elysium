@@ -1,51 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel = "stylesheet" href = "main.css" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet">
-    <script src="js/jquery.js"></script>
+<title>Register now!</title>
+<meta charset="utf-8">
+<meta http-http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel = "stylesheet" href = "main.css" type = "text/css">
+<link rel = "icon" href ="https://elysium-project.net/images/eim-64x42.png" type="image/icon type"> 
+<script src ="js/jquery.js"></script>
+
 </head>
-<div class = "col-md-8 mx-auto" >
-  <nav class= "navbar navbar-custom justify-content-left">
-    <a class="navbar-brand" href="home.html">Elysium</a>
-    <ul class = "nav">
+<div class = "container-fluid">
+  <nav class = "navbar navbar-custom ">
+    <a class = "navbar-brand" href ="homepage.html"><img href="homepage.html" src ="https://elysium-project.net/images/eim-64x42.png">Elysium</a>
+    <ul class = "nav mr-auto">
+      <li class = "nav-item">
+        <a class = "nav-link active" href="download.html">Download</a>
+        </li>
+      <li class = "nav-item">
+        <a class = "nav-link active" href="support.html">Support</a>
+        </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#download">Download</a>
-      </li>
+        <a class = "nav-link active" href = "register.html">Register</a>
       <li class="nav-item">
-        <a class="nav-link active" href="#support">Support</a>
-      </li>
-      <li class= "nav-item">
-        <a class="nav-link active" href="register.html">Register</a>
-      </li>
-
-      </ul
+          <a class = "nav-link active" href = "documentation.html">Documentation</a>
+      </ul>
     </nav>
+
+  <div class = "container" >
+    <div class= "row register">
+      <div class = "col-md-4">
+        <h1> Welcome! </h1>
+        <hr>
+        <p> In order to log into Elysium Instant Messenger, you must use a valid
+          email address that will need to be verifed before log-in. </p>
+        </div>
+      <div class = "col-md-4">
+      <div class="login-box">
+          <div class="input-section">
+              <i class="far fa-user"></i>
+              <input id="username" class="input-area" type="text" placeholder="Username">
+            </div>
+            <div class="input-section">
+              <i class="fas fa-lock"></i>
+              <input id="password" class="input-area" type="password" placeholder="Password">
+              <br>
+              <i class="fas fa-lock"></i>
+              <input class="input-area" type="password" placeholder="Confirm Password">
+            </div>
+            <div class="input-section">
+              <i class="far fa-envelope"></i>
+              <input id="email" class="input-area" type="text" placeholder="Email">
+            </div>
+            <button class="btn" id="login-btn">Register</button>
+          </div>
+          <div class="success-box">
+            <h1>You have successfully registered. Check email for confirmation.</h1>
+
+
+          </div>
+        </div>
+        </div>
   </div>
-<div class="login-box col-md-8 mx-auto">
-    <div class="input-section">
-        <i class="far fa-user"></i>
-        <input id="username" class="input-area" type="text" placeholder="Username">
-    </div>
-    <div class="input-section">
-        <i class="fas fa-lock"></i>
-        <input id="password" class="input-area" type="password" placeholder="Password">
-        <br>
-        <i class="fas fa-lock"></i>
-        <input class="input-area" type="password" placeholder="Confirm Password">
-    </div>
-    <div class="input-section">
-        <i class="far fa-envelope"></i>
-        <input id="email" class="input-area" type="text" placeholder="Email">
-    </div>
-    <button class="btn col-md-2 mx-auto" id="login-btn">Register</button>
-</div>
-<div class="success-box">
-    <h1>You have successfully registered. Check email for confirmation.</h1>
-
-
 </div>
 <script>
     $(".reg-btn").click(function() {
@@ -69,18 +85,24 @@
                 'email' : $('#email').val(),
             },
             function(data, status, xhr) {
-                if (status == 'success') {
+                if (status == 'success' && data.length && JSON.parse(data)['status'] == 'success') {
                     $('.login-box').slideUp("slow");
                     $('.success-box h1').text('Thank you! Check email for confirmation');
                     $('.success-box').delay(600).fadeIn("slow");
                 }
                 else {
                     $('.login-box').slideUp("slow");
-                    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+		    if (data.length) {
+			    $('.success-box h1').text('Error: ' + JSON.parse(data)['reason']);
+		    }
+		    else {
+			    $('.success-box h1').text('Unknown error occurred');
+		    }
                     $('.success-box').delay(600).fadeIn("slow");
                 }
             }
         );
     });
 </script>
+
 </html>
