@@ -111,6 +111,10 @@ void CommandManager::setClientUsername() {
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
     sendOnlineStatusList();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    server->broadcastMessage("<b>" + clientConnection->getUsername() + " has entered the chat</b>");
+
 }
 
 
