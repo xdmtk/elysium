@@ -78,8 +78,7 @@ void ClientConnection::terminateConnection() {
     alive = false;
     server->getConnectionManager()->updateConnectionList();
 
-    server->broadcastMessage("<b>" + getUsername() + " has left the chat</b>");
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    commandManager->announceEntranceOrExit(false);
     /* Broadcast an updated Username list to connected clients to show this
      * thread logging off the server */
     commandManager->sendOnlineStatusList();

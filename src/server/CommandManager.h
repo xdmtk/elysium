@@ -12,6 +12,7 @@ public:
     CommandManager(Server *s, ClientConnection *c);
     void handleMessageAndResponse(std::string msg);
     void sendOnlineStatusList();
+    void announceEntranceOrExit(bool entering);
 
 private:
     Server * server;
