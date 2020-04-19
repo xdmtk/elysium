@@ -43,7 +43,7 @@ private slots:
     void on_actionSound_on_triggered();
     void on_actionSound_off_triggered();
     void activateCommandManager();
-
+    void on_hyperLinkButton_clicked();
 private:
     Ui::ChatWindow *ui;
     SocketManager * socket;

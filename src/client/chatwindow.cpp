@@ -136,7 +136,10 @@ void ChatWindow::on_actionSound_off_triggered(){
     ui->actionSound_on->setChecked(false);
     ui->actionSound_off->setChecked(true);
 }
-
+void ChatWindow::on_hyperLinkButton_clicked(){
+    //connect(ui->hyperLinkButton, SIGNAL(clicked()), this, SLOT(on_LinkAction_clicked()));
+    ui->outputDisplay->append("link");
+}
 /**
  * Modifier function:
  * @param client protocol with the associated userName
