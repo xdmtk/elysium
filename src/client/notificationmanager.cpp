@@ -31,7 +31,6 @@ void NotificationManager::detectUserMention(const QString& msg) {
     QStringList tokens = msg.split(" ");
     QStringList u = tokens[0].split(":");
     QString sendingUser = u[0];
-    qDebug()<<"Sending user: "<<sendingUser;
     for (auto token : tokens) {
         if (token.indexOf("@") != 0) continue;
         if (token.mid(1) == chatWindow->getUsername() || token.mid(1) == "here") {
