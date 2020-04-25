@@ -100,6 +100,7 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * it to the ChatWindow GUI
  */
 void ChatWindow::display(QString msg) {
+    msg = "<p>" + msg +"</p>";
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");
 }
@@ -138,7 +139,11 @@ void ChatWindow::on_actionSound_off_triggered(){
 }
 void ChatWindow::on_hyperLinkButton_clicked(){
     //connect(ui->hyperLinkButton, SIGNAL(clicked()), this, SLOT(on_LinkAction_clicked()));
-    ui->outputDisplay->append("link");
+
+    QString url = "https://stackoverflow.com/questions/44291816/qt-open-href-links";
+    QString html = "<a href = \"" + url + "\">" + url + "</a>";
+    qDebug()<<html;
+    ui->inputDisplay->insert(html);
 }
 /**
  * Modifier function:

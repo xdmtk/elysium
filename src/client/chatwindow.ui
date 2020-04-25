@@ -390,7 +390,7 @@
      <string>&lt;b&gt;0 people here&lt;/b&gt;</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="outputDisplay">
+   <widget class="QTextBrowser" name="outputDisplay">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -409,6 +409,12 @@
      <string notr="true"/>
     </property>
     <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="tabStopWidth">
+     <number>80</number>
+    </property>
+    <property name="openExternalLinks">
      <bool>true</bool>
     </property>
    </widget>
