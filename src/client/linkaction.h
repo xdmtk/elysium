@@ -2,6 +2,7 @@
 #define LINKACTION_H
 #include <QWidget>
 #include <QLabel>
+#include "hyperlinkdiag.h"
 
 class LinkAction: public QLabel{
     Q_OBJECT

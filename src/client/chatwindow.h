@@ -7,7 +7,8 @@
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
 #include "portInfo.h"
-
+#include "hyperlinkdiag.h"
+#include "ui_hyperlinkdiag.h"
 class CommandManager;
 class NotificationManager;
 class SoundManager;
@@ -46,6 +47,7 @@ private slots:
     void on_hyperLinkButton_clicked();
 private:
     Ui::ChatWindow *ui;
+    hyperlinkDiag * hyperlink;
     SocketManager * socket;
     CommandManager * commandManager;
     NotificationManager * notificationManager;

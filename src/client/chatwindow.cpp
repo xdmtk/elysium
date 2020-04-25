@@ -3,6 +3,8 @@
 #include "commandmanager.h"
 #include "notificationmanager.h"
 #include "soundmanager.h"
+#include "hyperlinkdiag.h"
+#include "ui_hyperlinkdiag.h"
 /*
  * Constructor:
  * Sets style of the ChatWindow up
@@ -143,7 +145,9 @@ void ChatWindow::on_hyperLinkButton_clicked(){
     QString url = "https://stackoverflow.com/questions/44291816/qt-open-href-links";
     QString html = "<a href = \"" + url + "\">" + url + "</a>";
     qDebug()<<html;
-    ui->inputDisplay->insert(html);
+    //ui->inputDisplay->insert(html);
+    hyperlink = new hyperlinkDiag(this);
+    hyperlink->show();
 }
 /**
  * Modifier function:
