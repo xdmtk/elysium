@@ -44,6 +44,10 @@ private slots:
     void on_actionSound_off_triggered();
     void activateCommandManager();
 
+    void on_buttonBox_accepted();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::ChatWindow *ui;
     SocketManager * socket;
