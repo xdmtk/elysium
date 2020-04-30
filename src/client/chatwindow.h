@@ -54,6 +54,7 @@ private:
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
     portInfo p;
     SoundManager * soundManager;
+    int usersOnline = 0;
 };
 
 #endif // CHATWINDOW_H

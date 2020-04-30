@@ -33,5 +33,9 @@
     </qresource>
     <qresource prefix="/sounds">
         <file>resources/new-message-woosh.wav</file>
+        <file>resources/userEnter.wav</file>
+        <file>resources/imrcv.wav</file>
+        <file>resources/aimsend.wav</file>
+        <file>resources/userLeave.wav</file>
     </qresource>
 </RCC>
