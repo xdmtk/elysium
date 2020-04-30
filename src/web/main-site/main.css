@@ -15,7 +15,7 @@ margin-right:10px;
   min-height: 320px;
 }
 
-body{
+html, body{
   /**background-color: rgba(18, 14, 41, 1);**/
   /**background-color: rgba(34, 18, 54, 1);**/
   background-color: rgba(19, 9, 31, 1);
