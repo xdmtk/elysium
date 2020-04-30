@@ -7,11 +7,17 @@
 class SoundManager{
 public:
     SoundManager();
-    void newMessage();
+    void incMessage();
+    void sendMessage();
+    void userEntersChat();
+    void userLeavesChat();
     bool getSoundSetting();
     void setSoundSetting(bool setting);
 private:
     QMediaPlayer *incomingMessage;
+    QMediaPlayer *sendMsg;
+    QMediaPlayer *userEnters;
+    QMediaPlayer *userLeaves;
     bool soundSetting;
 };
 

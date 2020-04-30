@@ -14,12 +14,10 @@ ChatWindow::ChatWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
-
     socket = new SocketManager(this);
     soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
     notificationManager = new NotificationManager(this);
-
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
@@ -56,6 +54,7 @@ ChatWindow::~ChatWindow(){
  */
 void ChatWindow::on_inputDisplay_returnPressed(){
    socket->sendBasicChatMessage(ui->inputDisplay->text());
+   soundManager->sendMessage();
    ui->inputDisplay->clear();
 }
 
@@ -100,6 +99,12 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * it to the ChatWindow GUI
  */
 void ChatWindow::display(QString msg) {
+    if(msg[0] != "<"){
+        QStringList u = msg.split(":");
+        QString sender = u[0];
+        if(sender != username)
+            soundManager->incMessage();
+    }
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");
 }
@@ -199,6 +204,9 @@ void ChatWindow::activateCommandManager() {
  * received from the server.
  */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
+    QString u = QString::number(userlist.size()-1);
+    qDebug()<<u;
+    int t = u.toInt();
     ui->friendsDisplay->clear();
     if ((userlist.size()-1)== 1) {
         ui->peopleHereLabel->setText("<b>1 person here</b>");
@@ -209,5 +217,12 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     for (auto user : userlist) {
         ui->friendsDisplay->append(user);
     }
+    if(t > usersOnline)
+        soundManager->userEntersChat();
+    qDebug()<<usersOnline;
+    if(t < usersOnline)
+        soundManager->userLeavesChat();
+    usersOnline = t;
+
 }
 

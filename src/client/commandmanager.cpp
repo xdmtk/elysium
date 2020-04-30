@@ -25,17 +25,12 @@ CommandManager::CommandManager(ChatWindow * cw, SocketManager * s, SoundManager 
 void CommandManager::handleIncomingMessage() {
     std::string temp;
     QString qInput,userName;
-    
     /* Read data received from server */
     temp = socket->readServerData();
-
     /* Get the first byte and use its value to index in to the Protocol enum */
     CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
-
     /* Strip the Protocol enum from the receieved data */
     temp = temp.substr(1);
-    
-    /* Branch against the Protocol enum */
     switch (response){
         
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to
@@ -75,7 +70,6 @@ void CommandManager::handleIncomingMessage() {
  * @param msg - Message to be displayed in the ChatWindow
  */
 void CommandManager::addIncomingMessageToChat(QString msg) {
-    soundManager->newMessage();
     chatWindow->display(msg);
 }
 
