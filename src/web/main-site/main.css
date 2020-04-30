@@ -18,7 +18,9 @@ margin-right:10px;
 body{
   /**background-color: rgba(18, 14, 41, 1);**/
   /**background-color: rgba(34, 18, 54, 1);**/
-  background-color: rgba(19, 9, 31, 1); 
+  background-color: rgba(19, 9, 31, 1);
+  margin:0;
+  height: 100%
 }
 .about{
   padding-top: 10px;
