@@ -25,17 +25,12 @@ CommandManager::CommandManager(ChatWindow * cw, SocketManager * s, SoundManager 
 void CommandManager::handleIncomingMessage() {
     std::string temp;
     QString qInput,userName;
-    
     /* Read data received from server */
     temp = socket->readServerData();
-
     /* Get the first byte and use its value to index in to the Protocol enum */
     CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
-
     /* Strip the Protocol enum from the receieved data */
     temp = temp.substr(1);
-    
-    /* Branch against the Protocol enum */
     switch (response){
         
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to
@@ -58,6 +53,10 @@ void CommandManager::handleIncomingMessage() {
         case CoreSettings::Protocol::ClientReceiveOnlineStatus:
             updateOnlineUserlist(QString::fromUtf8(temp.c_str()));
             break;
+        case CoreSettings::Protocol::ClientAcceptAuthentication:
+        case CoreSettings::Protocol::ClientRejectAuthentication:
+            handleAuthReply(QString::fromUtf8(temp.c_str()), response);
+            break;
 
         default:
             break;
@@ -71,7 +70,6 @@ void CommandManager::handleIncomingMessage() {
  * @param msg - Message to be displayed in the ChatWindow
  */
 void CommandManager::addIncomingMessageToChat(QString msg) {
-    soundManager->newMessage();
     chatWindow->display(msg);
 }
 
@@ -88,6 +86,40 @@ void CommandManager::updateOnlineUserlist(QString userlistString) {
     if (!userlist.empty()) {
         chatWindow->setOnlineUserList(userlist);
     }
+}
+
+
+/**
+ * @brief CommandManager::handleAuthReply
+ *
+ * Called when the Client receives the servers response after requesting
+ * to authenticate.
+ *
+ * @param reply - Reply is set on failure, and gives a reason for Authentication failure
+ * @param protocol - The Protocol indicator received, either ClientRejectAuthentication or ClientAcceptAuthentication
+ */
+void CommandManager::handleAuthReply(QString reply, CoreSettings::Protocol protocol) {
+    if (protocol == CoreSettings::Protocol::ClientRejectAuthentication) {
+        setAuthReply(reply.split(",")[1], false);
+    }
+    else {
+        setAuthReply("", true);
+    }
+
+}
+
+
+/**
+ * @brief CommandManager::setAuthReply
+ * Called after the Client has processed the received response from the Server
+ * after requesting authentication
+ *
+ * @param reply - The reason for failure
+ * @param val - A boolean indicating auth success or failure
+ */
+void CommandManager::setAuthReply(QString reply, bool val) {
+    authSuccess = val;
+    authReply = reply;
 }
 /**
  * Updatest the sound settings for the user. Additional

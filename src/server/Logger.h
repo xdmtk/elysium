@@ -11,6 +11,8 @@ public:
     static void error(std::string);
     static void fatal(std::string);
     static std::string getLatestBuildCommit();
+    static std::string getDBScriptsDirectory();
+    static std::string execShellCommand(const char *);
 private:
     enum LogLevel {Info, Debug, Warn, Error, Fatal};
     static bool writeToConsole;
@@ -19,7 +21,6 @@ private:
 
     static void log(std::string, LogLevel);
 
-    static std::string execShellCommand(const char *);
     static std::string getCurrentDateString();
     static std::string getCurrentTimeString();
     static std::string getLogDirectory();

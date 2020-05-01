@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     commandmanager.cpp \
+    connectionprogresswindow.cpp \
     main.cpp \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
@@ -31,16 +32,19 @@ HEADERS += \
     ../core/CoreSettings.h \
     chatwindow.h \
     commandmanager.h \
+    connectionprogresswindow.h \
     loginwindow.h \
+    portInfo.h \
     notificationmanager.h \
     socketmanager.h \
     soundmanager.h
 
 FORMS += \
     chatwindow.ui \
+    connectionprogresswindow.ui \
     loginwindow.ui
 
-RC_ICON = ../resources/keyboard-key-e.png
+RC_ICONS = resources/appicon.ico
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

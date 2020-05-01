@@ -119,6 +119,10 @@ std::string Logger::getHomeDirectory() {
     return "/home/" + std::string(getenv("USER"));
 }
 
+std::string Logger::getDBScriptsDirectory() {
+    return "/home/" + std::string(getenv("USER")) + "/elysium/misc/db-scripts/";
+}
+
 
 /**
  * Function to execute a command on the server shell and return the response

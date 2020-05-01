@@ -8,6 +8,8 @@ class CoreSettings {
 public:
 
     CoreSettings(Server *s);
+    CoreSettings();
+
 
     enum ConfigEnvironment {
         DanielDev, ErickDev, JoshDev, NickDev, SebastianDev, Production
@@ -25,11 +27,18 @@ public:
         TypingIndicator,
         NoTyping,
         ServerRequestOnlineStatus,
-        ClientReceiveOnlineStatus
+        ClientReceiveOnlineStatus,
+        ServerRequestAuthentication,
+        ClientAcceptAuthentication,
+        ClientRejectAuthentication
     };
-
     std::string getHostName();
+
     int getPortNumber();
+    void setConfigEnvironment(ConfigEnvironment e);
+
+
+
 
 private:
     Server * server;

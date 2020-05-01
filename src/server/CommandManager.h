@@ -6,21 +6,26 @@
 
 class Server;
 class ClientConnection;
+class DatabaseManager;
 class CommandManager {
 public:
     CommandManager(Server *s, ClientConnection *c);
     void handleMessageAndResponse(std::string msg);
     void sendOnlineStatusList();
+    void announceEntranceOrExit(bool entering);
 
 private:
     Server * server;
     ClientConnection * clientConnection;
+    DatabaseManager * databaseManager;
+
     std::string incomingMessage;
     CoreSettings::Protocol determineServerResponse();
     void sendNormalMessageToAllClients();
     void sendTypingIndicator();
     void sendNoTypingIndicator();
     void setClientUsername();
+    void authenticateClient();
 };
 
 

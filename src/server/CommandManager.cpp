@@ -1,6 +1,8 @@
 #include "CommandManager.h"
 #include "ClientConnection.h"
 #include "ConnectionManager.h"
+#include "DatabaseManager.h"
+#include "../core/CoreSettings.h"
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
@@ -8,6 +10,7 @@
 CommandManager::CommandManager(Server *s, ClientConnection *c) {
     server = s;
     clientConnection = c;
+    databaseManager = server->getDatabaseManager();
 }
 
 
@@ -47,6 +50,10 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
         case CoreSettings::Protocol::ServerRequestOnlineStatus:
             sendOnlineStatusList();
             Logger::info("Received ServerRequestOnlineStatus indicator");
+            break;
+        case CoreSettings::Protocol::ServerRequestAuthentication:
+            authenticateClient();
+            Logger::info("Received ServerRequestAuthentication");
             break;
 
         default:
@@ -104,6 +111,20 @@ void CommandManager::setClientUsername() {
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
     sendOnlineStatusList();
+    announceEntranceOrExit(true);
+}
+
+
+/**
+ * Broadcasts a "username has entered/left the chat" message to the chatroom
+ * @param entering - Boolean determining whether the client is entering or exiting the chat
+ */
+void CommandManager::announceEntranceOrExit(bool entering) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
+    incomingMessage.append("<b>" + clientConnection->getUsername() + " has " +
+                                   (entering ? "entered" : "left") + " the chat</b>");
+    server->broadcastMessage(incomingMessage);
 }
 
 
@@ -121,6 +142,11 @@ void CommandManager::sendTypingIndicator(){
 }
 
 
+/**
+ * When NoTypingIndicator protocol is received this sends a message
+ * via server to ConnectionManager which in turn uses broadcast
+ * message to clients.
+ */
 void CommandManager::sendNoTypingIndicator() {
     Logger::info("Sending no type indicator");
     incomingMessage = CoreSettings::Protocol::NoTyping;
@@ -138,4 +164,45 @@ void CommandManager::sendOnlineStatusList() {
     incomingMessage = CoreSettings::Protocol::ClientReceiveOnlineStatus;
     incomingMessage.append(server->getConnectionManager()->getConnectedUserListCSV());
     server->broadcastMessage(incomingMessage);
+}
+
+
+/**
+ * Called when the Client requests the server to authenticate an
+ * incoming username/password combo.
+ *
+ * On success, a ClientAcceptAuthentication protocol indicator is
+ * sent back to the Client.
+ *
+ * On failure, a ClientRejectAuthentication protocol indicator
+ * is sent back to the Client and the connection is then terminated
+ */
+void CommandManager::authenticateClient() {
+
+    bool authSuccess;
+    std::string username, password;
+
+    /* Split the user/pass by comma delimited */
+    password = incomingMessage.substr(incomingMessage.find(",")+1);
+    username = incomingMessage.substr(0, incomingMessage.find(","));
+
+    /* Call on the Database manager to verify client credentials */
+    if (databaseManager->authenticateClient(username, password)) {
+        incomingMessage = CoreSettings::Protocol::ClientAcceptAuthentication;
+        authSuccess = true;
+    }
+    else {
+        incomingMessage = CoreSettings::Protocol::ClientRejectAuthentication;
+        incomingMessage.append("," + databaseManager->getFailureReason());
+        authSuccess = false;
+    }
+
+    /* Send back the correct Protocol indicator based on Authentication success
+     * or failure */
+    clientConnection->sendMessageToClient(incomingMessage);
+
+    /* On failure, terminate the connection */
+    if (!authSuccess) {
+        clientConnection->terminateConnection();
+    }
 }
