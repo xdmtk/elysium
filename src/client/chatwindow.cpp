@@ -227,8 +227,7 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
 
 }
 
-
-
+//makes the emojiList widget visible
 void ChatWindow::on_emojisButton_clicked()
 {
   if(ui->inputDisplay->hasSelectedText()){
@@ -236,7 +235,6 @@ void ChatWindow::on_emojisButton_clicked()
       selectionLength = ui->inputDisplay->selectionLength();
       hasSelect = true;
     }
- // ui->inputDisplay->deselect();
   if(showEmoji == false)
     showEmoji = true;
   else
@@ -244,6 +242,7 @@ void ChatWindow::on_emojisButton_clicked()
   ui->emojiList->setVisible(showEmoji);
 }
 
+//inserts the selected emoji into the input Display
 void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
 {
   QString S = item->text();
