@@ -93,6 +93,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
 }
 
 
+
+
 /*
  * Slot function:
  * This slot is emmited when there is data avaible to be
@@ -216,7 +218,7 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
         ui->peopleHereLabel->setText("<b>"+QString::number(userlist.size()-1)+" people here</b>");
     }
     for (auto user : userlist) {
-        ui->friendsDisplay->append(user);
+        ui->friendsDisplay->addItem(user);
     }
     if(t > usersOnline)
         soundManager->userEntersChat();
@@ -254,3 +256,4 @@ void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
   ui->inputDisplay->deselect();
   hasSelect = false;
 }
+
