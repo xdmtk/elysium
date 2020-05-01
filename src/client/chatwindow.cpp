@@ -257,3 +257,8 @@ void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
   hasSelect = false;
 }
 
+
+void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item)
+{
+
+}
