@@ -4,6 +4,7 @@
 #include <QAbstractSocket>
 #include <QTcpSocket>
 #include <QTimer>
+#include <QListWidgetItem>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
 #include "portInfo.h"
@@ -43,10 +44,9 @@ private slots:
     void on_actionSound_on_triggered();
     void on_actionSound_off_triggered();
     void activateCommandManager();
+    void on_emojisButton_clicked();
 
-    void on_buttonBox_accepted();
-
-    void on_pushButton_clicked();
+    void on_emojiList_itemClicked(QListWidgetItem *item);
 
 private:
     Ui::ChatWindow *ui;
@@ -58,6 +58,7 @@ private:
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
     portInfo p;
     SoundManager * soundManager;
+    bool showEmoji;
 };
 
 #endif // CHATWINDOW_H

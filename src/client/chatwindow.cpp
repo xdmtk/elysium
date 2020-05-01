@@ -14,6 +14,8 @@ ChatWindow::ChatWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
+    showEmoji = false;
+    ui->emojiList->setVisible(showEmoji);
 
     socket = new SocketManager(this);
     soundManager = new SoundManager();
@@ -29,7 +31,8 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
-
+    showEmoji = false;
+    ui->emojiList->setVisible(showEmoji);
     p = pass;
 
     socket = new SocketManager(p, this);
@@ -212,7 +215,23 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
 }
 
 
-void ChatWindow::on_pushButton_clicked()
-{
 
+void ChatWindow::on_emojisButton_clicked()
+{
+  if(showEmoji == false)
+    showEmoji = true;
+  else
+    showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+}
+
+void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
+{
+  QString S = item->text();
+
+  //insert is supposed to delete selected text but for some reason isnt
+  ui->inputDisplay->insert(S);
+  showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+  ui->inputDisplay->deselect();
 }
