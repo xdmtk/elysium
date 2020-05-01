@@ -246,9 +246,11 @@ void ChatWindow::on_emojisButton_clicked()
 void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
 {
   QString S = item->text();
+  if(hasSelect)
   ui->inputDisplay->setSelection(selectionStart, selectionLength);
   ui->inputDisplay->insert(S);
   showEmoji = false;
   ui->emojiList->setVisible(showEmoji);
   ui->inputDisplay->deselect();
+  hasSelect = false;
 }
