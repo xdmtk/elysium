@@ -9,17 +9,15 @@
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="js/extracted-helpers.js"></script>
 </head>
-	
-<div id="main-info">
 
-    Welcome to the Elysium Project.
-    <br><br><br><br>
-    <a href="register.html">Register Now</a>
+<div id="main-info">
+	Welcome to the Elysium Project. <br><br>
+<a href = "homepage.html">Enter</a>
 
 </div>
 
 <body style="cursor: default;">
-    
+
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118553867-1"></script>
@@ -47,7 +45,7 @@
 <!-- SHADER INJECTION GOES HERE -->
 <script id="example" type="x-shader/x-fragment">
     #ifdef GL_ES
-    precision highp float; 
+    precision highp float;
     #endif
 
     vec2 uv;
@@ -66,7 +64,7 @@
 
     /* 16 segment display...Akin to LED Display.
 
-    Segment bit positions: 
+    Segment bit positions:
 
 
      binary to hex -> 0x119F
@@ -124,7 +122,7 @@
     {
         vec2 dir = normalize(p1 - p0);
         vec2 cp = (uv - ch_pos - p0) * mat2(dir.x, dir.y,-dir.y, dir.x);
-        return distance(cp, clamp(cp, vec2(0), vec2(distance(p0, p1), 0)));   
+        return distance(cp, clamp(cp, vec2(0), vec2(distance(p0, p1), 0)));
     }
 
     bool bit(int n, int b)
@@ -136,7 +134,7 @@
 
     void ddigit(int n)
     {
-        float v = 1e6;	
+        float v = 1e6;
         vec2 cp = uv - ch_pos;
         if (n == 0)     v = min(v, dseg(vec2(-0.405, -1.000), vec2(-0.500, -1.000)));
         if (bit(n,  0)) v = min(v, dseg(vec2( 0.500,  0.063), vec2( 0.500,  0.937)));
@@ -168,13 +166,13 @@
     {
         vec3 rgb = clamp( abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0 );
 
-        rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing	
+        rgb = rgb*rgb*(3.0-2.0*rgb); // cubic smoothing
 
         return c.z * mix( vec3(1.0), rgb, c.y);
     }
-    void main( void ) 
+    void main( void )
     {
-        
+
         vec2 aspect = resolution.xy / resolution.y;
         uv = ( gl_FragCoord.xy / resolution.y ) - aspect / 2.0;
         float _d =  1.0-length(uv);
@@ -182,21 +180,21 @@
         uv.y -= 1.;
         //uv *= rotate(time+uv.x*0.05);
 
-        
-        
+
+
         vec3 ch_color = hsv2rgb_smooth(vec3(time*0.4+uv.y*0.1,0.5,1.0));
 
         //vec3 bg_color = vec3(_d*0.8*sin(time)*3.0, _d*0.0, _d*0.00);
         vec3 bg_color = vec3(0.1,_d*0.8*abs(sin(time))*0.7,0.1);
-        
-        
 
-        
+
+
+
         uv.y += -1.+sin(time+uv.x*0.3)*0.5;
         ch_pos = ch_start;
 
-                   X D M T K 
-                 
+                   X D M T K
+
         vec3 color = mix(ch_color, bg_color, 1.0- (0.04 / d*2.0));  // shading
         gl_FragColor = vec4(color, 1.0);
     }
@@ -205,7 +203,7 @@
     <script>
     var shaderinjection = document.getElementById("example");
     shaderinjection.innerHTML = out;
-    </script>    
+    </script>
             <script id="fragmentShader" type="x-shader/x-fragment">
 
                 #ifdef GL_ES
@@ -422,7 +420,7 @@
                         alert("WebGL not supported, but code will be shown.");
 
                     } else {
-                        
+
                         // enable dFdx, dFdy, fwidth
                         gl.getExtension('OES_standard_derivatives');
 
@@ -475,7 +473,7 @@
                             event.preventDefault();
                         }
                     }, false );
-                    
+
                     if (gl) {
 
                         var surfaceMouseDown = function ( event ) {
@@ -511,7 +509,7 @@
                         canvas.addEventListener( 'contextmenu', noContextMenu, false);
                         panButton.addEventListener( 'contextmenu', noContextMenu, false);
                     }
-                    
+
                     var clientXLast, clientYLast;
 
                     document.addEventListener( 'mousemove', function ( event ) {
@@ -528,10 +526,10 @@
                         stopHideUI();
 
                         var codeElement, dx, dy;
-                        
+
                         parameters.mouseX = clientX / window.innerWidth;
                         parameters.mouseY = 1 - clientY / window.innerHeight;
-                            
+
                         if (resizer.isResizing) {
 
                             resizer.currentWidth = Math.max(Math.min(clientX - resizer.offsetMouseX, resizer.maxWidth), resizer.minWidth);
@@ -641,9 +639,9 @@
                     if (gl) {
 
                         surface.width = surface.height * parameters.screenWidth / parameters.screenHeight;
-                        
+
                         var halfWidth = surface.width * 0.5, halfHeight = surface.height * 0.5;
-                        
+
                         gl.bindBuffer( gl.ARRAY_BUFFER, surface.buffer );
                         gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( [
                             surface.centerX - halfWidth, surface.centerY - halfHeight,
@@ -666,11 +664,11 @@
                 }
 
                 function compile() {
-                
+
                     if (!gl) {
-                    
+
                         if (!getWebGL) {
-                        
+
                             getWebGL = true;
                             compileButton.addEventListener( 'click', function ( event ) {
 
@@ -681,10 +679,10 @@
                             compileButton.style.color = '#ff0000';
                             compileButton.textContent = 'WebGL not supported!';
                             set_save_button('hidden');
-                            
+
                         }
                         return;
-                        
+
                     }
 
                     var program = gl.createProgram();
@@ -760,7 +758,7 @@
                 }
 
                 function compileScreenProgram() {
-                
+
                     if (!gl) { return; }
 
                     var program = gl.createProgram();
@@ -864,7 +862,7 @@
 
 
                 //
-                
+
                 function htmlEncode(str){
 
                     return String(str)
@@ -879,7 +877,7 @@
                 //
 
                 function createShader( src, type ) {
-                
+
                     var shader = gl.createShader( type );
                     var line, lineNum, lineError, index = 0, indexEnd;
 
@@ -897,7 +895,7 @@
                     if ( !gl.getShaderParameter( shader, gl.COMPILE_STATUS ) ) {
 
                         var error = gl.getShaderInfoLog( shader );
-                        
+
                         // Remove trailing linefeed, for FireFox's benefit.
                         while ((error.length > 1) && (error.charCodeAt(error.length - 1) < 32)) {
                             error = error.substring(0, error.length - 1);
@@ -943,7 +941,7 @@
 
                     var isMaxWidth = ((resizer.currentWidth === resizer.maxWidth) || (resizer.currentWidth === resizer.minWidth)),
                         isMaxHeight = ((resizer.currentHeight === resizer.maxHeight) || (resizer.currentHeight === resizer.minHeight));
-            
+
                     toolbar.style.width = window.innerWidth - 47 + 'px';
 
                     resizer.isResizing = false;
@@ -975,11 +973,11 @@
                     computeSurfaceCorners();
 
                     if (gl) {
-                    
+
                         gl.viewport( 0, 0, canvas.width, canvas.height );
 
                         createRenderTargets();
-                        
+
                     }
                 }
 
@@ -1010,7 +1008,7 @@
 
                     gl.bindBuffer( gl.ARRAY_BUFFER, surface.buffer );
                     gl.vertexAttribPointer( surface.positionAttribute, 2, gl.FLOAT, false, 0, 0 );
-                    
+
                     gl.bindBuffer( gl.ARRAY_BUFFER, buffer );
                     gl.vertexAttribPointer( vertexPosition, 2, gl.FLOAT, false, 0, 0 );
 
@@ -1033,7 +1031,7 @@
 
                     gl.bindBuffer( gl.ARRAY_BUFFER, buffer );
                     gl.vertexAttribPointer( screenVertexPosition, 2, gl.FLOAT, false, 0, 0 );
-                    
+
                     gl.activeTexture( gl.TEXTURE1 );
                     gl.bindTexture( gl.TEXTURE_2D, frontTarget.texture );
 
@@ -1054,7 +1052,7 @@
 
             </script><canvas width="244" height="454" style="display: block; width: 488px; height: 909px;"></canvas>
 
-        
+
 
     </body>
 </html>
