@@ -14,6 +14,7 @@ ChatWindow::ChatWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
+    ui->emojiList->setVisible(showEmoji);
     socket = new SocketManager(this);
     soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
@@ -27,7 +28,7 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
-
+    ui->emojiList->setVisible(showEmoji);
     p = pass;
 
     socket = new SocketManager(p, this);
@@ -226,3 +227,30 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
 
 }
 
+//makes the emojiList widget visible
+void ChatWindow::on_emojisButton_clicked()
+{
+  if(ui->inputDisplay->hasSelectedText()){
+      selectionStart = ui->inputDisplay->selectionStart();
+      selectionLength = ui->inputDisplay->selectionLength();
+      hasSelect = true;
+    }
+  if(showEmoji == false)
+    showEmoji = true;
+  else
+    showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+}
+
+//inserts the selected emoji into the input Display
+void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
+{
+  QString S = item->text();
+  if(hasSelect)
+  ui->inputDisplay->setSelection(selectionStart, selectionLength);
+  ui->inputDisplay->insert(S);
+  showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+  ui->inputDisplay->deselect();
+  hasSelect = false;
+}
