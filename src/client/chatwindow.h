@@ -48,8 +48,6 @@ private slots:
 
     void on_emojiList_itemClicked(QListWidgetItem *item);
 
-    void on_friendsDisplay_2_itemClicked(QListWidgetItem *item);
-
     void on_friendsDisplay_itemClicked(QListWidgetItem *item);
 
 private:
