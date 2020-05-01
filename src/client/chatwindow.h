@@ -50,6 +50,8 @@ private slots:
 
     void on_friendsDisplay_itemClicked(QListWidgetItem *item);
 
+    void on_friendsDisplay_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
 private:
     Ui::ChatWindow *ui;
     SocketManager * socket;

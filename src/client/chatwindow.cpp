@@ -217,7 +217,9 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     else {
         ui->peopleHereLabel->setText("<b>"+QString::number(userlist.size()-1)+" people here</b>");
     }
+
     for (auto user : userlist) {
+        if(user != "")
         ui->friendsDisplay->addItem(user);
     }
     if(t > usersOnline)
@@ -259,6 +261,10 @@ void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
 
 
 void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item)
+{
+}
+
+void ChatWindow::on_friendsDisplay_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
 
 }
