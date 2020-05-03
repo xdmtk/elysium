@@ -13,10 +13,15 @@ class hyperlinkDiag : public QDialog
 
 public:
     explicit hyperlinkDiag(QWidget *parent = nullptr);
+    QString sendLinkMsg();
     ~hyperlinkDiag();
-
+private slots:
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 private:
     Ui::hyperlinkDiag *ui;
+    QString linkText;
+    QString link;
 };
 
 #endif // HYPERLINKDIAG_H

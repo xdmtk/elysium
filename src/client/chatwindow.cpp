@@ -148,6 +148,7 @@ void ChatWindow::on_hyperLinkButton_clicked(){
     //ui->inputDisplay->insert(html);
     hyperlink = new hyperlinkDiag(this);
     hyperlink->show();
+    socket->sendBasicChatMessage(hyperlink->sendLinkMsg());
 }
 /**
  * Modifier function:
