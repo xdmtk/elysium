@@ -36,6 +36,7 @@ public:
     SoundManager * getSoundManager() {return soundManager;}
 
     ~ChatWindow();
+
 private slots:
     void on_inputDisplay_returnPressed();
     void on_actionLight_mode_triggered();
@@ -47,7 +48,7 @@ private slots:
     void on_emojisButton_clicked();
     void on_emojiList_itemClicked(QListWidgetItem *item);
     void on_friendsDisplay_itemClicked(QListWidgetItem *item);
-
+    void ShowContextMenu(const QPoint& pos);
 
 private:
     Ui::ChatWindow *ui;

@@ -3,6 +3,7 @@
 #include "commandmanager.h"
 #include "notificationmanager.h"
 #include "soundmanager.h"
+
 /*
  * Constructor:
  * Sets style of the ChatWindow up
@@ -15,6 +16,11 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
     ui->emojiList->setVisible(showEmoji);
+
+    ui->friendsDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->friendsDisplay, SIGNAL(customContextMenuRequested(const QPoint&)),
+        this, SLOT(ShowContextMenu(const QPoint&)));
+
     socket = new SocketManager(this);
     soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
@@ -29,6 +35,11 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
     ui->emojiList->setVisible(showEmoji);
+
+    ui->friendsDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->friendsDisplay, SIGNAL(customContextMenuRequested(const QPoint&)),
+        this, SLOT(ShowContextMenu(const QPoint&)));
+
     p = pass;
 
     socket = new SocketManager(p, this);
@@ -264,5 +275,26 @@ void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
   QString S = " @" + item->text();
   ui->inputDisplay->end(false);
   ui->inputDisplay->insert(S);
+}
 
+void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
+{
+    // for most widgets
+    QPoint globalPos = ui->friendsDisplay->mapToGlobal(pos);
+    // for QAbstractScrollArea and derived classes you would use:
+    // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
+
+    QMenu myMenu;
+    myMenu.addAction("Add Friend");
+    // ...
+
+    QAction* selectedItem = myMenu.exec(globalPos);
+    if (selectedItem)
+    {
+        // something was chosen, do stuff
+    }
+    else
+    {
+        // nothing was chosen
+    }
 }
