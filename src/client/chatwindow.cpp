@@ -231,9 +231,9 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
 
 }
 
-//makes the emojiList widget visible
-void ChatWindow::on_emojisButton_clicked()
-{
+/*makes the emojiList widget visible or if the widget is already visible
+then it is removed from view*/
+void ChatWindow::on_emojisButton_clicked(){
   if(ui->inputDisplay->hasSelectedText()){
       selectionStart = ui->inputDisplay->selectionStart();
       selectionLength = ui->inputDisplay->selectionLength();
@@ -246,9 +246,8 @@ void ChatWindow::on_emojisButton_clicked()
   ui->emojiList->setVisible(showEmoji);
 }
 
-//inserts the selected emoji into the input Display
-void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
-{
+/*inserts the selected emoji into the input Display*/
+void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item){
   QString S = item->text();
   if(hasSelect)
   ui->inputDisplay->setSelection(selectionStart, selectionLength);
@@ -259,12 +258,11 @@ void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
   hasSelect = false;
 }
 
-
-void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item)
-{
-}
-
-void ChatWindow::on_friendsDisplay_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
-{
+/*inserts an @call to user selected at the end of current available text.
+ * Will not replace selected text*/
+void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
+  QString S = " @" + item->text();
+  ui->inputDisplay->end(false);
+  ui->inputDisplay->insert(S);
 
 }

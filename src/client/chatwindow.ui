@@ -32,7 +32,7 @@
    <string>Elysium</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="resources.qrc">
     <normaloff>:/icons/resources/keyboard-key-e.png</normaloff>:/icons/resources/keyboard-key-e.png</iconset>
   </property>
   <property name="styleSheet">
@@ -111,7 +111,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/resources/send_inactive.png</pixmap>
+     <pixmap resource="resources.qrc">:/resources/send_inactive.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="fontColorButton">
@@ -127,7 +127,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/fontcolor.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontcolor.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="fontBackgroundButton">
@@ -143,7 +143,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/fontbackgroundcolor.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontbackgroundcolor.png</pixmap>
     </property>
    </widget>
    <widget class="Line" name="line_2">
@@ -172,7 +172,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/fontlower.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontlower.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="fontRegularButton">
@@ -188,7 +188,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/fontregular.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontregular.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="fontLargerButton">
@@ -204,7 +204,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/fontlarger.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/fontlarger.png</pixmap>
     </property>
    </widget>
    <widget class="Line" name="line_3">
@@ -233,7 +233,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/bold.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/bold.png</pixmap>
     </property>
    </widget>
    <widget class="Line" name="line_4">
@@ -262,7 +262,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/underline.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/underline.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="fontItalicsButton">
@@ -278,7 +278,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/italics.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/italics.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="emailButton">
@@ -294,7 +294,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/email.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/email.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="hyperLinkButton">
@@ -310,7 +310,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/hyperlink.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/hyperlink.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="pictureButton">
@@ -326,7 +326,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>:/chatbar/resources/picture.png</pixmap>
+     <pixmap resource="resources.qrc">:/chatbar/resources/picture.png</pixmap>
     </property>
    </widget>
    <widget class="Line" name="line_5">
@@ -440,11 +440,14 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="resources.qrc">
       <normaloff>:/chatbar/resources/emoji.png</normaloff>:/chatbar/resources/emoji.png</iconset>
     </property>
     <property name="checkable">
      <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QListWidget" name="emojiList">
@@ -760,6 +763,8 @@
   <tabstop>inputDisplay</tabstop>
   <tabstop>outputDisplay</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
