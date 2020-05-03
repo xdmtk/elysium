@@ -390,28 +390,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTextEdit" name="friendsDisplay">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>30</y>
-      <width>200</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>200</width>
-      <height>400</height>
-     </size>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="placeholderText">
-     <string>Loading Friends List...</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="inputDisplay">
     <property name="geometry">
      <rect>
@@ -467,6 +445,9 @@
     </property>
     <property name="checkable">
      <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QListWidget" name="emojiList">
@@ -631,6 +612,48 @@
      </property>
     </item>
    </widget>
+   <widget class="QListWidget" name="friendsDisplay">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>30</y>
+      <width>200</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>400</height>
+     </size>
+    </property>
+   </widget>
+   <zorder>typingIndicator</zorder>
+   <zorder>line</zorder>
+   <zorder>line2</zorder>
+   <zorder>sendQLabel</zorder>
+   <zorder>fontColorButton</zorder>
+   <zorder>fontBackgroundButton</zorder>
+   <zorder>line_2</zorder>
+   <zorder>fontSmallerButton</zorder>
+   <zorder>fontRegularButton</zorder>
+   <zorder>fontLargerButton</zorder>
+   <zorder>line_3</zorder>
+   <zorder>fontBoldButton</zorder>
+   <zorder>line_4</zorder>
+   <zorder>fontUnderlineButton</zorder>
+   <zorder>fontItalicsButton</zorder>
+   <zorder>emailButton</zorder>
+   <zorder>hyperLinkButton</zorder>
+   <zorder>pictureButton</zorder>
+   <zorder>line_5</zorder>
+   <zorder>line_6</zorder>
+   <zorder>peopleHereLabel</zorder>
+   <zorder>outputDisplay</zorder>
+   <zorder>inputDisplay</zorder>
+   <zorder>emojisButton</zorder>
+   <zorder>friendsDisplay</zorder>
+   <zorder>emojiList</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -638,7 +661,7 @@
      <x>0</x>
      <y>0</y>
      <width>775</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">
@@ -738,7 +761,6 @@
  </widget>
  <tabstops>
   <tabstop>inputDisplay</tabstop>
-  <tabstop>friendsDisplay</tabstop>
   <tabstop>outputDisplay</tabstop>
  </tabstops>
  <resources>

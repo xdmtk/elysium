@@ -93,6 +93,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
 }
 
 
+
+
 /*
  * Slot function:
  * This slot is emmited when there is data avaible to be
@@ -215,8 +217,10 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     else {
         ui->peopleHereLabel->setText("<b>"+QString::number(userlist.size()-1)+" people here</b>");
     }
+
     for (auto user : userlist) {
-        ui->friendsDisplay->append(user);
+        if(user != "")
+        ui->friendsDisplay->addItem(user);
     }
     if(t > usersOnline)
         soundManager->userEntersChat();
@@ -227,9 +231,9 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
 
 }
 
-//makes the emojiList widget visible
-void ChatWindow::on_emojisButton_clicked()
-{
+/*makes the emojiList widget visible or if the widget is already visible
+then it is removed from view*/
+void ChatWindow::on_emojisButton_clicked(){
   if(ui->inputDisplay->hasSelectedText()){
       selectionStart = ui->inputDisplay->selectionStart();
       selectionLength = ui->inputDisplay->selectionLength();
@@ -242,9 +246,8 @@ void ChatWindow::on_emojisButton_clicked()
   ui->emojiList->setVisible(showEmoji);
 }
 
-//inserts the selected emoji into the input Display
-void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
-{
+/*inserts the selected emoji into the input Display*/
+void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item){
   QString S = item->text();
   if(hasSelect)
   ui->inputDisplay->setSelection(selectionStart, selectionLength);
@@ -253,4 +256,13 @@ void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item)
   ui->emojiList->setVisible(showEmoji);
   ui->inputDisplay->deselect();
   hasSelect = false;
+}
+
+/*inserts an @call to user selected at the end of current available text.
+ * Will not replace selected text*/
+void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
+  QString S = " @" + item->text();
+  ui->inputDisplay->end(false);
+  ui->inputDisplay->insert(S);
+
 }
