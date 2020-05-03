@@ -335,7 +335,7 @@ background: #c0c0c0;
     </font>
    </property>
    <property name="text">
-    <string>Version 0.9.4</string>
+    <string>Version 0.9.5</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
