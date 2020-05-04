@@ -100,9 +100,13 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * This slot is emmited when there is data avaible to be
  * read from the server. It reads the data and then displays
  * it to the ChatWindow GUI
+ * When using append, text inherits style from previous block, so span is needed
+ * in order to prevent text to turn blue after a link has been added.
+ * see:
+ * https://stackoverflow.com/questions/44291816/qt-open-href-links
  */
 void ChatWindow::display(QString msg) {
-    msg = "<p>" + msg +"</p>";
+    msg = "<span> " + msg + "</span>" ;
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");
 }
@@ -140,15 +144,9 @@ void ChatWindow::on_actionSound_off_triggered(){
     ui->actionSound_off->setChecked(true);
 }
 void ChatWindow::on_hyperLinkButton_clicked(){
-    //connect(ui->hyperLinkButton, SIGNAL(clicked()), this, SLOT(on_LinkAction_clicked()));
-
-    QString url = "https://stackoverflow.com/questions/44291816/qt-open-href-links";
-    QString html = "<a href = \"" + url + "\">" + url + "</a>";
-    qDebug()<<html;
-    //ui->inputDisplay->insert(html);
     hyperlink = new hyperlinkDiag(this);
+    hyperlink->setCw(this);
     hyperlink->show();
-    socket->sendBasicChatMessage(hyperlink->sendLinkMsg());
 }
 /**
  * Modifier function:
