@@ -335,22 +335,6 @@
      <pixmap resource="resources.qrc">:/chatbar/resources/picture.png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="emojiButton">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>433</y>
-      <width>21</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="resources.qrc">:/chatbar/resources/emoji.png</pixmap>
-    </property>
-   </widget>
    <widget class="Line" name="line_5">
     <property name="geometry">
      <rect>
@@ -418,28 +402,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QTextEdit" name="friendsDisplay">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>30</y>
-      <width>200</width>
-      <height>381</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>200</width>
-      <height>400</height>
-     </size>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="placeholderText">
-     <string>Loading Friends List...</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="inputDisplay">
     <property name="geometry">
      <rect>
@@ -468,6 +430,242 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="emojisButton">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>433</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/chatbar/resources/emoji.png</normaloff>:/chatbar/resources/emoji.png</iconset>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="emojiList">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>280</y>
+      <width>151</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="midLineWidth">
+     <number>0</number>
+    </property>
+    <property name="movement">
+     <enum>QListView::Free</enum>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="viewMode">
+     <enum>QListView::IconMode</enum>
+    </property>
+    <property name="uniformItemSizes">
+     <bool>false</bool>
+    </property>
+    <property name="selectionRectVisible">
+     <bool>false</bool>
+    </property>
+    <property name="currentRow">
+     <number>-1</number>
+    </property>
+    <property name="sortingEnabled">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>😀</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😂</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😅</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😋</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😉</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🤔</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🙁</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😥</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😭</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😜</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😵</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🤪</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😷</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🤩</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😇</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😈</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>😱</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🤡</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>👽</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>👻</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🤖</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🍎</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🍐</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🍊</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>🍋</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QListWidget" name="friendsDisplay">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>30</y>
+      <width>200</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>400</height>
+     </size>
+    </property>
+   </widget>
+   <zorder>typingIndicator</zorder>
+   <zorder>line</zorder>
+   <zorder>line2</zorder>
+   <zorder>sendQLabel</zorder>
+   <zorder>fontColorButton</zorder>
+   <zorder>fontBackgroundButton</zorder>
+   <zorder>line_2</zorder>
+   <zorder>fontSmallerButton</zorder>
+   <zorder>fontRegularButton</zorder>
+   <zorder>fontLargerButton</zorder>
+   <zorder>line_3</zorder>
+   <zorder>fontBoldButton</zorder>
+   <zorder>line_4</zorder>
+   <zorder>fontUnderlineButton</zorder>
+   <zorder>fontItalicsButton</zorder>
+   <zorder>emailButton</zorder>
+   <zorder>hyperLinkButton</zorder>
+   <zorder>pictureButton</zorder>
+   <zorder>line_5</zorder>
+   <zorder>line_6</zorder>
+   <zorder>peopleHereLabel</zorder>
+   <zorder>outputDisplay</zorder>
+   <zorder>inputDisplay</zorder>
+   <zorder>emojisButton</zorder>
+   <zorder>friendsDisplay</zorder>
+   <zorder>emojiList</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -554,6 +752,9 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>On</string>
    </property>
@@ -563,7 +764,7 @@
     <bool>true</bool>
    </property>
    <property name="checked">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>Off</string>
@@ -579,7 +780,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>inputDisplay</tabstop>
-  <tabstop>friendsDisplay</tabstop>
   <tabstop>outputDisplay</tabstop>
  </tabstops>
  <resources>

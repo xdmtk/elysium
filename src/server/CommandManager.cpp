@@ -111,6 +111,20 @@ void CommandManager::setClientUsername() {
         " to " + incomingMessage);
     clientConnection->setUsername(incomingMessage);
     sendOnlineStatusList();
+    announceEntranceOrExit(true);
+}
+
+
+/**
+ * Broadcasts a "username has entered/left the chat" message to the chatroom
+ * @param entering - Boolean determining whether the client is entering or exiting the chat
+ */
+void CommandManager::announceEntranceOrExit(bool entering) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    incomingMessage = CoreSettings::Protocol::ServerBroadcastMessage;
+    incomingMessage.append("<b>" + clientConnection->getUsername() + " has " +
+                                   (entering ? "entered" : "left") + " the chat</b>");
+    server->broadcastMessage(incomingMessage);
 }
 
 

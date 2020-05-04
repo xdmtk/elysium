@@ -4,6 +4,7 @@
 #include <QAbstractSocket>
 #include <QTcpSocket>
 #include <QTimer>
+#include <QListWidgetItem>
 #include "socketmanager.h"
 #include "../core/CoreSettings.h"
 #include "portInfo.h"
@@ -56,6 +57,11 @@ private:
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
     portInfo p;
     SoundManager * soundManager;
+    bool showEmoji = false;
+    bool hasSelect = false;
+    int selectionLength = 0;
+    int selectionStart = 0;
+    int usersOnline = 0;
 };
 
 #endif // CHATWINDOW_H

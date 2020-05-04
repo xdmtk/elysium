@@ -16,12 +16,11 @@ ChatWindow::ChatWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
-
+    ui->emojiList->setVisible(showEmoji);
     socket = new SocketManager(this);
     soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
     notificationManager = new NotificationManager(this);
-
     connect(socket->getSocket(), &QTcpSocket::readyRead,this, &ChatWindow::activateCommandManager);
 }
 
@@ -31,7 +30,7 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
-
+    ui->emojiList->setVisible(showEmoji);
     p = pass;
 
     socket = new SocketManager(p, this);
@@ -58,6 +57,7 @@ ChatWindow::~ChatWindow(){
  */
 void ChatWindow::on_inputDisplay_returnPressed(){
    socket->sendBasicChatMessage(ui->inputDisplay->text());
+   soundManager->sendMessage();
    ui->inputDisplay->clear();
 }
 
@@ -93,6 +93,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 }
+
+
 
 
 /*
@@ -210,6 +212,9 @@ void ChatWindow::activateCommandManager() {
  * received from the server.
  */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
+    QString u = QString::number(userlist.size()-1);
+    qDebug()<<u;
+    int t = u.toInt();
     ui->friendsDisplay->clear();
     if ((userlist.size()-1)== 1) {
         ui->peopleHereLabel->setText("<b>1 person here</b>");
@@ -217,8 +222,52 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     else {
         ui->peopleHereLabel->setText("<b>"+QString::number(userlist.size()-1)+" people here</b>");
     }
+
     for (auto user : userlist) {
-        ui->friendsDisplay->append(user);
+        if(user != "")
+        ui->friendsDisplay->addItem(user);
     }
+    if(t > usersOnline)
+        soundManager->userEntersChat();
+    qDebug()<<usersOnline;
+    if(t < usersOnline)
+        soundManager->userLeavesChat();
+    usersOnline = t;
+
 }
 
+/*makes the emojiList widget visible or if the widget is already visible
+then it is removed from view*/
+void ChatWindow::on_emojisButton_clicked(){
+  if(ui->inputDisplay->hasSelectedText()){
+      selectionStart = ui->inputDisplay->selectionStart();
+      selectionLength = ui->inputDisplay->selectionLength();
+      hasSelect = true;
+    }
+  if(showEmoji == false)
+    showEmoji = true;
+  else
+    showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+}
+
+/*inserts the selected emoji into the input Display*/
+void ChatWindow::on_emojiList_itemClicked(QListWidgetItem *item){
+  QString S = item->text();
+  if(hasSelect)
+  ui->inputDisplay->setSelection(selectionStart, selectionLength);
+  ui->inputDisplay->insert(S);
+  showEmoji = false;
+  ui->emojiList->setVisible(showEmoji);
+  ui->inputDisplay->deselect();
+  hasSelect = false;
+}
+
+/*inserts an @call to user selected at the end of current available text.
+ * Will not replace selected text*/
+void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
+  QString S = " @" + item->text();
+  ui->inputDisplay->end(false);
+  ui->inputDisplay->insert(S);
+
+}

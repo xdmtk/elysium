@@ -1,0 +1,144 @@
+.navbar-custom *{
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+
+
+}
+
+.row{
+  margin-left:0px;
+margin-right:10px;
+}
+.container{
+  min-width: 1600px;
+  padding-top: 20px;
+  min-height: 320px;
+}
+
+html, body{
+  /**background-color: rgba(18, 14, 41, 1);**/
+  /**background-color: rgba(34, 18, 54, 1);**/
+  background-color: rgba(19, 9, 31, 1);
+  margin:0;
+  height: 100%
+}
+.about{
+  padding-top: 10px;
+  text-align: center;
+  font-family: "Comic sans";
+  color: white;
+
+}
+hr{
+  border-width: 5px;
+  display:block;
+  color:white;
+  background-color: white;
+}
+h1{
+  font-family: "Comic Sans";
+  color: white;
+}
+
+h2{
+  font-family: "Comic sans";
+  color: white;
+}
+h3{
+  color: white;
+  text-align:center;
+  font-family: "Comic sans";
+}
+p{
+  color: white;
+  font-family: "Comic Sans";
+}
+.button-wrapper{
+  text-align: center;
+}
+.showcase{
+  padding-top: 20px;
+}
+li{
+  font-family: "Comic sans";
+}
+/*Register.html classes*/
+.login-box {
+
+    position:absolute;
+    background-color: rgba(0, 0, 0, .4);
+    padding: 20px;
+    transform: translate(40%, 0%);
+}
+
+.input-area {
+    margin: 0px 0px 12px;
+    padding: 8px;
+}
+
+.btn#login-btn{
+    width: 100%;
+    padding: 5px;
+    color: #fff;
+    background: none;
+    border: 1px solid #ddd;
+    font-weight: 300;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 5px #000;
+    transition: ease-in 0.2s;
+    margin-top: 2px;
+    cursor: pointer;
+
+}
+
+.btn:hover {
+    background-color: #ddd;
+    color: #333;
+}
+
+i {
+    color: #ddd;
+    margin: 0 5px 0 0;
+}
+
+.question {
+    display: inline-block;
+    color: #ddd;
+    font-size: 12px;
+}
+*{
+  font-family: "Comic Sans";
+}
+
+.reg-btn {
+    color: #ddd;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.question-box {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.success-box {
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    width: 360px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+}
+
+.success-box h1 {
+    color: #ddd;
+    margin-top: 6%;
+}
+.row .register{
+  padding-top: 20px;
+}

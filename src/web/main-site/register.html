@@ -1,143 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+<title>Register now!</title>
+<meta charset="utf-8">
+<meta http-http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel = "stylesheet" href = "main.css" type = "text/css">
+<link rel = "icon" href ="https://elysium-project.net/images/eim-64x42.png" type="image/icon type">
+<script src ="js/jquery.js"></script>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-            url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/yFbEFAv/mountains-motion-background_bvfnn_hzx__F0000.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            font-family: "Lato", "Aril", sans-serif;
-        }
-
-        h1 {
-            color: #ddd;
-            text-transform: uppercase;
-            font-weight: 400;
-            text-rendering: optimizeLegibility;
-            margin: 0 0 25px 0;
-            font-size: 16px;
-        }
-
-        input {
-            display: inline-block;
-            background: none;
-            border: none;
-            outline: none;
-            color: #ddd;
-            border-bottom: 1px solid #ddd;
-            border-radius: 0;
-        }
-
-        .login-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .input-area {
-            margin: 0px 0px 12px;
-            padding: 8px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 5px;
-            color: #fff;
-            background: none;
-            border: 1px solid #ddd;
-            font-weight: 300;
-            text-transform: uppercase;
-            box-shadow: 1px 1px 5px #000;
-            transition: ease-in 0.2s;
-            margin-top: 2px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #ddd;
-            color: #333;
-        }
-
-        i {
-            color: #ddd;
-            margin: 0 5px 0 0;
-        }
-
-        .question {
-            display: inline-block;
-            color: #ddd;
-            font-size: 12px;
-        }
-
-        .reg-btn {
-            color: #ddd;
-            margin-left: 5px;
-            font-size: 12px;
-        }
-
-        .question-box {
-            text-align: center;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .success-box {
-            position: absolute;
-            background-color: rgba(0,0,0,0.4);
-            width: 360px;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            display: none;
-        }
-
-        .success-box h1 {
-            color: #ddd;
-            margin-top: 6%;
-        }
-
-
-
-    </style>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet">
-    <script src="js/jquery.js"></script>
 </head>
-<div class="login-box">
-    <div class="input-section">
-        <i class="far fa-user"></i>
-        <input id="username" class="input-area" type="text" placeholder="Username">
-    </div>
-    <div class="input-section">
-        <i class="fas fa-lock"></i>
-        <input id="password" class="input-area" type="password" placeholder="Password">
-        <br>
-        <i class="fas fa-lock"></i>
-        <input class="input-area" type="password" placeholder="Confirm Password">
-    </div>
-    <div class="input-section">
-        <i class="far fa-envelope"></i>
-        <input id="email" class="input-area" type="text" placeholder="Email">
-    </div>
-    <button class="btn" id="login-btn">Register</button>
-</div>
-<div class="success-box">
-    <h1>You have successfully registered. Check email for confirmation.</h1>
+<div class = "container-fluid">
+  <nav class = "navbar navbar-custom ">
+    <a class = "navbar-brand" href ="homepage.html"><img href="homepage.html" src ="https://elysium-project.net/images/eim-64x42.png">Elysium</a>
+    <ul class = "nav mr-auto">
+      <li class = "nav-item">
+        <a class = "nav-link active" href="download.html">Download</a>
+        </li>
+      <li class = "nav-item">
+        <a class = "nav-link active" href="support.html">Support</a>
+        </li>
+      <li class="nav-item">
+        <a class = "nav-link active" href = "register.html">Register</a>
+      <li class="nav-item">
+          <a class = "nav-link active" href = "doxygen/index.html">Documentation</a>
+      </ul>
+    </nav>
+
+  <div class = "container" >
+    <div class= "row register">
+      <div class = "col-md-4">
+        <h1> Welcome! </h1>
+        <hr>
+        <p> In order to log into Elysium Instant Messenger, you must use a valid
+          email address that will need to be verifed before log-in. </p>
+        </div>
+      <div class = "col-md-4">
+      <div class="login-box">
+          <div class="input-section">
+              <i class="far fa-user"></i>
+              <input id="username" class="input-area" type="text" placeholder="Username">
+            </div>
+            <div class="input-section">
+              <i class="fas fa-lock"></i>
+              <input id="password" class="input-area" type="password" placeholder="Password">
+              <br>
+              <i class="fas fa-lock"></i>
+              <input class="input-area" type="password" placeholder="Confirm Password">
+            </div>
+            <div class="input-section">
+              <i class="far fa-envelope"></i>
+              <input id="email" class="input-area" type="text" placeholder="Email">
+            </div>
+            <button class="btn" id="login-btn">Register</button>
+          </div>
+          <div class="success-box">
+            <h1>You have successfully registered. Check email for confirmation.</h1>
 
 
+          </div>
+        </div>
+        </div>
+  </div>
 </div>
+
 <script>
     $(".reg-btn").click(function() {
         $(".hidden").slideToggle("slow");
@@ -179,4 +105,12 @@
         );
     });
 </script>
+<footer class = "page-footer font-small blue pt-4">
+  <div class = "container-fluid text-center">
+    <div class = "row">
+      <div class = "col-md-12"> <p> <a href="homepage.html">Home</a> &nbsp;<a href="download.html"> Download</a> &nbsp; <a href="register.html"> Register</a> &nbsp; <a href "support.html"> Support</a>
+         &nbsp; <a href = "doxygen/index.html"> Documentation </a> </p></div>
+    </div>
+  </div>
+</footer>
 </html>
