@@ -108,6 +108,12 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * https://stackoverflow.com/questions/44291816/qt-open-href-links
  */
 void ChatWindow::display(QString msg) {
+    if(msg[0] != "<"){
+        QStringList u = msg.split(":");
+        QString sender = u[0];
+        if(sender != username)
+            soundManager->incMessage();
+    }
     msg = "<span> " + msg + "</span>" ;
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");

@@ -38,6 +38,9 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="placeholderText">
+    <string>text</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="linkedit">
    <property name="geometry">
@@ -47,6 +50,9 @@
      <width>281</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="placeholderText">
+    <string>url</string>
    </property>
   </widget>
   <widget class="QDialogButtonBox" name="cancelButton">
