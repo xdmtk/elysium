@@ -31,6 +31,7 @@ public:
     void setUsersTypingLabel(CoreSettings::Protocol indicator, std::string user);
     void setOnlineUserList(QStringList userlist);
     bool isConnected() {return socket->isConnectedToServer();}
+
     SocketManager * getSocketManager() {return socket;}
     NotificationManager * getNotificationManager() {return notificationManager;}
     CommandManager * getCommandManager() {return commandManager;}
@@ -46,6 +47,9 @@ private slots:
     void on_actionSound_off_triggered();
     void activateCommandManager();
     void on_hyperLinkButton_clicked();
+    void on_emojisButton_clicked();
+    void on_emojiList_itemClicked(QListWidgetItem *item);
+    void on_friendsDisplay_itemClicked(QListWidgetItem * item);
 private:
     Ui::ChatWindow *ui;
     hyperlinkDiag * hyperlink;
