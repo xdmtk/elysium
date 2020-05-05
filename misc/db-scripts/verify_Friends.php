@@ -35,7 +35,7 @@
         /** @var  $chkUserName  PDOStatement */
         $chkUserName = $conn->prepare("SELECT * FROM friends WHERE username=:username and friendsname=:friendsname");
         $chkUserName->bindParam(":username", $username);
-        $chkUserName->bindParam(":friendUsername", $friendUsername);
+        $chkUserName->bindParam(":friendsname", $friendUsername);
         $chkUserName->execute();
 
         if($chkUserName->rowCount() > 0){
