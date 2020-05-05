@@ -52,7 +52,6 @@ bool DatabaseManager::verifyFriend(std::string username, std::string friendUsern
     std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
             " " + username + " " + friendUsername).c_str());
 
-
     if (result_str == "true") {
         return true;
     }

@@ -85,8 +85,6 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
  */
 CoreSettings::Protocol CommandManager::determineServerResponse() {
 std::string protocol;
-
-  if(incomingMessage[0] != '~'){
     /* Pluck the first character of the message and use the byte value
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
@@ -94,18 +92,6 @@ std::string protocol;
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
     return messageProtocolIdentifier;
-    }
-  else{
-      /* Pluck the second and third characters of the message and use the byte value
-       * to index into the CoreSettings::Protocol enumeration to determine
-       * the intended effect of the message */
-      protocol = incomingMessage.substr(1,2);
-      auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(std::stoi(protocol));
-      /* Strip ~ and the characters from the message */
-      incomingMessage = incomingMessage.substr(3);
-      return messageProtocolIdentifier;
-    }
-
 }
 
 
@@ -254,10 +240,10 @@ void CommandManager::verifyFriend() {
 
     /* Call on the Database manager to verify client credentials */
     if (databaseManager->verifyFriend(username, friendUsername)) {
-        incomingMessage = '~' + CoreSettings::Protocol::AreFriends;
+        incomingMessage = CoreSettings::Protocol::AreFriends;
     }
     else {
-        incomingMessage = '~' + CoreSettings::Protocol::AreNotFriends;
+        incomingMessage = CoreSettings::Protocol::AreNotFriends;
     }
 
     /* Send back the correct Protocol indicator based on Authentication success
