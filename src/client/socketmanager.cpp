@@ -208,4 +208,4 @@ void SocketManager::deleteFriend(QString username, QString friendUserName){
   msgToSend.append(username + "," + friendUserName);
   writeToServer(msgToSend);
 }
-}
+

@@ -302,10 +302,10 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
         if (rightClickedItem)
         {
             if(rightClickedItem->text().contains("Add Friend")){
-                getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text()));
+                getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
               }
             else if(rightClickedItem->text().contains("Remove Friend")){
-                getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text()));
+                getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
               }
             else if(rightClickedItem->text().contains("Block")){
 
@@ -323,6 +323,6 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
 calls socketmanager to check friend status*/
 bool ChatWindow::areFriends(QString friendUserName){
 getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
-  return false;
+return getCommandManager()->getAreFriends();
 }
 
