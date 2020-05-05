@@ -28,21 +28,11 @@ void CommandManager::handleIncomingMessage() {
     CoreSettings::Protocol response;
     /* Read data received from server */
     temp = socket->readServerData();
-
-    if(temp[0] != '~'){
-    /* Get the first byte and use its value to index in to the Protocol enum */
-    response = static_cast<CoreSettings::Protocol>(temp[0]);
-    /* Strip the Protocol enum from the receieved data */
-    temp = temp.substr(1);
-      }
-    else
-      {
         /* Pluck the second and third characters of the message and use the byte value
          * to index into the CoreSettings::Protocol enumeration to determine
          * the intended effect of the message */
-    temp = temp.substr(1,2);
-    response = static_cast<CoreSettings::Protocol>(std::stoi(temp));
-      }
+        response = static_cast<CoreSettings::Protocol>(temp[0]);
+    temp = temp.substr(1);
     switch (response){
         
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to

@@ -91,6 +91,8 @@ std::string protocol;
     auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(incomingMessage[0]);
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
+    Logger::warn("determine " + messageProtocolIdentifier);
+
     return messageProtocolIdentifier;
 }
 

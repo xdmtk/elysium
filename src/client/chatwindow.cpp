@@ -3,6 +3,8 @@
 #include "commandmanager.h"
 #include "notificationmanager.h"
 #include "soundmanager.h"
+#include <QTime>
+
 
 /*
  * Constructor:
@@ -310,7 +312,8 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
             else if(rightClickedItem->text().contains("Block")){
 
               }
-        }
+            //areFriends(ui->friendsDisplay->itemAt(pos)->text());
+          }
         else
         {
         // nothing was chosen
@@ -322,7 +325,10 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
 /*return true if you are friends and false if you are not
 calls socketmanager to check friend status*/
 bool ChatWindow::areFriends(QString friendUserName){
+
 getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
+QTimer::singleShot(3000, [&]{});
+
 return getCommandManager()->getAreFriends();
 }
 
