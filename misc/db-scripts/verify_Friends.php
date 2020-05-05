@@ -34,7 +34,7 @@
         global $conn;
         /** @var  $chkUserName  PDOStatement */
         $chkUserName = $conn->prepare("SELECT * FROM friends WHERE username=:username and friendUsername=:friendUsername");
-        $chkUserName->bindParam(":username", $userName);
+        $chkUserName->bindParam(":username", $username);
         $chkUserName->bindParam(":friendUsername", $friendUsername);
         $chkUserName->execute();
 

@@ -35,7 +35,7 @@
         /** @var  $chkUserName  PDOStatement INSERT INTO `elysium-project`.friends (    username, friendsname) VALUES ('" + username + "','');
 */
         $chkUserName = $conn->prepare("INSERT INTO friends (username, friendsname) VALUES (:username, :friendUsername)");
-        $chkUserName->bindParam(":username", $userName);
+        $chkUserName->bindParam(":username", $username);
         $chkUserName->bindParam(":friendUsername", $friendUsername);
         $chkUserName->execute();
     }
@@ -46,7 +46,7 @@
         $conn = new PDO('mysql:host=' . get("DB_HOST") . ';dbname=' . get("DB_NAME"), get("DB_USER"), get("DB_PASS") );
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         global $argv;
-        echo setFriend($argv[0] , $argv[1]);
+        echo setFriend($argv[1] , $argv[2]);
     }
 
 main();
