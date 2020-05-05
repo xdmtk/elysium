@@ -19,6 +19,7 @@ public:
     bool getAreFriends() {return areFriends;};
     CommandManager(ChatWindow * cw, SocketManager * socket, SoundManager * sm);
     void updateSoundSettings(bool onOff);
+    bool holdFlag = false;
 
 private:
     ChatWindow * chatWindow;

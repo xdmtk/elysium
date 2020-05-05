@@ -140,5 +140,7 @@ void CommandManager::updateSoundSettings(bool onOff){
 
 void CommandManager::setAreFriends(bool val) {
   areFriends = val;
+  chatWindow->flag = val;
+  holdFlag = true;
 }
 

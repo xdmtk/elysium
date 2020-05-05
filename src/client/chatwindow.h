@@ -34,6 +34,8 @@ public:
     NotificationManager * getNotificationManager() {return notificationManager;}
     CommandManager * getCommandManager() {return commandManager;}
     SoundManager * getSoundManager() {return soundManager;}
+    bool flag = false;
+
 
     ~ChatWindow();
 
