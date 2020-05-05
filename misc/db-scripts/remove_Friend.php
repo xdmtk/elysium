@@ -33,7 +33,7 @@
     function RemoveFriend($username, $friendUsername){
         global $conn;
         /** @var  $chkUserName  PDOStatement */
-        $chkUserName = $conn->prepare("DELETE FROM friends WHERE username=:username and friendUsername=:friendUsername");
+        $chkUserName = $conn->prepare("DELETE FROM friends WHERE username=:username and friendsname=:friendUsername");
         $chkUserName->bindParam(":username", $username);
         $chkUserName->bindParam(":friendUsername", $friendUsername);
         $chkUserName->execute();
