@@ -62,11 +62,11 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             break;
         case CoreSettings::Protocol::AddFriend:
           addFriend();
-          Logger::info("Received VerifyFriendStatus");
+          Logger::info("Received addFriend");
           break;
         case CoreSettings::Protocol::RemoveFriend:
           removeFriend();
-          Logger::info("Received VerifyFriendStatus");
+          Logger::info("Received removeFriend");
           break;
 
         default:
@@ -249,8 +249,8 @@ void CommandManager::verifyFriend() {
     std::string username, friendUsername;
 
     /* Split the user/pass by comma delimited */
-    username = incomingMessage.substr(incomingMessage.find(",")+1);
-    friendUsername = incomingMessage.substr(0, incomingMessage.find(","));
+    friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
+    username = incomingMessage.substr(0, incomingMessage.find(","));
 
     /* Call on the Database manager to verify client credentials */
     if (databaseManager->verifyFriend(username, friendUsername)) {
