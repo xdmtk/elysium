@@ -17,6 +17,9 @@ public:
     void sendNoTypingIndicator();
     void sendAuthenticationRequest(QString username, QString password);
     void requestOnlineUserlist();
+    void verifyFriendStatus(QString username, QString friendUserName);
+    void addFriend(QString username, QString friendUserName);
+    void deleteFriend(QString username, QString friendUserName);
     bool isConnectedToServer() {return connectedToServer;};
     QTcpSocket *getSocket();
 

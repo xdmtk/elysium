@@ -39,6 +39,40 @@ bool DatabaseManager::authenticateClient(std::string username, std::string passw
     return false;
 }
 
+/**
+ * Invokes the PHP interpreter against a quick PHP script to verify the
+ * authentication status of the given username and password
+ * @param username
+ * @param password
+ * @return
+ */
+bool DatabaseManager::verifyFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "verify_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+
+
+    if (result_str == "true") {
+        return true;
+    }
+    return false;
+}
+
+void DatabaseManager::addFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "add_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+}
+
+void DatabaseManager::removeFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "remove_Friend.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+}
+
 
 /**
  * Verifies the ENV values were parsed correctly

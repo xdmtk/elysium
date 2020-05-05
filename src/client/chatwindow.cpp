@@ -101,6 +101,8 @@ void ChatWindow::on_actionDark_mode_triggered() {
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
+    //ui->menuFile->setStyleSheet();
+    //setStyleSheet("background-color: black;");
 }
 
 
@@ -283,18 +285,44 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
     QPoint globalPos = ui->friendsDisplay->mapToGlobal(pos);
     // for QAbstractScrollArea and derived classes you would use:
     // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
-
+  if(ui->friendsDisplay->itemAt(pos) != nullptr){
     QMenu myMenu;
-    myMenu.addAction("Add Friend");
+    if(ui->friendsDisplay->itemAt(pos)->text() != getUsername()){
+        if(areFriends(ui->friendsDisplay->itemAt(pos)->text())){
+           myMenu.addAction("Remove Friend");
+          }
+        else{
+           myMenu.addAction("Add Friend");
+            }
+      }
+    myMenu.addAction("Block");
     // ...
 
-    QAction* selectedItem = myMenu.exec(globalPos);
-    if (selectedItem)
-    {
-        // something was chosen, do stuff
-    }
-    else
-    {
+    QAction* rightClickedItem = myMenu.exec(globalPos);
+        if (rightClickedItem)
+        {
+            if(rightClickedItem->text().contains("Add Friend")){
+                getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text()));
+              }
+            else if(rightClickedItem->text().contains("Remove Friend")){
+                getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text()));
+              }
+            else if(rightClickedItem->text().contains("Block")){
+
+              }
+        }
+        else
+        {
         // nothing was chosen
-    }
+        }
+      }
+
 }
+
+/*return true if you are friends and false if you are not
+calls socketmanager to check friend status*/
+bool ChatWindow::areFriends(QString friendUserName){
+getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
+  return false;
+}
+

@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
+#include <string.h>
 
 CommandManager::CommandManager(Server *s, ClientConnection *c) {
     server = s;
@@ -55,6 +56,18 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             authenticateClient();
             Logger::info("Received ServerRequestAuthentication");
             break;
+        case CoreSettings::Protocol::VerifyFriendStatus:
+            verifyFriend();
+            Logger::info("Received VerifyFriendStatus");
+            break;
+        case CoreSettings::Protocol::AddFriend:
+          addFriend();
+          Logger::info("Received VerifyFriendStatus");
+          break;
+        case CoreSettings::Protocol::RemoveFriend:
+          removeFriend();
+          Logger::info("Received VerifyFriendStatus");
+          break;
 
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
@@ -71,7 +84,9 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
  *
  */
 CoreSettings::Protocol CommandManager::determineServerResponse() {
+std::string protocol;
 
+  if(incomingMessage[0] != '~'){
     /* Pluck the first character of the message and use the byte value
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
@@ -79,6 +94,18 @@ CoreSettings::Protocol CommandManager::determineServerResponse() {
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
     return messageProtocolIdentifier;
+    }
+  else{
+      /* Pluck the second and third characters of the message and use the byte value
+       * to index into the CoreSettings::Protocol enumeration to determine
+       * the intended effect of the message */
+      protocol = incomingMessage.substr(1,2);
+      auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(std::stoi(protocol));
+      /* Strip ~ and the characters from the message */
+      incomingMessage = incomingMessage.substr(3);
+      return messageProtocolIdentifier;
+    }
+
 }
 
 
@@ -206,3 +233,60 @@ void CommandManager::authenticateClient() {
         clientConnection->terminateConnection();
     }
 }
+
+
+/**
+ * Called when the Client requests the server to authenticate an
+ * incoming username/password combo.
+ *
+ * On success, a ClientAcceptAuthentication protocol indicator is
+ * sent back to the Client.
+ *
+ * On failure, a ClientRejectAuthentication protocol indicator
+ * is sent back to the Client and the connection is then terminated
+ */
+void CommandManager::verifyFriend() {
+    std::string username, friendUsername;
+
+    /* Split the user/pass by comma delimited */
+    username = incomingMessage.substr(incomingMessage.find(",")+1);
+    friendUsername = incomingMessage.substr(0, incomingMessage.find(","));
+
+    /* Call on the Database manager to verify client credentials */
+    if (databaseManager->verifyFriend(username, friendUsername)) {
+        incomingMessage = '~' + CoreSettings::Protocol::AreFriends;
+    }
+    else {
+        incomingMessage = '~' + CoreSettings::Protocol::AreNotFriends;
+    }
+
+    /* Send back the correct Protocol indicator based on Authentication success
+     * or failure */
+    clientConnection->sendMessageToClient(incomingMessage);
+
+
+}
+
+void CommandManager::addFriend() {
+  std::string username, friendUsername;
+
+  /* Split the user/pass by comma delimited */
+  username = incomingMessage.substr(incomingMessage.find(",")+1);
+  friendUsername = incomingMessage.substr(0, incomingMessage.find(","));
+
+  /* Call on the Database manager to verify client credentials */
+  databaseManager->addFriend(username, friendUsername);
+}
+
+void CommandManager::removeFriend() {
+  std::string username, friendUsername;
+
+  /* Split the user/pass by comma delimited */
+  username = incomingMessage.substr(incomingMessage.find(",")+1);
+  friendUsername = incomingMessage.substr(0, incomingMessage.find(","));
+
+  /* Call on the Database manager to verify client credentials */
+  databaseManager->removeFriend(username, friendUsername);
+
+}
+

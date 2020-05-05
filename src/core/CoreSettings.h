@@ -30,7 +30,12 @@ public:
         ClientReceiveOnlineStatus,
         ServerRequestAuthentication,
         ClientAcceptAuthentication,
-        ClientRejectAuthentication
+        ClientRejectAuthentication,
+        VerifyFriendStatus,
+        AreFriends,
+        AreNotFriends,
+        AddFriend,
+        RemoveFriend
     };
     std::string getHostName();
 

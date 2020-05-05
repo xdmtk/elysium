@@ -58,6 +58,8 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
+    bool areFriends(QString userName);
+
     portInfo p;
     SoundManager * soundManager;
     bool showEmoji = false;
