@@ -223,19 +223,19 @@ void CommandManager::authenticateClient() {
 
 
 /**
- * Called when the Client requests the server to authenticate an
- * incoming username/password combo.
+ * Called when the Client requests the server to verify if the passed in username is
+ *  is friends with passed in friendUsername.
  *
- * On success, a ClientAcceptAuthentication protocol indicator is
+ * On case that they are friends, an AreFriends protocol indicator is
  * sent back to the Client.
  *
- * On failure, a ClientRejectAuthentication protocol indicator
- * is sent back to the Client and the connection is then terminated
+ * On case that they aren't friends, an AreNotFriends protocol indicator is
+ * sent back to the Client.
  */
 void CommandManager::verifyFriend() {
     std::string username, friendUsername;
 
-    /* Split the user/pass by comma delimited */
+    /* Split the user/frienduser by comma delimited */
     friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
     username = incomingMessage.substr(0, incomingMessage.find(","));
 
@@ -247,17 +247,22 @@ void CommandManager::verifyFriend() {
         incomingMessage = CoreSettings::Protocol::AreNotFriends;
     }
 
-    /* Send back the correct Protocol indicator based on Authentication success
-     * or failure */
+    /* Send back the correct Protocol indicator based on if they are friends
+     * or are not friends */
     clientConnection->sendMessageToClient(incomingMessage);
 
 
 }
 
+
+/**
+ * Called when the Client requests the server to add friendUsername
+ *  as a friend of username.
+ */
 void CommandManager::addFriend() {
   std::string username, friendUsername;
 
-  /* Split the user/pass by comma delimited */
+  /* Split the user/frienduser by comma delimited */
   friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
   username = incomingMessage.substr(0, incomingMessage.find(","));
 
@@ -265,10 +270,15 @@ void CommandManager::addFriend() {
   databaseManager->addFriend(username, friendUsername);
 }
 
+
+/**
+ * Called when the Client requests the server to remove friendUsername
+ *  as a friend of username.
+ */
 void CommandManager::removeFriend() {
   std::string username, friendUsername;
 
-  /* Split the user/pass by comma delimited */
+  /* Split the user/frienduser by comma delimited */
   friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
   username = incomingMessage.substr(0, incomingMessage.find(","));
 

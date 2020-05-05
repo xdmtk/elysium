@@ -285,14 +285,10 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
 {
     // for most widgets
     QPoint globalPos = ui->friendsDisplay->mapToGlobal(pos);
-    // for QAbstractScrollArea and derived classes you would use:
-    // QPoint globalPos = myWidget->viewport()->mapToGlobal(pos);
   if(ui->friendsDisplay->itemAt(pos) != nullptr){
-       areFriends(ui->friendsDisplay->itemAt(pos)->text());
     QMenu myMenu;
     if(ui->friendsDisplay->itemAt(pos)->text() != getUsername()){
-        bool temp = areFriends(ui->friendsDisplay->itemAt(pos)->text());
-        if(temp){
+        if(areFriends(ui->friendsDisplay->itemAt(pos)->text())){
            myMenu.addAction("Remove Friend");
           }
         else{
@@ -314,8 +310,6 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
             else if(rightClickedItem->text().contains("Block")){
 
               }
-
-            //areFriends(ui->friendsDisplay->itemAt(pos)->text());
           }
         else
         {
@@ -331,6 +325,10 @@ calls socketmanager to check friend status*/
 bool ChatWindow::areFriends(QString friendUserName){
 
 getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
-return flag;
+    QTime dieTime= QTime::currentTime().addSecs(1);
+    while (QTime::currentTime() < dieTime)
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+return getCommandManager()->getAreFriends();
 }
 

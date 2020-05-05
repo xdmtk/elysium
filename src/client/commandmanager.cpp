@@ -25,14 +25,13 @@ CommandManager::CommandManager(ChatWindow * cw, SocketManager * s, SoundManager 
 void CommandManager::handleIncomingMessage() {
     std::string temp;
     QString qInput,userName;
-    CoreSettings::Protocol response;
-    /* Read data received from server */
-    temp = socket->readServerData();
-        /* Pluck the second and third characters of the message and use the byte value
-         * to index into the CoreSettings::Protocol enumeration to determine
-         * the intended effect of the message */
-        response = static_cast<CoreSettings::Protocol>(temp[0]);
-    temp = temp.substr(1);
+        /* Read data received from server */
+        temp = socket->readServerData();
+        /* Get the first byte and use its value to index in to the Protocol enum */
+        CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
+        /* Strip the Protocol enum from the receieved data */
+        temp = temp.substr(1);
+
     switch (response){
         
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to
@@ -59,7 +58,7 @@ void CommandManager::handleIncomingMessage() {
         case CoreSettings::Protocol::ClientRejectAuthentication:
             handleAuthReply(QString::fromUtf8(temp.c_str()), response);
             break;
-
+        /*returning case of are friends or not*/
         case  CoreSettings::Protocol::AreFriends:
               setAreFriends(true);
               break;
@@ -140,7 +139,5 @@ void CommandManager::updateSoundSettings(bool onOff){
 
 void CommandManager::setAreFriends(bool val) {
   areFriends = val;
-  chatWindow->flag = val;
-  holdFlag = true;
 }
 

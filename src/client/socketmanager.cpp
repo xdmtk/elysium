@@ -188,27 +188,36 @@ void SocketManager::verifyFriendStatus(QString username, QString friendUserName)
   //msgToSend.append("~");
   msgToSend.append(CoreSettings::Protocol::VerifyFriendStatus);
   msgToSend.append(username + "," + friendUserName);
-  qDebug() << "verify " << msgToSend << "\n";
   writeToServer(msgToSend);
 }
 
 
+/**
+ * @brief SocketManager::addFriend
+ * Raw formation of the addFriend Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param friendUserName
+ */
 void SocketManager::addFriend(QString username, QString friendUserName){
   QString msgToSend;
-  //msgToSend.append("~");
   msgToSend.append(CoreSettings::Protocol::AddFriend);
   msgToSend.append(username + "," + friendUserName);
-  qDebug() << "add " << msgToSend << "\n";
   writeToServer(msgToSend);
 }
 
 
+/**
+ * @brief SocketManager::deleteFriend
+ * Raw formation of the deleteFriend Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param friendUserName
+ */
 void SocketManager::deleteFriend(QString username, QString friendUserName){
   QString msgToSend;
-  //msgToSend.append("~");
   msgToSend.append(CoreSettings::Protocol::RemoveFriend);
   msgToSend.append(username + "," + friendUserName);
-  qDebug() << "delete " << msgToSend << "\n";
   writeToServer(msgToSend);
 }
 
