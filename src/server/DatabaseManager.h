@@ -12,6 +12,7 @@ public:
     bool verifyFriend(std::string username, std::string friendUsername);
     void addFriend(std::string username, std::string friendUsername);
     void removeFriend(std::string username, std::string friendUsername);
+    std::string retrieveFriends(std::string userName);
     std::string getFailureReason() {return failureReason;}
 private:
 

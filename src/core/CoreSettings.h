@@ -35,7 +35,9 @@ public:
         AreFriends,
         AreNotFriends,
         AddFriend,
-        RemoveFriend
+        RemoveFriend,
+        RetrieveFriends,
+        HaveList
     };
     std::string getHostName();
 

@@ -68,6 +68,11 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
           removeFriend();
           Logger::info("Received removeFriend");
           break;
+        case CoreSettings::Protocol::RetrieveFriends:
+          retrieveFriends();
+          Logger::info("Received retrieveFriends");
+          break;
+
 
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
@@ -287,3 +292,26 @@ void CommandManager::removeFriend() {
 
 }
 
+
+/**
+ * Called when the Client requests the server to remove friendUsername
+ *  as a friend of username.
+ */
+void CommandManager::retrieveFriends() {
+std::string userName, returnString;
+
+  /* Split the user/frienduser by comma delimited */
+  userName = incomingMessage;
+
+  /* Call on the Database manager to verify client credentials */
+  returnString = databaseManager->retrieveFriends(userName);
+  incomingMessage = CoreSettings::Protocol::HaveList;
+  incomingMessage.append(returnString);
+
+  /* Send back the correct Protocol indicator based on if they are friends
+   * or are not friends */
+  clientConnection->sendMessageToClient(incomingMessage);
+
+
+
+}

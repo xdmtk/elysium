@@ -29,6 +29,7 @@ private:
     void verifyFriend();
     void addFriend();
     void removeFriend();
+    void retrieveFriends();
 
 };
 

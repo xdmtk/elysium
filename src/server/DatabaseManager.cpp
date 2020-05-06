@@ -88,6 +88,20 @@ void DatabaseManager::removeFriend(std::string username, std::string friendUsern
             " " + username + " " + friendUsername).c_str());
 }
 
+/**
+ * Invokes the PHP interpreter against a quick PHP script to retrieve a list of friends
+ * @param username
+ * @return
+ */
+std::string DatabaseManager::retrieveFriends(std::string userName) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "retrieve_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + userName).c_str());
+
+        return result_str;
+}
+
 
 /**
  * Verifies the ENV values were parsed correctly
