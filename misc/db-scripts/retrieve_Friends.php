@@ -37,12 +37,12 @@
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
-        global $argv;
+        global $argv = '';
         $row = $chkUserName->fetchAll();
         
         for($i = 0; $i<count($row); $i++)
         {
-            $argv . = $row[$i]['friendsname'] . ','; 
+            $argv = $argv . $row[$i]['friendsname'] . ','; 
         }
 
         return $argv;
