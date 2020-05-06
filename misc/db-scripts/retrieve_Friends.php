@@ -40,9 +40,9 @@
         global $argv;
         $row = $chkUserName->fetchAll();
         
-        for($i = 0; i<count($r0w); i++)
+        for($i = 0; $i<count($r0w); $i++)
         {
-            $argv = $argv . $row[i]['friendsname'] . ","; 
+            $argv = $argv . $row[$i]['friendsname'] . ","; 
         }
 
         return $argv;
