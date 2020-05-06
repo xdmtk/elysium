@@ -148,12 +148,12 @@ void CommandManager::setAreFriends(bool val) {
 
 void CommandManager::setFriendsList(std::string list){
   std::string temp;
-  if (list.substr(0, list.find(",")) == "true"){
-      while(list.substr(0, list.find(",")) == "true")
+  qDebug() << "list: " << QString::fromStdString(list);
+      while(list.find(","))
         {
           temp = list.substr(0, list.find(",")-1);
-          list = list.substr(0, list.find(","));
+          list = list.substr(list.find(","));
           friendsList.append(temp);
         }
-    }
+
 }
