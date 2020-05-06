@@ -18,11 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../server/ClientConnection.cpp \
-    ../server/CommandManager.cpp \
-    ../server/ConnectionManager.cpp \
-    ../server/DatabaseManager.cpp \
-    ../server/Logger.cpp \
     commandmanager.cpp \
     connectionprogresswindow.cpp \
     main.cpp \
@@ -35,11 +30,6 @@ SOURCES += \
 
 HEADERS += \
     ../core/CoreSettings.h \
-    ../server/ClientConnection.h \
-    ../server/CommandManager.h \
-    ../server/ConnectionManager.h \
-    ../server/DatabaseManager.h \
-    ../server/Logger.h \
     chatwindow.h \
     commandmanager.h \
     connectionprogresswindow.h \

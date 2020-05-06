@@ -223,7 +223,7 @@ void ChatWindow::activateCommandManager() {
  */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
     QString u = QString::number(userlist.size()-1);
-    qDebug()<<u;
+    qDebug()<< u;
     int t = u.toInt();
     ui->friendsDisplay->clear();
     if ((userlist.size()-1)== 1) {
@@ -236,12 +236,17 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     for (auto user : userlist) {
         if(user != "")
         ui->friendsDisplay->addItem(user);
+        qDebug() << user;
     }
-    if(t > usersOnline)
+    if(t > usersOnline){
         soundManager->userEntersChat();
+        if(usersOnline != 0){
+          getNotificationManager()->detectFriendOnline(usersOnline, t, ui->friendsDisplay);
+          }
+      }
     qDebug()<<usersOnline;
     if(t < usersOnline)
-        soundManager->userLeavesChat();
+    soundManager->userLeavesChat();
     usersOnline = t;
 
 }

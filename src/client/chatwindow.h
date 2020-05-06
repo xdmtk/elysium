@@ -34,6 +34,8 @@ public:
     NotificationManager * getNotificationManager() {return notificationManager;}
     CommandManager * getCommandManager() {return commandManager;}
     SoundManager * getSoundManager() {return soundManager;}
+    bool areFriends(QString userName);
+
 
     ~ChatWindow();
 
@@ -58,7 +60,6 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
-    bool areFriends(QString userName);
 
     portInfo p;
     SoundManager * soundManager;
@@ -67,6 +68,7 @@ private:
     int selectionLength = 0;
     int selectionStart = 0;
     int usersOnline = 0;
+    int count = 0;
 };
 
 #endif // CHATWINDOW_H

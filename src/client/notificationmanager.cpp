@@ -51,7 +51,20 @@ void NotificationManager::fireUserMentionNotification(const QString& msg, const 
         systemTrayIcon->showMessage("User Mention", msg, *projectIcon, 3000);
 }
 
+void NotificationManager::detectFriendOnline(int usersOnline, int t, QListWidget* list){
+  for(int i = usersOnline; i<t; i++){
+   if(chatWindow->areFriends(list->item(i)->text())){
+      userOnlineNotification(list->item(i)->text());
+     }
+    }
+}
 
 
 
+void NotificationManager::userOnlineNotification(QString userName) {
+ QString msg = "Your friend ";
+ msg.append(userName);
+ msg.append(" is online!");
+ systemTrayIcon->showMessage("Friend Online", msg, *projectIcon, 3000);
+}
 
