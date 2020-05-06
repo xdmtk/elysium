@@ -55,6 +55,8 @@ private slots:
     void on_emojiList_itemClicked(QListWidgetItem *item);
     void on_friendsDisplay_itemClicked(QListWidgetItem *item);
     void ShowContextMenu(const QPoint& pos);
+    void on_FriendsList_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::ChatWindow *ui;
     hyperlinkDiag * hyperlink;

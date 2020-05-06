@@ -55,18 +55,9 @@ void NotificationManager::fireUserMentionNotification(const QString& msg, const 
 
 void NotificationManager::detectFriendOnline(int usersOnline, int t, QListWidget* list){
   CommandManager *CM = chatWindow->getCommandManager();
-  qDebug() << "outside: usersOnline: " << usersOnline << " t: " << t;
-  qDebug() << "count: " <<CM->getFriendsList().count();
-  for(int j = 0; j<CM->getFriendsList().count(); j++){
-      QString a = QString::fromStdString(CM->getFriendsList()[j]);
-      qDebug() << list->item(usersOnline)->text() << " here";
-  qDebug() << a << " not here";
-    }
-  for(int i = usersOnline; i<t; i++){
-      qDebug() << list->item(i)->text()/*.toStdString()*/;
 
+  for(int i = usersOnline; i<t; i++){
    if(CM->getFriendsList().indexOf(list->item(i)->text().toStdString()) > -1){
-       qDebug() << "inside";
       userOnlineNotification(list->item(i)->text());
      }
     }

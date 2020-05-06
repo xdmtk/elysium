@@ -18,6 +18,8 @@ public:
     bool getAuthSuccess() {return authSuccess;};
     bool getAreFriends() {return areFriends;};
     QList<std::string> getFriendsList() {return friendsList;};
+    void addFriend(std::string name);
+    void removeFriend(std::string name);
     CommandManager(ChatWindow * cw, SocketManager * socket, SoundManager * sm);
     void updateSoundSettings(bool onOff);
 

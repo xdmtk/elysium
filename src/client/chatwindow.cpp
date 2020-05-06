@@ -38,7 +38,7 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
     ui->emojiList->setVisible(showEmoji);
-
+    ui->FriendsList->setVisible(false);
     ui->friendsDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->friendsDisplay, SIGNAL(customContextMenuRequested(const QPoint&)),
         this, SLOT(ShowContextMenu(const QPoint&)));
@@ -87,7 +87,10 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: white;"
                                       "color:black;");
-
+    ui->FriendsList->setStyleSheet("background: white);"
+                                      "color:black;");
+    ui->emojiList->setStyleSheet("background: white);"
+                                      "color:black;");
 }
 
 
@@ -104,8 +107,10 @@ void ChatWindow::on_actionDark_mode_triggered() {
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
-    //ui->menuFile->setStyleSheet();
-    //setStyleSheet("background-color: black;");
+    ui->FriendsList->setStyleSheet("background: rgb(80,80,80);"
+                                      "color:white;");
+    ui->emojiList->setStyleSheet("background: rgb(80,80,80);"
+                                      "color:white;");
 }
 
 
@@ -311,23 +316,28 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
            myMenu.addAction("Add Friend");
             }
       }
-    myMenu.addAction("Block");
-    // ...
-
+    else{
+    myMenu.addAction("Friends List");
+        }
     QAction* rightClickedItem = myMenu.exec(globalPos);
         if (rightClickedItem)
         {
             if(rightClickedItem->text().contains("Add Friend")){
                 getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
-                getCommandManager()->getFriendsList().append(ui->friendsDisplay->itemAt(pos)->text().toStdString());
+                getCommandManager()->addFriend(ui->friendsDisplay->itemAt(pos)->text().toStdString());
                   }
             else if(rightClickedItem->text().contains("Remove Friend")){
                 getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
-                getCommandManager()->getFriendsList().removeAll(ui->friendsDisplay->itemAt(pos)->text().toStdString());
-
+                getCommandManager()->removeFriend(ui->friendsDisplay->itemAt(pos)->text().toStdString());
                     }
-            else if(rightClickedItem->text().contains("Block")){
-
+            else if(rightClickedItem->text().contains("Friends List")){
+                ui->FriendsList->clear();
+                ui->FriendsList->addItem("Friends List");
+              for(int j = 0; j < getCommandManager()->getFriendsList().count(); j++){
+                 ui->FriendsList->addItem(QString::fromStdString(getCommandManager()->getFriendsList()[j]));
+                }
+              ui->FriendsList->addItem("Close Menu");
+              ui->FriendsList->setVisible(true);
               }
           }
         else
@@ -356,3 +366,11 @@ void ChatWindow::grabFriendsList(QString userName){
 }
 
 
+
+void ChatWindow::on_FriendsList_itemClicked(QListWidgetItem *item)
+{
+    if(item->text() == "Close Menu"){
+      ui->FriendsList->setVisible(false);
+      ui->FriendsList->clear();
+      }
+}
