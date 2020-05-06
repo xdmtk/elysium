@@ -37,7 +37,8 @@
         $chkUserName->bindParam(":username", $userName);
         $chkUserName->execute();
 
-        global $argv = '';
+        global $argv;
+        $argv = '';
         $row = $chkUserName->fetchAll();
         
         for($i = 0; $i<count($row); $i++)
