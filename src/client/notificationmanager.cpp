@@ -56,6 +56,7 @@ void NotificationManager::detectFriendOnline(int usersOnline, int t, QListWidget
   CommandManager *CM = chatWindow->getCommandManager();
   qDebug() << "outside: usersOnline: " << usersOnline << " t: " << t;
   for(int i = usersOnline; i<t; i++){
+      qDebug() << list->item(i)->text()/*.toStdString()*/;
    if(CM->getFriendsList().indexOf(list->item(i)->text().toStdString()) > -1){
        qDebug() << "inside";
       userOnlineNotification(list->item(i)->text());

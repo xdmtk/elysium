@@ -43,7 +43,7 @@
         
         for($i = 0; $i<count($row); $i++)
         {
-            $argv = $argv . $row[$i]['friendsname'] . ','; 
+            $argv = $argv . '"' . $row[$i]['friendsname'] . '",'; 
         }
 
         return $argv;
