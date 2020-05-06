@@ -20,6 +20,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     commandmanager.cpp \
     connectionprogresswindow.cpp \
+    hyperlinkdiag.cpp \
+    linkaction.cpp \
     main.cpp \
     ../core/CoreSettings.cpp \
     chatwindow.cpp \
@@ -33,6 +35,8 @@ HEADERS += \
     chatwindow.h \
     commandmanager.h \
     connectionprogresswindow.h \
+    hyperlinkdiag.h \
+    linkaction.h \
     loginwindow.h \
     portInfo.h \
     notificationmanager.h \
@@ -42,6 +46,7 @@ HEADERS += \
 FORMS += \
     chatwindow.ui \
     connectionprogresswindow.ui \
+    hyperlinkdiag.ui \
     loginwindow.ui
 
 RC_ICONS = resources/appicon.ico

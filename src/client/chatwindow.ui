@@ -62,6 +62,9 @@
       <height>0</height>
      </size>
     </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
     <property name="frameShape">
      <enum>QFrame::Panel</enum>
     </property>
@@ -297,7 +300,7 @@
      <pixmap resource="resources.qrc">:/chatbar/resources/email.png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="hyperLinkButton">
+   <widget class="LinkAction" name="hyperLinkButton">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -305,6 +308,9 @@
       <width>31</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
     </property>
     <property name="text">
      <string/>
@@ -368,7 +374,7 @@
      <string>&lt;b&gt;0 people here&lt;/b&gt;</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="outputDisplay">
+   <widget class="QTextBrowser" name="outputDisplay">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -387,6 +393,12 @@
      <string notr="true"/>
     </property>
     <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="tabStopWidth">
+     <number>80</number>
+    </property>
+    <property name="openExternalLinks">
      <bool>true</bool>
     </property>
    </widget>
@@ -661,7 +673,7 @@
      <x>0</x>
      <y>0</y>
      <width>775</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
    <property name="font">
@@ -759,6 +771,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LinkAction</class>
+   <extends>QLabel</extends>
+   <header>linkaction.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>inputDisplay</tabstop>
   <tabstop>outputDisplay</tabstop>

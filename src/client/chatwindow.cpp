@@ -4,7 +4,8 @@
 #include "notificationmanager.h"
 #include "soundmanager.h"
 #include <QTime>
-
+#include "hyperlinkdiag.h"
+#include "ui_hyperlinkdiag.h"
 
 /*
  * Constructor:
@@ -115,6 +116,10 @@ void ChatWindow::on_actionDark_mode_triggered() {
  * This slot is emmited when there is data avaible to be
  * read from the server. It reads the data and then displays
  * it to the ChatWindow GUI
+ * When using append, text inherits style from previous block, so span is needed
+ * in order to prevent text to turn blue after a link has been added.
+ * see:
+ * https://stackoverflow.com/questions/44291816/qt-open-href-links
  */
 void ChatWindow::display(QString msg) {
     if(msg[0] != "<"){
@@ -123,6 +128,7 @@ void ChatWindow::display(QString msg) {
         if(sender != username)
             soundManager->incMessage();
     }
+    msg = "<span> " + msg + "</span>" ;
     ui->outputDisplay->append(msg);
     ui->typingIndicator->setText("");
 }
@@ -159,7 +165,11 @@ void ChatWindow::on_actionSound_off_triggered(){
     ui->actionSound_on->setChecked(false);
     ui->actionSound_off->setChecked(true);
 }
-
+void ChatWindow::on_hyperLinkButton_clicked(){
+    hyperlink = new hyperlinkDiag(this);
+    hyperlink->setCw(this);
+    hyperlink->show();
+}
 /**
  * Modifier function:
  * @param client protocol with the associated userName
