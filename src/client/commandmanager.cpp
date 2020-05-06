@@ -65,6 +65,11 @@ void CommandManager::handleIncomingMessage() {
         case  CoreSettings::Protocol::AreNotFriends:
               setAreFriends(false);
               break;
+              /*returning friends list*/
+              case  CoreSettings::Protocol::HaveList:
+                    setFriendsList(temp);
+                    break;
+
 
       default:
             break;
@@ -141,3 +146,14 @@ void CommandManager::setAreFriends(bool val) {
   areFriends = val;
 }
 
+void CommandManager::setFriendsList(std::string list){
+  std::string temp;
+  if (list.substr(0, list.find(",")) == "true"){
+      while(list.substr(0, list.find(",")) == "true")
+        {
+          temp = list.substr(0, list.find(",")-1);
+          list = list.substr(0, list.find(","));
+          friendsList.append(temp);
+        }
+    }
+}

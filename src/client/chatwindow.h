@@ -37,6 +37,7 @@ public:
     CommandManager * getCommandManager() {return commandManager;}
     SoundManager * getSoundManager() {return soundManager;}
     bool areFriends(QString userName);
+    void grabFriendsList(QString userName);
 
 
     ~ChatWindow();

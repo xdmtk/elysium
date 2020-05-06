@@ -17,6 +17,7 @@ public:
     QString getAuthReply() {return authReply;};
     bool getAuthSuccess() {return authSuccess;};
     bool getAreFriends() {return areFriends;};
+    QList<std::string> getFriendsList() {return friendsList;};
     CommandManager(ChatWindow * cw, SocketManager * socket, SoundManager * sm);
     void updateSoundSettings(bool onOff);
 
@@ -24,6 +25,7 @@ private:
     ChatWindow * chatWindow;
     SocketManager * socket;
     QString authReply;
+    QList<std::string> friendsList;
     bool authSuccess;
     bool areFriends;
     void addIncomingMessageToChat(QString msg);
@@ -32,6 +34,8 @@ private:
     void handleAuthReply(QString reply, CoreSettings::Protocol protocol);
     SoundManager * soundManager;
     void setAreFriends(bool val);
+    void setFriendsList(std::string list);
+
 
 };
 

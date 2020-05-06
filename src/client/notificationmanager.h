@@ -3,6 +3,7 @@
 
 #include <QSystemTrayIcon>
 #include <QListWidget>
+#include <commandmanager.h>
 
 class ChatWindow;
 class NotificationManager {

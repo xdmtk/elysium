@@ -18,6 +18,7 @@ public:
     void sendAuthenticationRequest(QString username, QString password);
     void requestOnlineUserlist();
     void verifyFriendStatus(QString username, QString friendUserName);
+    void retrieveFriendsList(QString userName);
     void addFriend(QString username, QString friendUserName);
     void deleteFriend(QString username, QString friendUserName);
     bool isConnectedToServer() {return connectedToServer;};

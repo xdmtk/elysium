@@ -251,9 +251,8 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     if(t > usersOnline){
         soundManager->userEntersChat();
         if(usersOnline != 0){
-            QTimer::singleShot(1000, [&] {
           getNotificationManager()->detectFriendOnline(usersOnline, t, ui->friendsDisplay);
-         });
+
           }
       }
     qDebug()<<usersOnline;
@@ -320,9 +319,12 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
         {
             if(rightClickedItem->text().contains("Add Friend")){
                 getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
+                getCommandManager()->getFriendsList().append(ui->friendsDisplay->itemAt(pos)->text().toStdString());
                   }
             else if(rightClickedItem->text().contains("Remove Friend")){
                 getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
+                getCommandManager()->getFriendsList().removeAll(ui->friendsDisplay->itemAt(pos)->text().toStdString());
+
                     }
             else if(rightClickedItem->text().contains("Block")){
 
@@ -348,4 +350,9 @@ getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
 
 return getCommandManager()->getAreFriends();
 }
+
+void ChatWindow::grabFriendsList(QString userName){
+  getSocketManager()->retrieveFriendsList(userName);
+}
+
 
