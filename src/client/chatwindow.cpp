@@ -250,9 +250,11 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     }
     if(t > usersOnline){
         soundManager->userEntersChat();
-        /*if(usersOnline != 0){
+        if(usersOnline != 0){
+            QTimer::singleShot(1000, [&] {
           getNotificationManager()->detectFriendOnline(usersOnline, t, ui->friendsDisplay);
-          }*/
+         });
+          }
       }
     qDebug()<<usersOnline;
     if(t < usersOnline)
