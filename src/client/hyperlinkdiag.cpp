@@ -12,11 +12,14 @@ hyperlinkDiag::hyperlinkDiag(QWidget *parent) :
      link, QTextbrowser acts funky and does not open
      external links..
      **/
-    link="http://";
+    link="";
 }
 void hyperlinkDiag::on_okButton_clicked(){
     linkText = ui->linktext->text();
-    link = link.append(ui->linkedit->text());
+    link = ui->linkedit->text();
+    QStringList h = link.split("//");
+    if(h[0] != "https:" && h[0] != "http:")
+        link = "https://" + link;
     cw->getSocketManager()->sendBasicChatMessage(sendLinkMsg());
 }
 void hyperlinkDiag::on_cancelButton_clicked(){
