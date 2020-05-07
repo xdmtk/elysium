@@ -92,7 +92,10 @@ void LoginWindow::on_pushButton_clicked(){
                     cpw->updateConnectionStateUI(ConnectionProgressWindow::ConnectionProgress::Authenticated);
                     chatGui->getSocketManager()->setUsernameOnServer(ui->lineEdit_username->text().trimmed());
                     chatGui->setLocalUsername(ui->lineEdit_username->text().trimmed());
-
+                    QTime dieTime= QTime::currentTime().addSecs(1);
+                    while (QTime::currentTime() < dieTime)
+                    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+                    chatGui->grabFriendsList(ui->lineEdit_username->text().trimmed());
                     /* Again, delay the messages so they don't stack. Ask here in
                      * 1 second for the current online status of the chatroom users */
                     QTimer::singleShot(1000, [&] {

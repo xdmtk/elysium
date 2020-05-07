@@ -9,6 +9,10 @@ class DatabaseManager {
 public:
     DatabaseManager(Server * s);
     bool authenticateClient(std::string username, std::string password);
+    bool verifyFriend(std::string username, std::string friendUsername);
+    void addFriend(std::string username, std::string friendUsername);
+    void removeFriend(std::string username, std::string friendUsername);
+    std::string retrieveFriends(std::string userName);
     std::string getFailureReason() {return failureReason;}
 private:
 

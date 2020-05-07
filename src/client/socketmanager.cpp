@@ -176,3 +176,59 @@ void SocketManager::sendAuthenticationRequest(QString username, QString password
 }
 
 
+/**
+ * @brief SocketManager::verifyFriendStatus
+ * Raw formation of the FriendStatus Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param friendUserName
+ */
+void SocketManager::verifyFriendStatus(QString username, QString friendUserName) {
+  QString msgToSend;
+  msgToSend.append(CoreSettings::Protocol::VerifyFriendStatus);
+  msgToSend.append(username + "," + friendUserName);
+  writeToServer(msgToSend);
+}
+
+
+/**
+ * @brief SocketManager::addFriend
+ * Raw formation of the addFriend Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param friendUserName
+ */
+void SocketManager::addFriend(QString username, QString friendUserName){
+  QString msgToSend;
+  msgToSend.append(CoreSettings::Protocol::AddFriend);
+  msgToSend.append(username + "," + friendUserName);
+  writeToServer(msgToSend);
+}
+
+
+/**
+ * @brief SocketManager::deleteFriend
+ * Raw formation of the deleteFriend Request using the CoreSettings
+ * Protocol enumerations
+ * @param username
+ * @param friendUserName
+ */
+void SocketManager::deleteFriend(QString username, QString friendUserName){
+  QString msgToSend;
+  msgToSend.append(CoreSettings::Protocol::RemoveFriend);
+  msgToSend.append(username + "," + friendUserName);
+  writeToServer(msgToSend);
+}
+
+/**
+ * @brief SocketManager::retrieveFriendsList
+ * Raw formation of the retrieveFriendsList Request using the CoreSettings
+ * Protocol enumerations
+ */
+void SocketManager::retrieveFriendsList(QString userName) {
+  QString msgToSend;
+  msgToSend.append(CoreSettings::Protocol::RetrieveFriends);
+  msgToSend.append(userName);
+  writeToServer(msgToSend);
+}
+

@@ -25,12 +25,13 @@ CommandManager::CommandManager(ChatWindow * cw, SocketManager * s, SoundManager 
 void CommandManager::handleIncomingMessage() {
     std::string temp;
     QString qInput,userName;
-    /* Read data received from server */
-    temp = socket->readServerData();
-    /* Get the first byte and use its value to index in to the Protocol enum */
-    CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
-    /* Strip the Protocol enum from the receieved data */
-    temp = temp.substr(1);
+        /* Read data received from server */
+        temp = socket->readServerData();
+        /* Get the first byte and use its value to index in to the Protocol enum */
+        CoreSettings::Protocol response = static_cast<CoreSettings::Protocol>(temp[0]);
+        /* Strip the Protocol enum from the receieved data */
+        temp = temp.substr(1);
+
     switch (response){
         
         /* ServerBroadcastMessage enums indicate a regular chat message, display it to
@@ -57,8 +58,20 @@ void CommandManager::handleIncomingMessage() {
         case CoreSettings::Protocol::ClientRejectAuthentication:
             handleAuthReply(QString::fromUtf8(temp.c_str()), response);
             break;
+        /*returning case of are friends or not*/
+        case  CoreSettings::Protocol::AreFriends:
+              setAreFriends(true);
+              break;
+        case  CoreSettings::Protocol::AreNotFriends:
+              setAreFriends(false);
+              break;
+              /*returning friends list*/
+              case  CoreSettings::Protocol::HaveList:
+                    setFriendsList(temp);
+                    break;
 
-        default:
+
+      default:
             break;
     }
 }
@@ -128,3 +141,29 @@ void CommandManager::setAuthReply(QString reply, bool val) {
 void CommandManager::updateSoundSettings(bool onOff){
     soundManager->setSoundSetting(onOff);
 }
+
+void CommandManager::setAreFriends(bool val) {
+  areFriends = val;
+}
+
+void CommandManager::setFriendsList(std::string list){
+  std::string temp;
+      while(list.find(","))
+        {
+          temp = list.substr(0, list.find(","));
+          list = list.substr(list.find(",")+1);
+          if(temp == "" && list == "")
+            break;
+          friendsList.append(temp);
+        }
+
+}
+
+void CommandManager::addFriend(std::string name){
+  friendsList.append(name);
+}
+
+void CommandManager::removeFriend(std::string name){
+  friendsList.removeAll(name);
+}
+

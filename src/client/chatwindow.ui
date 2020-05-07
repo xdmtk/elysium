@@ -471,11 +471,19 @@
       <height>131</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
     <property name="lineWidth">
-     <number>0</number>
+     <number>5</number>
     </property>
     <property name="midLineWidth">
      <number>0</number>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
     <property name="movement">
      <enum>QListView::Free</enum>
@@ -640,6 +648,31 @@
      </size>
     </property>
    </widget>
+   <widget class="QListWidget" name="FriendsList">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>250</y>
+      <width>121</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="lineWidth">
+     <number>25</number>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+   </widget>
    <zorder>typingIndicator</zorder>
    <zorder>line</zorder>
    <zorder>line2</zorder>
@@ -666,6 +699,7 @@
    <zorder>emojisButton</zorder>
    <zorder>friendsDisplay</zorder>
    <zorder>emojiList</zorder>
+   <zorder>FriendsList</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -673,7 +707,7 @@
      <x>0</x>
      <y>0</y>
      <width>775</width>
-     <height>19</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="font">

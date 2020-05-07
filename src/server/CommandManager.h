@@ -26,6 +26,11 @@ private:
     void sendNoTypingIndicator();
     void setClientUsername();
     void authenticateClient();
+    void verifyFriend();
+    void addFriend();
+    void removeFriend();
+    void retrieveFriends();
+
 };
 
 

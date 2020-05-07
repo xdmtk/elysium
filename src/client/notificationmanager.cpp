@@ -1,5 +1,7 @@
 #include "notificationmanager.h"
 #include "chatwindow.h"
+#include "iostream"
+class CommandManager;
 
 
 /**
@@ -51,7 +53,22 @@ void NotificationManager::fireUserMentionNotification(const QString& msg, const 
         systemTrayIcon->showMessage("User Mention", msg, *projectIcon, 3000);
 }
 
+void NotificationManager::detectFriendOnline(int usersOnline, int t, QListWidget* list){
+  CommandManager *CM = chatWindow->getCommandManager();
+
+  for(int i = usersOnline; i<t; i++){
+   if(CM->getFriendsList().indexOf(list->item(i)->text().toStdString()) > -1){
+      userOnlineNotification(list->item(i)->text());
+     }
+    }
+}
 
 
 
+void NotificationManager::userOnlineNotification(QString userName) {
+ QString msg = "Your friend ";
+ msg.append(userName);
+ msg.append(" is online!");
+ systemTrayIcon->showMessage("Friend Online", msg, *projectIcon, 3000);
+}
 

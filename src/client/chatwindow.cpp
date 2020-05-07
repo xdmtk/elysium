@@ -3,8 +3,10 @@
 #include "commandmanager.h"
 #include "notificationmanager.h"
 #include "soundmanager.h"
+#include <QTime>
 #include "hyperlinkdiag.h"
 #include "ui_hyperlinkdiag.h"
+
 /*
  * Constructor:
  * Sets style of the ChatWindow up
@@ -17,6 +19,11 @@ ChatWindow::ChatWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
     ui->emojiList->setVisible(showEmoji);
+
+    ui->friendsDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->friendsDisplay, SIGNAL(customContextMenuRequested(const QPoint&)),
+        this, SLOT(ShowContextMenu(const QPoint&)));
+
     socket = new SocketManager(this);
     soundManager = new SoundManager();
     commandManager = new CommandManager(this, socket, soundManager);
@@ -31,6 +38,11 @@ ChatWindow::ChatWindow(portInfo pass, QWidget *parent) :
     ui->setupUi(this);
     ui->inputDisplay->focusWidget();
     ui->emojiList->setVisible(showEmoji);
+    ui->FriendsList->setVisible(false);
+    ui->friendsDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->friendsDisplay, SIGNAL(customContextMenuRequested(const QPoint&)),
+        this, SLOT(ShowContextMenu(const QPoint&)));
+
     p = pass;
 
     socket = new SocketManager(p, this);
@@ -75,7 +87,10 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: white;"
                                       "color:black;");
-
+    ui->FriendsList->setStyleSheet("background: white);"
+                                      "color:black;");
+    ui->emojiList->setStyleSheet("background: white);"
+                                      "color:black;");
 }
 
 
@@ -91,6 +106,10 @@ void ChatWindow::on_actionDark_mode_triggered() {
                                     "color:white;"
                                     "border: 1px solid black;");
     ui->friendsDisplay->setStyleSheet("background: rgb(80,80,80);"
+                                      "color:white;");
+    ui->FriendsList->setStyleSheet("background: rgb(80,80,80);"
+                                      "color:white;");
+    ui->emojiList->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
 }
 
@@ -219,7 +238,7 @@ void ChatWindow::activateCommandManager() {
  */
 void ChatWindow::setOnlineUserList(QStringList userlist) {
     QString u = QString::number(userlist.size()-1);
-    qDebug()<<u;
+    qDebug()<< u;
     int t = u.toInt();
     ui->friendsDisplay->clear();
     if ((userlist.size()-1)== 1) {
@@ -232,12 +251,18 @@ void ChatWindow::setOnlineUserList(QStringList userlist) {
     for (auto user : userlist) {
         if(user != "")
         ui->friendsDisplay->addItem(user);
+        qDebug() << user;
     }
-    if(t > usersOnline)
+    if(t > usersOnline){
         soundManager->userEntersChat();
+        if(usersOnline != 0){
+          getNotificationManager()->detectFriendOnline(usersOnline, t, ui->friendsDisplay);
+
+          }
+      }
     qDebug()<<usersOnline;
     if(t < usersOnline)
-        soundManager->userLeavesChat();
+    soundManager->userLeavesChat();
     usersOnline = t;
 
 }
@@ -275,5 +300,77 @@ void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
   QString S = " @" + item->text();
   ui->inputDisplay->end(false);
   ui->inputDisplay->insert(S);
+}
 
+void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
+{
+    // for most widgets
+    QPoint globalPos = ui->friendsDisplay->mapToGlobal(pos);
+  if(ui->friendsDisplay->itemAt(pos) != nullptr){
+    QMenu myMenu;
+    if(ui->friendsDisplay->itemAt(pos)->text() != getUsername()){
+        if(areFriends(ui->friendsDisplay->itemAt(pos)->text())){
+           myMenu.addAction("Remove Friend");
+          }
+        else{
+           myMenu.addAction("Add Friend");
+            }
+      }
+    else{
+    myMenu.addAction("Friends List");
+        }
+    QAction* rightClickedItem = myMenu.exec(globalPos);
+        if (rightClickedItem)
+        {
+            if(rightClickedItem->text().contains("Add Friend")){
+                getSocketManager()->addFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
+                getCommandManager()->addFriend(ui->friendsDisplay->itemAt(pos)->text().toStdString());
+                  }
+            else if(rightClickedItem->text().contains("Remove Friend")){
+                getSocketManager()->deleteFriend(getUsername(), ui->friendsDisplay->itemAt(pos)->text());
+                getCommandManager()->removeFriend(ui->friendsDisplay->itemAt(pos)->text().toStdString());
+                    }
+            else if(rightClickedItem->text().contains("Friends List")){
+                ui->FriendsList->clear();
+                ui->FriendsList->addItem("Friends List");
+              for(int j = 0; j < getCommandManager()->getFriendsList().count(); j++){
+                 ui->FriendsList->addItem(QString::fromStdString(getCommandManager()->getFriendsList()[j]));
+                }
+              ui->FriendsList->addItem("Close Menu");
+              ui->FriendsList->setVisible(true);
+              }
+          }
+        else
+        {
+        // nothing was chosen
+        }
+
+      }
+
+}
+
+/*return true if you are friends and false if you are not
+calls socketmanager to check friend status*/
+bool ChatWindow::areFriends(QString friendUserName){
+
+getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
+    QTime dieTime= QTime::currentTime().addSecs(1);
+    while (QTime::currentTime() < dieTime)
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+return getCommandManager()->getAreFriends();
+}
+
+void ChatWindow::grabFriendsList(QString userName){
+  getSocketManager()->retrieveFriendsList(userName);
+}
+
+
+
+void ChatWindow::on_FriendsList_itemClicked(QListWidgetItem *item)
+{
+    if(item->text() == "Close Menu"){
+      ui->FriendsList->setVisible(false);
+      ui->FriendsList->clear();
+      }
 }

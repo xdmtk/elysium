@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include <utility>
 #include "Server.h"
+#include <string.h>
 
 CommandManager::CommandManager(Server *s, ClientConnection *c) {
     server = s;
@@ -55,6 +56,23 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
             authenticateClient();
             Logger::info("Received ServerRequestAuthentication");
             break;
+        case CoreSettings::Protocol::VerifyFriendStatus:
+            verifyFriend();
+            Logger::info("Received VerifyFriendStatus");
+            break;
+        case CoreSettings::Protocol::AddFriend:
+          addFriend();
+          Logger::info("Received addFriend");
+          break;
+        case CoreSettings::Protocol::RemoveFriend:
+          removeFriend();
+          Logger::info("Received removeFriend");
+          break;
+        case CoreSettings::Protocol::RetrieveFriends:
+          retrieveFriends();
+          Logger::info("Received retrieveFriends");
+          break;
+
 
         default:
             Logger::warn("Could not identify protocol indicator - Defaulting to Noop");
@@ -71,13 +89,14 @@ void CommandManager::handleMessageAndResponse(std::string msg) {
  *
  */
 CoreSettings::Protocol CommandManager::determineServerResponse() {
-
+std::string protocol;
     /* Pluck the first character of the message and use the byte value
      * to index into the CoreSettings::Protocol enumeration to determine
      * the intended effect of the message */
     auto messageProtocolIdentifier = static_cast<CoreSettings::Protocol>(incomingMessage[0]);
     /* Strip that character from the message */
     incomingMessage = incomingMessage.substr(1);
+
     return messageProtocolIdentifier;
 }
 
@@ -205,4 +224,94 @@ void CommandManager::authenticateClient() {
     if (!authSuccess) {
         clientConnection->terminateConnection();
     }
+}
+
+
+/**
+ * Called when the Client requests the server to verify if the passed in username is
+ *  is friends with passed in friendUsername.
+ *
+ * On case that they are friends, an AreFriends protocol indicator is
+ * sent back to the Client.
+ *
+ * On case that they aren't friends, an AreNotFriends protocol indicator is
+ * sent back to the Client.
+ */
+void CommandManager::verifyFriend() {
+    std::string username, friendUsername;
+
+    /* Split the user/frienduser by comma delimited */
+    friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
+    username = incomingMessage.substr(0, incomingMessage.find(","));
+
+    /* Call on the Database manager to verify client credentials */
+    if (databaseManager->verifyFriend(username, friendUsername)) {
+        incomingMessage = CoreSettings::Protocol::AreFriends;
+    }
+    else {
+        incomingMessage = CoreSettings::Protocol::AreNotFriends;
+    }
+
+    /* Send back the correct Protocol indicator based on if they are friends
+     * or are not friends */
+    clientConnection->sendMessageToClient(incomingMessage);
+
+
+}
+
+
+/**
+ * Called when the Client requests the server to add friendUsername
+ *  as a friend of username.
+ */
+void CommandManager::addFriend() {
+  std::string username, friendUsername;
+
+  /* Split the user/frienduser by comma delimited */
+  friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
+  username = incomingMessage.substr(0, incomingMessage.find(","));
+
+  /* Call on the Database manager to verify client credentials */
+  databaseManager->addFriend(username, friendUsername);
+}
+
+
+/**
+ * Called when the Client requests the server to remove friendUsername
+ *  as a friend of username.
+ */
+void CommandManager::removeFriend() {
+  std::string username, friendUsername;
+
+  /* Split the user/frienduser by comma delimited */
+  friendUsername = incomingMessage.substr(incomingMessage.find(",")+1);
+  username = incomingMessage.substr(0, incomingMessage.find(","));
+
+  /* Call on the Database manager to verify client credentials */
+  databaseManager->removeFriend(username, friendUsername);
+
+}
+
+
+/**
+ * Called when the Client requests the server to remove friendUsername
+ *  as a friend of username.
+ */
+void CommandManager::retrieveFriends() {
+std::string userName, returnString;
+
+  /* Split the user/frienduser by comma delimited */
+  userName = incomingMessage;
+
+  /* Call on the Database manager to verify client credentials */
+  returnString = databaseManager->retrieveFriends(userName);
+  incomingMessage = CoreSettings::Protocol::HaveList;
+  incomingMessage.append(returnString);
+
+  /* Send back the correct Protocol indicator based on if they are friends
+   * or are not friends */
+  clientConnection->sendMessageToClient(incomingMessage);
+
+
+
 }

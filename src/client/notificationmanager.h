@@ -2,6 +2,8 @@
 #define ELYSIUM_NOTIFICATIONMANAGER_H
 
 #include <QSystemTrayIcon>
+#include <QListWidget>
+#include <commandmanager.h>
 
 class ChatWindow;
 class NotificationManager {
@@ -9,6 +11,7 @@ class NotificationManager {
     public:
         NotificationManager(ChatWindow * cw);
         void detectUserMention(const QString& msg);
+        void detectFriendOnline(int usersOnline, int t, QListWidget* list);
 
     private:
         ChatWindow * chatWindow;
@@ -16,5 +19,6 @@ class NotificationManager {
         QIcon * projectIcon;
 
     void fireUserMentionNotification(const QString& msg, const QString& sendingUser);
+    void userOnlineNotification(QString userName);
 };
 #endif //ELYSIUM_NOTIFICATIONMANAGER_H

@@ -36,8 +36,12 @@ public:
     NotificationManager * getNotificationManager() {return notificationManager;}
     CommandManager * getCommandManager() {return commandManager;}
     SoundManager * getSoundManager() {return soundManager;}
+    bool areFriends(QString userName);
+    void grabFriendsList(QString userName);
+
 
     ~ChatWindow();
+
 private slots:
     void on_inputDisplay_returnPressed();
     void on_actionLight_mode_triggered();
@@ -49,7 +53,10 @@ private slots:
     void on_hyperLinkButton_clicked();
     void on_emojisButton_clicked();
     void on_emojiList_itemClicked(QListWidgetItem *item);
-    void on_friendsDisplay_itemClicked(QListWidgetItem * item);
+    void on_friendsDisplay_itemClicked(QListWidgetItem *item);
+    void ShowContextMenu(const QPoint& pos);
+    void on_FriendsList_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::ChatWindow *ui;
     hyperlinkDiag * hyperlink;
@@ -59,6 +66,7 @@ private:
     QString username;
     QVector<QString> usersTyping;
     QString getUpdatedTypingPrompt(CoreSettings::Protocol, std::string);
+
     portInfo p;
     SoundManager * soundManager;
     bool showEmoji = false;
@@ -66,6 +74,7 @@ private:
     int selectionLength = 0;
     int selectionStart = 0;
     int usersOnline = 0;
+    int count = 0;
 };
 
 #endif // CHATWINDOW_H

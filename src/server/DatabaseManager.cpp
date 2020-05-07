@@ -39,6 +39,69 @@ bool DatabaseManager::authenticateClient(std::string username, std::string passw
     return false;
 }
 
+/**
+ * Invokes the PHP interpreter against a quick PHP script to verify if
+ * userName is friends with friendUsername
+ * @param username
+ * @param friendUsername
+ * @return
+ */
+bool DatabaseManager::verifyFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "verify_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+
+    if (result_str == "true") {
+        return true;
+    }
+    return false;
+}
+
+
+/**
+ * Invokes the PHP interpreter against a quick PHP script to add
+ * friendUsername as a friend of username
+ * @param username
+ * @param friendUsername
+ * @return
+ */
+void DatabaseManager::addFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "add_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+}
+
+
+/**
+ * Invokes the PHP interpreter against a quick PHP script to remove
+ * friendUsername as a friend of username
+ * @param username
+ * @param friendUsername
+ * @return
+ */
+void DatabaseManager::removeFriend(std::string username, std::string friendUsername) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "remove_Friend.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + username + " " + friendUsername).c_str());
+}
+
+/**
+ * Invokes the PHP interpreter against a quick PHP script to retrieve a list of friends
+ * @param username
+ * @return
+ */
+std::string DatabaseManager::retrieveFriends(std::string userName) {
+
+    std::string verifyUserScriptLocation = Logger::getDBScriptsDirectory() + "retrieve_Friends.php";
+    std::string result_str = Logger::execShellCommand(("php " + verifyUserScriptLocation +
+            " " + userName).c_str());
+
+        return result_str;
+}
+
 
 /**
  * Verifies the ENV values were parsed correctly
