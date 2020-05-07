@@ -307,6 +307,13 @@ void ChatWindow::on_friendsDisplay_itemClicked(QListWidgetItem *item){
   ui->inputDisplay->insert(S);
 }
 
+
+/*When user right clicks the list widget the global position of the
+ *mouse is stored.
+ *If an item is in the position of the mouse a QMenu is opened
+ *at that position. Will display add or remove friend if another
+ *user is at the position
+ *If user is at the position will display FriendsList*/
 void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
 {
     // for most widgets
@@ -357,7 +364,6 @@ void ChatWindow::ShowContextMenu(const QPoint& pos) // this is a slot
 /*return true if you are friends and false if you are not
 calls socketmanager to check friend status*/
 bool ChatWindow::areFriends(QString friendUserName){
-
 getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
     QTime dieTime= QTime::currentTime().addSecs(1);
     while (QTime::currentTime() < dieTime)
@@ -366,12 +372,16 @@ getSocketManager()->verifyFriendStatus(getUsername(), friendUserName);
 return getCommandManager()->getAreFriends();
 }
 
+
+/*Sends a signal to the server to grab the friends
+ list of the username inserted*/
 void ChatWindow::grabFriendsList(QString userName){
   getSocketManager()->retrieveFriendsList(userName);
 }
 
 
-
+/*when you click on the close menu option of FriendsList remove the
+ability to see teh friendslist and clear the list*/
 void ChatWindow::on_FriendsList_itemClicked(QListWidgetItem *item)
 {
     if(item->text() == "Close Menu"){
