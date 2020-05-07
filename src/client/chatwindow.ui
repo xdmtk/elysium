@@ -673,6 +673,19 @@
      <enum>Qt::ScrollBarAlwaysOn</enum>
     </property>
    </widget>
+   <widget class="QPushButton" name="profilePushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>431</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Profile</string>
+    </property>
+   </widget>
    <zorder>typingIndicator</zorder>
    <zorder>line</zorder>
    <zorder>line2</zorder>
@@ -700,6 +713,7 @@
    <zorder>friendsDisplay</zorder>
    <zorder>emojiList</zorder>
    <zorder>FriendsList</zorder>
+   <zorder>profilePushButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -747,7 +761,15 @@
      <addaction name="actionSound_on"/>
      <addaction name="actionSound_off"/>
     </widget>
+    <widget class="QMenu" name="menuOnline_Status">
+     <property name="title">
+      <string>Online Status</string>
+     </property>
+     <addaction name="actionOnline"/>
+     <addaction name="actionDon_t_Disturb"/>
+    </widget>
     <addaction name="menuSound"/>
+    <addaction name="menuOnline_Status"/>
    </widget>
    <widget class="QMenu" name="menuWindow">
     <property name="title">
@@ -802,6 +824,22 @@
    </property>
    <property name="text">
     <string>Off</string>
+   </property>
+  </action>
+  <action name="actionDon_t_Disturb">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Don't Disturb</string>
+   </property>
+  </action>
+  <action name="actionOnline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Online</string>
    </property>
   </action>
  </widget>

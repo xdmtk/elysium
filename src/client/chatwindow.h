@@ -13,6 +13,7 @@
 class CommandManager;
 class NotificationManager;
 class SoundManager;
+class profile;
 namespace Ui {
 class ChatWindow;
 }
@@ -57,6 +58,12 @@ private slots:
     void ShowContextMenu(const QPoint& pos);
     void on_FriendsList_itemClicked(QListWidgetItem *item);
 
+    void on_profilePushButton_clicked();
+
+    void on_actionOnline_triggered();
+
+    void on_actionDon_t_Disturb_triggered();
+
 private:
     Ui::ChatWindow *ui;
     hyperlinkDiag * hyperlink;
@@ -69,6 +76,11 @@ private:
 
     portInfo p;
     SoundManager * soundManager;
+    profile * profilegui;
+    bool sound = true;
+    bool dark = false;
+    bool online = true;
+    bool showProfile = false;
     bool showEmoji = false;
     bool hasSelect = false;
     int selectionLength = 0;

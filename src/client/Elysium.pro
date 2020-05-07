@@ -27,6 +27,7 @@ SOURCES += \
     chatwindow.cpp \
     loginwindow.cpp \
     notificationmanager.cpp \
+    profile.cpp \
     socketmanager.cpp \
     soundmanager.cpp
 
@@ -40,6 +41,7 @@ HEADERS += \
     loginwindow.h \
     portInfo.h \
     notificationmanager.h \
+    profile.h \
     socketmanager.h \
     soundmanager.h
 
@@ -47,7 +49,8 @@ FORMS += \
     chatwindow.ui \
     connectionprogresswindow.ui \
     hyperlinkdiag.ui \
-    loginwindow.ui
+    loginwindow.ui \
+    profile.ui
 
 RC_ICONS = resources/appicon.ico
 # Default rules for deployment.
