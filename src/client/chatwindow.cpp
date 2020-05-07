@@ -6,6 +6,7 @@
 #include <QTime>
 #include "hyperlinkdiag.h"
 #include "ui_hyperlinkdiag.h"
+#include "profile.h"
 
 /*
  * Constructor:
@@ -91,6 +92,7 @@ void ChatWindow::on_actionLight_mode_triggered(){
                                       "color:black;");
     ui->emojiList->setStyleSheet("background: white);"
                                       "color:black;");
+    dark = false;
 }
 
 
@@ -111,6 +113,7 @@ void ChatWindow::on_actionDark_mode_triggered() {
                                       "color:white;");
     ui->emojiList->setStyleSheet("background: rgb(80,80,80);"
                                       "color:white;");
+    dark = true;
 }
 
 
@@ -164,11 +167,13 @@ void ChatWindow::on_actionSound_on_triggered(){
     commandManager->updateSoundSettings(true);
     ui->actionSound_off->setChecked(false);
     ui->actionSound_on->setChecked(true);
+    sound = true;
 }
 void ChatWindow::on_actionSound_off_triggered(){
     commandManager->updateSoundSettings(false);
     ui->actionSound_on->setChecked(false);
     ui->actionSound_off->setChecked(true);
+    sound = false;
 }
 void ChatWindow::on_hyperLinkButton_clicked(){
     hyperlink = new hyperlinkDiag(this);
@@ -374,3 +379,42 @@ void ChatWindow::on_FriendsList_itemClicked(QListWidgetItem *item)
       ui->FriendsList->clear();
       }
 }
+
+/*
+ * Creates an instance of profile
+ * and passes all the information needed
+ */
+void ChatWindow::on_profilePushButton_clicked(){
+    if(showProfile == false)
+      showProfile = true;
+    else
+        profilegui->close();
+    profilegui = new profile(this);
+    profilegui->setUsername(username);
+    profilegui->setStatus(online);
+    profilegui->setSound(sound);
+    profilegui->setDark(dark);
+    profilegui->setNumberOfFriends(getCommandManager()->getFriendsList().count());
+    profilegui->setVisible(showProfile);
+}
+
+/*
+ * Makes online status true turns off don't disturb
+ */
+void ChatWindow::on_actionOnline_triggered(){
+    online = true;
+    ui->actionOnline->setChecked(true);
+    ui->actionDon_t_Disturb->setChecked(false);
+}
+
+/*
+ * Makes online status false turns off online
+ */
+void ChatWindow::on_actionDon_t_Disturb_triggered(){
+    online = false;
+    ui->actionOnline->setChecked(false);
+    ui->actionDon_t_Disturb->setChecked(true);
+}
+
+
+
